@@ -34,7 +34,7 @@ class Auth with ChangeNotifier {
   Future<void> _authenticate(
       String email, String password, String urlFragment) async {
     final url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:$urlFragment?key=AIzaSyCneiX8S2VLAxCtjodtUiLYx2IRD2oukz0";
+        "https://identitytoolkit.googleapis.com/v1/accounts:$urlFragment?key=AIzaSyAYffe5cGS4BrMNTS7eNx_fghIjB8tAh-E";
     final response = await http.post(
       Uri.parse(url),
       body: jsonEncode(

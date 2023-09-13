@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
+import 'package:todo_list/src/screen/auth_screen.dart';
 import 'package:todo_list/src/screen/tarefa_from_screen.dart';
+import 'package:todo_list/src/utils/router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,22 +16,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => Auth(),
-        ),
-        ChangeNotifierProxyProvider<Auth, TarefaList>(
-          create: (_) => TarefaList([], '', ''),
-          update: (context, auth, previous) {
-            return TarefaList(
-              previous?.tarefas ?? [],
-              auth.token ?? '',
-              auth.uid ?? '',
-            );
-          },
-        ),
-      ],
-      child: MaterialApp(
+        providers: [
+          ChangeNotifierProvider(
+            create: (_) => Auth(),
+          ),
+          ChangeNotifierProxyProvider<Auth, TarefaList>(
+            create: (_) => TarefaList([], '', ''),
+            update: (context, auth, previous) {
+              return TarefaList(
+                previous?.tarefas ?? [],
+                auth.token ?? '',
+                auth.uid ?? '',
+              );
+            },
+          ),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Todo List',
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
@@ -38,7 +41,11 @@ class MyApp extends StatelessWidget {
             datePickerTheme: const DatePickerThemeData(elevation: 0),
             timePickerTheme: const TimePickerThemeData(elevation: 0),
           ),
-          home: const TarefaFormScreen()),
-    );
+          routes: {
+            AppRouter.AUTH: (context) => const AuthScreen(),
+            AppRouter.FORM_TAREFAS: (context) => const TarefaFormScreen(),
+            // AppRouter.TAREFAS: (context)=>  const TarefasScreen();
+          },
+        ));
   }
 }

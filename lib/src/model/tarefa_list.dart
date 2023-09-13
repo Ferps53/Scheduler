@@ -71,6 +71,7 @@ class TarefaList with ChangeNotifier {
     );
 
     final id = jsonDecode(response.body)['name'];
+    print(jsonDecode(response.body));
     _tarefas.add(Tarefa(
       id: id,
       title: tarefa.title,
@@ -78,6 +79,13 @@ class TarefaList with ChangeNotifier {
       createdAt: tarefa.createdAt,
       expiryDate: tarefa.expiryDate,
     ));
+
+    print(tarefa.id);
+    print(tarefa.title);
+    print(tarefa.description);
+    print(tarefa.createdAt);
+    print(tarefa.expiryDate);
+
     notifyListeners();
   }
 
@@ -132,14 +140,20 @@ class TarefaList with ChangeNotifier {
     bool hasId = data['id'] != null;
     DateTime date = DateTime.now();
 
-    print(data);
+    // try {
+    //   print(data['expiryDate'] as String);
+    // } catch (error) {
+    //   throw error.toString();
+    // }
 
     final tarefa = Tarefa(
       id: hasId ? data['id'] as String : Random().nextDouble.toString(),
       title: data['title'] as String,
       description: data['description'] as String,
       createdAt: date,
-      expiryDate: DateTime.parse(data['expiryDate'] as String),
+      expiryDate: DateTime.parse(
+        data['expiryDate'].toString(),
+      ),
     );
 
     if (hasId) {
