@@ -31,7 +31,7 @@ class Tarefa with ChangeNotifier {
     _toggleConcluded();
     final response = await http.patch(
       Uri.parse(
-        "${FireBaseLocation.baseUrl}Concluidas/$uid/$id.json?auth=?$token",
+        "${FireBaseLocation.baseUrl}/$uid/$id.json?auth=?$token",
       ),
       body: jsonEncode({"isConcluded": isConcluded}),
     );

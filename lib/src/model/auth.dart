@@ -16,6 +16,7 @@ class Auth with ChangeNotifier {
 
   bool get isAuth {
     final isValid = _expDate?.isAfter(DateTime.now()) ?? false;
+
     return _token != null && isValid;
   }
 
@@ -68,7 +69,6 @@ class Auth with ChangeNotifier {
         'uid': _uid,
         'expDate': _expDate!.toIso8601String(),
       });
-
       _autoSignOut();
       notifyListeners();
     }
@@ -118,7 +118,7 @@ class Auth with ChangeNotifier {
   void _autoSignOut() {
     _clearAutoSignOut();
     final timeToSignOut = _expDate?.difference(DateTime.now()).inSeconds;
-    print(timeToSignOut);
+
     _signOutTimer = Timer(Duration(seconds: timeToSignOut ?? 0), signOut);
   }
 }

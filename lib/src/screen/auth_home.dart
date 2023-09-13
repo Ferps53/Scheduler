@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/screen/auth_screen.dart';
+import 'package:todo_list/src/screen/tarefas.dart';
 
 class AuthOrHome extends StatelessWidget {
   const AuthOrHome({super.key});
@@ -26,7 +27,7 @@ class AuthOrHome extends StatelessWidget {
             child: Text("Deu um pau violento"),
           );
         } else {
-          return auth.isAuth ? const Placeholder() : const AuthScreen();
+          return auth.isAuth ? const TarefaScreen() : const AuthScreen();
         }
       }),
     );

@@ -14,9 +14,10 @@ class AuthScreen extends StatelessWidget {
               gradient: LinearGradient(
                 colors: [
                   Theme.of(context).primaryColorLight,
+                  Colors.blue,
                   Theme.of(context).primaryColorDark,
                 ],
-                begin: Alignment.topLeft,
+                begin: Alignment.topCenter,
                 end: Alignment.bottomRight,
               ),
             ),
