@@ -28,17 +28,21 @@ class TarefaList with ChangeNotifier {
 
   Future<void> loadTarefas() async {
     _tarefas.clear();
+
     final response = await http.get(
       Uri.parse("${FireBaseLocation.baseUrl}/$_uid.json?auth=$_token"),
     );
-
+    if (jsonDecode(response.body) == null) {
+      notifyListeners();
+      return;
+    }
     Map<String, dynamic> data = jsonDecode(response.body);
 
     data.forEach((tarefaId, tarefaData) {
       _tarefas.add(Tarefa(
         id: tarefaId,
         title: tarefaData["title"],
-        description: tarefaData["title"],
+        description: tarefaData["description"],
         createdAt: DateTime.parse(tarefaData["createdAt"]),
         expiryDate: DateTime.parse(tarefaData["expiryDate"]),
         isConcluded: tarefaData["isConcluded"] as bool,
@@ -107,7 +111,8 @@ class TarefaList with ChangeNotifier {
       notifyListeners();
 
       final response = await http.delete(
-        Uri.parse("${FireBaseLocation.baseUrl}/$_uid/${tarefa.id}.json"),
+        Uri.parse(
+            "${FireBaseLocation.baseUrl}/$_uid/${tarefa.id}.json?auth=$_token"),
       );
 
       if (response.statusCode >= 400) {

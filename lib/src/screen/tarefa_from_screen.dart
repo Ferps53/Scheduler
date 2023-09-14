@@ -32,7 +32,7 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
         _formData['id'] = tarefa.id;
         _formData['title'] = tarefa.title;
         _formData['description'] = tarefa.description;
-        _formData['expiryDate'] = tarefa.expiryDate;
+        date = tarefa.expiryDate;
       }
     }
     super.didChangeDependencies();
@@ -110,6 +110,9 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
                         if (title.trim().isEmpty) {
                           return "O titulo é obrigatório";
                         }
+                        if (title.length > 16) {
+                          return "O titulo está muito longo";
+                        }
                         return null;
                       },
                     ),
@@ -118,7 +121,7 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
                       keyboardType: TextInputType.multiline,
                       maxLines: 3,
                       decoration: const InputDecoration(labelText: "Descrição"),
-                      textInputAction: TextInputAction.next,
+                      textInputAction: TextInputAction.newline,
                       onSaved: (desc) => _formData['description'] = desc ?? '',
                       validator: (_desc) {
                         final desc = _desc ?? '';
