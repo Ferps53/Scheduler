@@ -13,11 +13,11 @@ class TarefaTile extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         elevation: 2,
         child: ListTile(
-          leading: Icon(Icons.edit_calendar),
+          leading: const Icon(Icons.edit_calendar),
           title: Text(
             tarefa.title,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 20),
+            style: const TextStyle(fontSize: 20),
           ),
         ),
       ),
