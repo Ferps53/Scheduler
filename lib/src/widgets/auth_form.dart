@@ -250,11 +250,6 @@ class _AuthFormState extends State<AuthForm>
                   _isLogin() ? "DESEJA REGISTRAR?" : "JÁ POSSUÍ CONTA?",
                 ),
               ),
-              TextButton(
-                  onPressed: () {
-                    _focusNode.requestFocus();
-                  },
-                  child: Text("Rapaz"))
             ],
           ),
         ),
