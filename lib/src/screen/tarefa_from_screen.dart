@@ -5,6 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/tarefa.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
 
+import '../widgets/date_card.dart';
+import '../widgets/hour_card.dart';
+
 class TarefaFormScreen extends StatefulWidget {
   const TarefaFormScreen({super.key});
 
@@ -49,6 +52,7 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
     }
     _formKey.currentState?.save();
     try {
+      _formData['expiryDate'] = date.toIso8601String();
       await Provider.of<TarefaList>(context, listen: false)
           .saveTarefa(_formData);
       Navigator.of(context).pop();
@@ -149,45 +153,15 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
                             }
                             setState(() {
                               time = novoHorario;
-                              DateTime newDate = DateTime(date.year, date.month,
-                                  date.day, time.hour, time.minute);
-                              date = newDate;
-                              _formData['expiryDate'] = date.toIso8601String();
                             });
                           },
-                          child: Card(
-                            color: Colors.blue,
-                            elevation: 5,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 16, horizontal: 8),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "$horas:$minutos",
-                                    style: const TextStyle(
-                                      fontSize: 26,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Icon(
-                                      Icons.query_builder,
-                                      size: 30,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                          child: HourCard(horas: horas, minutos: minutos),
                         ),
                         InkWell(
                           onTap: () async {
                             DateTime? novaData = await showDatePicker(
                               context: context,
-                              initialDate: date,
+                              initialDate: DateTime.now(),
                               firstDate: DateTime.now(),
                               lastDate: DateTime(2025),
                             );
@@ -197,36 +171,10 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
                             }
 
                             setState(() {
-                              date = DateTime(novaData.year, novaData.month,
-                                  novaData.day, time.hour, time.minute);
-                              _formData['expiryDate'] = date.toIso8601String();
+                              date = novaData;
                             });
                           },
-                          child: Card(
-                            color: Colors.blue,
-                            elevation: 4,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 16, horizontal: 8),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    "${date.day}/${date.month}/${date.year}",
-                                    style: const TextStyle(
-                                        fontSize: 24, color: Colors.white),
-                                  ),
-                                  const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Icon(
-                                      Icons.calendar_month,
-                                      size: 30,
-                                      color: Colors.white,
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
+                          child: DateCard(date: date),
                         )
                       ],
                     ),

@@ -56,13 +56,28 @@ class _TarefaScreenState extends State<TarefaScreen> {
               onRefresh: () => _refreshTarefas(context),
               child: SizedBox(
                 height: double.infinity,
-                child: ListView.builder(
-                    itemCount: tarefasList.quantidadeTarefas,
-                    itemBuilder: (context, index) =>
-                        ChangeNotifierProvider.value(
-                          value: tarefasList.tarefas[index],
-                          child: const TarefaTile(),
-                        )),
+                child: tarefasList.quantidadeTarefas == 0
+                    ? const Center(
+                        child: Card(
+                          color: Colors.lightBlue,
+                          elevation: 8,
+                          child: Padding(
+                            padding: EdgeInsets.all(8.0),
+                            child: Text(
+                              "Sem Tarefas",
+                              style:
+                                  TextStyle(fontSize: 48, color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      )
+                    : ListView.builder(
+                        itemCount: tarefasList.quantidadeTarefas,
+                        itemBuilder: (context, index) =>
+                            ChangeNotifierProvider.value(
+                                value: tarefasList.tarefas[index],
+                                child: const TarefaTile()),
+                      ),
               ),
             ),
     );

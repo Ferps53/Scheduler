@@ -77,7 +77,7 @@ class TarefaTile extends StatelessWidget {
                   showDialog<bool>(
                     context: context,
                     builder: (context) => AlertDialog(
-                      title: const Text("Exluir Produto"),
+                      title: const Text("Excluir Tarefa?"),
                       content: const Text("Tem certeza?"),
                       actions: [
                         TextButton(

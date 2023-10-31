@@ -48,6 +48,9 @@ class TarefaList with ChangeNotifier {
         isConcluded: tarefaData["isConcluded"] as bool,
       ));
     });
+
+    print(tarefas.length);
+
     notifyListeners();
   }
 
@@ -135,9 +138,7 @@ class TarefaList with ChangeNotifier {
       title: data['title'] as String,
       description: data['description'] as String,
       createdAt: date,
-      expiryDate: DateTime.parse(
-        data['expiryDate'].toString(),
-      ),
+      expiryDate: DateTime.parse(data['expiryDate'] as String),
     );
 
     if (hasId) {
