@@ -48,9 +48,6 @@ class TarefaList with ChangeNotifier {
         isConcluded: tarefaData["isConcluded"] as bool,
       ));
     });
-
-    print(tarefas.length);
-
     notifyListeners();
   }
 
