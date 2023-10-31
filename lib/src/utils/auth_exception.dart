@@ -4,8 +4,8 @@ class AuthException implements Exception {
     "OPERATION_NOT_ALLOWED": 'Operação não permitida!',
     "TOO_MANY_REQUESTS_TRY_LATER":
         "Acesso bloqueado temporariamente. Tente mais tarde",
-    "EMAIL_NOT_FOUND": "E-mail não encontrado",
-    "INVALID_PASSWORD": "Senha incorreta",
+    "INVALID_EMAIL": "E-mail não encontrado",
+    "INVALID_LOGIN_CREDENTIALS": "Senha incorreta",
     "USER_DISABLED": "A conta do usuário foi desabilitada!",
   };
 

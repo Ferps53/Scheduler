@@ -147,12 +147,8 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
                               context: context,
                               initialTime: time,
                             );
-
-                            if (novoHorario == null) {
-                              return;
-                            }
                             setState(() {
-                              time = novoHorario;
+                              novoHorario != null ? time = novoHorario : time;
                             });
                           },
                           child: HourCard(horas: horas, minutos: minutos),
@@ -163,15 +159,11 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
                               context: context,
                               initialDate: DateTime.now(),
                               firstDate: DateTime.now(),
-                              lastDate: DateTime(2025),
+                              lastDate: DateTime(2030),
                             );
 
-                            if (novaData == null) {
-                              return;
-                            }
-
                             setState(() {
-                              date = novaData;
+                              novaData != null ? date = novaData : date;
                             });
                           },
                           child: DateCard(date: date),

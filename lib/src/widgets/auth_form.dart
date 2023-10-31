@@ -29,6 +29,7 @@ class _AuthFormState extends State<AuthForm>
   AnimationController? _controller;
   Animation<double>? _opacityAnimation;
   Animation<Offset>? _slideAnimation;
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -158,13 +159,16 @@ class _AuthFormState extends State<AuthForm>
                 decoration: const InputDecoration(
                   labelText: 'E-mail',
                 ),
+                autofocus: true,
                 keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
                 onSaved: (email) => _authData['email'] = email ?? '',
                 validator: (_email) {
                   final email = _email ?? '';
                   if (email.trim().isEmpty || !email.contains('@')) {
                     return "Informe um email válido";
                   }
+
                   return null;
                 },
               ),
@@ -174,6 +178,7 @@ class _AuthFormState extends State<AuthForm>
                 ),
                 controller: _passwordController,
                 keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
                 onSaved: (password) => _authData['password'] = password ?? '',
                 obscureText: true,
                 validator: (_password) {
@@ -183,13 +188,18 @@ class _AuthFormState extends State<AuthForm>
                   }
                   return null;
                 },
+                onFieldSubmitted: (_) {
+                  if (_isLogin()) {
+                    _focusNode.requestFocus();
+                  }
+                },
               ),
               AnimatedContainer(
                 constraints: BoxConstraints(
                   minHeight: _isLogin() ? 0 : 60,
                   maxHeight: _isLogin() ? 0 : 120,
                 ),
-                duration: Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 300),
                 curve: Curves.linear,
                 child: FadeTransition(
                   opacity: _opacityAnimation!,
@@ -200,6 +210,7 @@ class _AuthFormState extends State<AuthForm>
                           labelText: 'Confirmar Senha',
                         ),
                         keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
                         obscureText: true,
                         validator: _isLogin()
                             ? null
@@ -222,6 +233,7 @@ class _AuthFormState extends State<AuthForm>
                     )
                   : ElevatedButton(
                       onPressed: _submit,
+                      focusNode: _focusNode,
                       child: Text(
                         _isLogin() ? 'ENTRAR' : 'REGISTRAR',
                       ),
@@ -238,6 +250,11 @@ class _AuthFormState extends State<AuthForm>
                   _isLogin() ? "DESEJA REGISTRAR?" : "JÁ POSSUÍ CONTA?",
                 ),
               ),
+              TextButton(
+                  onPressed: () {
+                    _focusNode.requestFocus();
+                  },
+                  child: Text("Rapaz"))
             ],
           ),
         ),
