@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
 import 'package:todo_list/src/utils/router.dart';
+import 'package:todo_list/src/widgets/app_drawer.dart';
 import 'package:todo_list/src/widgets/tarefa_tile.dart';
 
 class TarefaScreen extends StatefulWidget {
@@ -33,6 +34,7 @@ class _TarefaScreenState extends State<TarefaScreen> {
   Widget build(BuildContext context) {
     TarefaList tarefasList = Provider.of(context);
     return Scaffold(
+      drawer: const AppDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
@@ -56,12 +58,10 @@ class _TarefaScreenState extends State<TarefaScreen> {
                 height: double.infinity,
                 child: ListView.builder(
                     itemCount: tarefasList.quantidadeTarefas,
-                    itemBuilder: (context, index) => Column(
-                          children: [
-                            TarefaTile(
-                              tarefa: tarefasList.tarefas[index],
-                            ),
-                          ],
+                    itemBuilder: (context, index) =>
+                        ChangeNotifierProvider.value(
+                          value: tarefasList.tarefas[index],
+                          child: const TarefaTile(),
                         )),
               ),
             ),
