@@ -13,6 +13,7 @@ class TarefaTile extends StatelessWidget {
     final tarefa = Provider.of<Tarefa>(context);
     final msg = ScaffoldMessenger.of(context);
     final auth = Provider.of<Auth>(context);
+    final date = tarefa.expiryDate;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Card(
@@ -28,14 +29,26 @@ class TarefaTile extends StatelessWidget {
           leading: const Icon(Icons.edit_calendar),
           title: FittedBox(
             fit: BoxFit.scaleDown,
-            child: Text(
-              tarefa.title,
-              style: const TextStyle(fontSize: 20),
+            child: Column(
+              children: [
+                Text(
+                  tarefa.title,
+                  style: const TextStyle(fontSize: 20),
+                ),
+                Row(
+                  children: [
+                    Text(
+                      "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year} - ${date.hour}:${date.minute}",
+                      style: TextStyle(fontSize: 14),
+                    )
+                  ],
+                )
+              ],
             ),
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Consumer<Tarefa>(
                 builder: (context, tarefa, child) => IconButton(
@@ -51,7 +64,7 @@ class TarefaTile extends StatelessWidget {
                           content: Text(tarefa.isConcluded
                               ? "Tarefa marcada como concluída!!"
                               : "Tarefa desmarcada como concluída!"),
-                          duration: const Duration(seconds: 1),
+                          duration: const Duration(seconds: 2),
                         ),
                       );
                     } catch (error) {
@@ -115,9 +128,9 @@ class TarefaTile extends StatelessWidget {
                     }
                   });
                 },
-                icon: const Icon(
+                icon: Icon(
                   Icons.delete,
-                  color: Colors.red,
+                  color: ColorScheme.fromSwatch().error,
                   size: 20,
                 ),
               ),

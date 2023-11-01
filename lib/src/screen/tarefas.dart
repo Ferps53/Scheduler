@@ -51,6 +51,8 @@ class _TarefaScreenState extends State<TarefaScreen> {
         ),
       ),
       appBar: AppBar(
+        elevation: 5,
+        shadowColor: Colors.black87,
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         title: const Text("Tarefas"),
@@ -60,30 +62,33 @@ class _TarefaScreenState extends State<TarefaScreen> {
           ? const Center(child: CircularProgressIndicator())
           : RefreshIndicator(
               onRefresh: () => _refreshTarefas(context),
-              child: SizedBox(
-                height: double.infinity,
-                child: tarefasList.quantidadeTarefas == 0
-                    ? const Center(
-                        child: Card(
-                          color: Colors.lightBlue,
-                          elevation: 8,
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              "Sem Tarefas",
-                              style:
-                                  TextStyle(fontSize: 48, color: Colors.white),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: SizedBox(
+                  height: double.infinity,
+                  child: tarefasList.quantidadeTarefas == 0
+                      ? const Center(
+                          child: Card(
+                            color: Colors.lightBlue,
+                            elevation: 8,
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Text(
+                                "Sem Tarefas",
+                                style: TextStyle(
+                                    fontSize: 48, color: Colors.white),
+                              ),
                             ),
                           ),
+                        )
+                      : ListView.builder(
+                          itemCount: tarefasList.quantidadeTarefas,
+                          itemBuilder: (context, index) =>
+                              ChangeNotifierProvider.value(
+                                  value: tarefasList.tarefas[index],
+                                  child: const TarefaTile()),
                         ),
-                      )
-                    : ListView.builder(
-                        itemCount: tarefasList.quantidadeTarefas,
-                        itemBuilder: (context, index) =>
-                            ChangeNotifierProvider.value(
-                                value: tarefasList.tarefas[index],
-                                child: const TarefaTile()),
-                      ),
+                ),
               ),
             ),
     );
