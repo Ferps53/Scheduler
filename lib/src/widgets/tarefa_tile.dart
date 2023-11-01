@@ -66,8 +66,10 @@ class TarefaTile extends StatelessWidget {
                     }
                   },
                   icon: Icon(
-                    tarefa.isConcluded ? Icons.star : Icons.star_border,
-                    color: Colors.amber,
+                    tarefa.isConcluded
+                        ? Icons.check_box
+                        : Icons.check_box_outline_blank,
+                    color: Colors.lightGreen,
                     size: 20,
                   ),
                 ),

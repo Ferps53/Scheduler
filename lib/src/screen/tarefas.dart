@@ -35,20 +35,26 @@ class _TarefaScreenState extends State<TarefaScreen> {
     TarefaList tarefasList = Provider.of(context);
     return Scaffold(
       drawer: const AppDrawer(),
+      floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(100),
+        ),
+        backgroundColor: Colors.lightGreen,
+        onPressed: () {
+          Navigator.of(context).pushNamed(
+            AppRouter.FORM_TAREFAS,
+          );
+        },
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         title: const Text("Tarefas"),
         centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(
-                  AppRouter.FORM_TAREFAS,
-                );
-              },
-              icon: const Icon(Icons.add))
-        ],
       ),
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
