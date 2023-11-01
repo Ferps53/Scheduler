@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:todo_list/src/widgets/auth_form.dart';
 
 class AuthScreen extends StatelessWidget {
@@ -14,10 +15,10 @@ class AuthScreen extends StatelessWidget {
               gradient: LinearGradient(
                 colors: [
                   Theme.of(context).primaryColorLight,
-                  Colors.blue,
                   Theme.of(context).primaryColorDark,
+                  Colors.blue,
                 ],
-                begin: Alignment.topCenter,
+                begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
             ),

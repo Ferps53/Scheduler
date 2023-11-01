@@ -83,17 +83,25 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
     final horas = time.hour.toString().padLeft(2, '0');
     final minutos = time.minute.toString().padLeft(2, '0');
     return Scaffold(
+      floatingActionButton: Visibility(
+        visible: !_isLoading,
+        child: FloatingActionButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(100),
+          ),
+          backgroundColor: Colors.lightGreen,
+          onPressed: _submitForm,
+          child: const Icon(
+            Icons.save,
+            color: Colors.white,
+          ),
+        ),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         centerTitle: true,
         title: const Text("Formulário de Tarefa"),
-        actions: [
-          IconButton(
-            onPressed: _submitForm,
-            icon: const Icon(Icons.save),
-          ),
-        ],
       ),
       body: _isLoading
           ? const Center(
