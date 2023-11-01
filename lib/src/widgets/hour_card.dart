@@ -18,16 +18,19 @@ class HourCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              "$horas:$minutos",
-              style: const TextStyle(
-                fontSize: 26,
-                color: Colors.white,
+            FittedBox(
+              child: Text(
+                "$horas:$minutos",
+                style: const TextStyle(
+                  fontSize: 26,
+                  color: Colors.white,
+                ),
               ),
             ),
             const Padding(
-              padding: EdgeInsets.all(8.0),
+              padding: EdgeInsets.all(4.0),
               child: Icon(
                 Icons.query_builder,
                 size: 30,

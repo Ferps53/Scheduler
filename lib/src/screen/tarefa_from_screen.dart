@@ -36,6 +36,7 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
         _formData['title'] = tarefa.title;
         _formData['description'] = tarefa.description;
         date = tarefa.expiryDate;
+        time = TimeOfDay.fromDateTime(tarefa.expiryDate);
       }
     }
     super.didChangeDependencies();
@@ -79,8 +80,8 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final horas = date.hour.toString().padLeft(2, '0');
-    final minutos = date.minute.toString().padLeft(2, '0');
+    final horas = time.hour.toString().padLeft(2, '0');
+    final minutos = time.minute.toString().padLeft(2, '0');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
@@ -141,32 +142,45 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        InkWell(
-                          onTap: () async {
-                            TimeOfDay? novoHorario = await showTimePicker(
-                              context: context,
-                              initialTime: time,
-                            );
-                            setState(() {
-                              novoHorario != null ? time = novoHorario : time;
-                            });
-                          },
-                          child: HourCard(horas: horas, minutos: minutos),
+                        Flexible(
+                          flex: 7,
+                          child: InkWell(
+                            onTap: () async {
+                              TimeOfDay? novoHorario = await showTimePicker(
+                                context: context,
+                                initialTime: time,
+                              );
+                              setState(() {
+                                novoHorario != null ? time = novoHorario : time;
+                                DateTime newDate = DateTime(
+                                    date.year,
+                                    date.month,
+                                    date.day,
+                                    time.hour,
+                                    time.minute);
+                                date = newDate;
+                              });
+                            },
+                            child: HourCard(horas: horas, minutos: minutos),
+                          ),
                         ),
-                        InkWell(
-                          onTap: () async {
-                            DateTime? novaData = await showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime.now(),
-                              lastDate: DateTime(2030),
-                            );
+                        Flexible(
+                          flex: 10,
+                          child: InkWell(
+                            onTap: () async {
+                              DateTime? novaData = await showDatePicker(
+                                context: context,
+                                initialDate: DateTime.now(),
+                                firstDate: DateTime.now(),
+                                lastDate: DateTime(2030),
+                              );
 
-                            setState(() {
-                              novaData != null ? date = novaData : date;
-                            });
-                          },
-                          child: DateCard(date: date),
+                              setState(() {
+                                novaData != null ? date = novaData : date;
+                              });
+                            },
+                            child: DateCard(date: date),
+                          ),
                         )
                       ],
                     ),
