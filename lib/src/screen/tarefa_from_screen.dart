@@ -118,8 +118,8 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
                       decoration: const InputDecoration(labelText: "Titulo"),
                       textInputAction: TextInputAction.next,
                       onSaved: (title) => _formData['title'] = title ?? '',
-                      validator: (_title) {
-                        final title = _title ?? '';
+                      validator: (validator) {
+                        final title = validator ?? '';
                         if (title.trim().isEmpty) {
                           return "O titulo é obrigatório";
                         }
@@ -136,8 +136,8 @@ class _TarefaFormScreenState extends State<TarefaFormScreen> {
                       decoration: const InputDecoration(labelText: "Descrição"),
                       textInputAction: TextInputAction.newline,
                       onSaved: (desc) => _formData['description'] = desc ?? '',
-                      validator: (_desc) {
-                        final desc = _desc ?? '';
+                      validator: (validator) {
+                        final desc = validator ?? '';
                         if (desc.trim().isEmpty) {
                           return "A Descrição é obrigatória";
                         }

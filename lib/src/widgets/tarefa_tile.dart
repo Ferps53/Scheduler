@@ -39,7 +39,7 @@ class TarefaTile extends StatelessWidget {
                   children: [
                     Text(
                       "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year} - ${date.hour}:${date.minute}",
-                      style: TextStyle(fontSize: 14),
+                      style: const TextStyle(fontSize: 14),
                     )
                   ],
                 )
