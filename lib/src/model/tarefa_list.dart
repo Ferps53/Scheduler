@@ -10,7 +10,7 @@ import 'package:todo_list/src/utils/http_exception.dart';
 class TarefaList with ChangeNotifier {
   final String _token;
   final String _uid;
-  List<Tarefa> _tarefas = [];
+  final List<Tarefa> _tarefas = [];
 
   List<Tarefa> get tarefas {
     return [..._tarefas];
@@ -24,7 +24,7 @@ class TarefaList with ChangeNotifier {
     return _tarefas.where((tarefa) => tarefa.isConcluded).toList();
   }
 
-  TarefaList(this._tarefas, this._token, this._uid);
+  TarefaList(tarefas, this._token, this._uid);
 
   Future<void> loadTarefas() async {
     _tarefas.clear();
