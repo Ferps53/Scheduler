@@ -1,7 +1,5 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -194,7 +192,14 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                                     lastDate: DateTime(2030),
                                   );
                                   setState(() {
-                                    novaData != null ? date = novaData : date;
+                                    novaData != null
+                                        ? date = DateTime(
+                                            novaData.year,
+                                            novaData.month,
+                                            novaData.day,
+                                            time.hour,
+                                            time.minute)
+                                        : date;
                                     _dateController.text =
                                         DateFormat('dd/MM/yyyy').format(date);
                                   });
@@ -220,8 +225,8 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                             ),
                           ),
                           _isLoading
-                              ? Padding(
-                                  padding: const EdgeInsets.only(right: 30),
+                              ? const Padding(
+                                  padding: EdgeInsets.only(right: 30),
                                   child: CircularProgressIndicator(
                                     color: Colors.green,
                                     strokeWidth: 4,
