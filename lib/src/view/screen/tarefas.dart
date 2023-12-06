@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
-import 'package:todo_list/src/utils/router.dart';
-import 'package:todo_list/src/widgets/app_drawer.dart';
-import 'package:todo_list/src/widgets/tarefa_tile.dart';
+import 'package:todo_list/src/view/dialogs/tarefa_form_dialog.dart';
+import 'package:todo_list/src/view/widgets/app_drawer.dart';
+import 'package:todo_list/src/view/widgets/tarefa_tile.dart';
 
 class TarefaScreen extends StatefulWidget {
   const TarefaScreen({super.key});
@@ -40,11 +40,10 @@ class _TarefaScreenState extends State<TarefaScreen> {
           borderRadius: BorderRadius.circular(100),
         ),
         backgroundColor: Colors.lightGreen,
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-            AppRouter.FORM_TAREFAS,
-          );
-        },
+        onPressed: () async => await showDialog(
+          context: context,
+          builder: (context) => const TarefaFormDialog(null),
+        ),
         child: const Icon(
           Icons.add,
           color: Colors.white,

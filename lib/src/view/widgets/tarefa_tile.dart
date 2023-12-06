@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/model/tarefa.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
-import 'package:todo_list/src/utils/router.dart';
+
+import '../dialogs/tarefa_form_dialog.dart';
 
 class TarefaTile extends StatelessWidget {
   const TarefaTile({super.key});
@@ -20,12 +21,10 @@ class TarefaTile extends StatelessWidget {
         margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
         elevation: 2,
         child: ListTile(
-          onTap: () {
-            Navigator.of(context).pushNamed(
-              AppRouter.FORM_TAREFAS,
-              arguments: tarefa,
-            );
-          },
+          onTap: () async => await showDialog(
+            context: context,
+            builder: (context) => TarefaFormDialog(tarefa),
+          ),
           leading: const Icon(Icons.edit_calendar),
           title: FittedBox(
             fit: BoxFit.scaleDown,
@@ -38,7 +37,7 @@ class TarefaTile extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year} - ${date.hour}:${date.minute}",
+                      "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year} - ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}",
                       style: const TextStyle(fontSize: 14),
                     )
                   ],
