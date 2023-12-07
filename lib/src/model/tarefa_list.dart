@@ -85,11 +85,10 @@ class TarefaList with ChangeNotifier {
 
     if (index >= 0) {
       await http.patch(
-        Uri.parse("${FireBaseLocation.baseUrl}?$_uid.json?auth=$_token"),
+        Uri.parse("${FireBaseLocation.baseUrl}/$_uid/${tarefa.id}.json?auth=$_token}"),
         body: jsonEncode({
           'title': tarefa.title,
           'description': tarefa.description,
-          'createdAt': tarefa.createdAt.toIso8601String(),
           'expiryDate': tarefa.expiryDate.toIso8601String(),
         }),
       );
