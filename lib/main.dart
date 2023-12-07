@@ -5,6 +5,7 @@ import 'package:todo_list/src/model/tarefa_list.dart';
 import 'package:todo_list/src/view/screen/auth_home.dart';
 import 'package:todo_list/src/view/screen/tarefas.dart';
 import 'package:todo_list/src/utils/router.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,6 +35,15 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Todo List',
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: const [
+            Locale('en'), // English
+            Locale('pt'), // Spanish
+          ],
           theme: ThemeData(
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
             primarySwatch: Colors.blue,
