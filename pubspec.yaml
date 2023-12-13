@@ -42,6 +42,7 @@ dependencies:
     sdk: flutter
   firebase_messaging: ^14.7.9
   firebase_core: ^2.24.2
+  flutter_native_splash: ^2.3.8
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
@@ -63,6 +64,14 @@ flutter_launcher_icons:
   adaptive_icon_background: assets/icons/background.png
   adaptive_icon_foreground: assets/icons/calendar.png
   adaptive_icon_padding: true
+
+flutter_native_splash:
+  android: true
+  ios: true
+  color: "#03A9F4"
+  image: assets/icons/calendar.png
+
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
