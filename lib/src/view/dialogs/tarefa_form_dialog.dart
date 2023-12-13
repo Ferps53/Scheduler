@@ -98,7 +98,7 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                       topLeft: Radius.circular(25),
                       topRight: Radius.circular(25))),
               foregroundColor: Colors.white,
-              backgroundColor: Colors.blue,
+              backgroundColor: const Color(0xff03A9F4),
               title: Text(
                   widget.tarefa == null ? "Criar Tarefa" : "Atualizar Tarefa"),
             ),

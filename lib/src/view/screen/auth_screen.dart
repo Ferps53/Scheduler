@@ -10,15 +10,14 @@ class AuthScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
+            decoration: const BoxDecoration(
+              gradient: RadialGradient(
                 colors: [
-                  Theme.of(context).primaryColorLight,
-                  Theme.of(context).primaryColorDark,
+                  Color(0xff03A9F4),
                   Colors.blue,
                 ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+                radius: 1,
+                focalRadius: 2
               ),
             ),
           ),

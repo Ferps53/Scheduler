@@ -53,8 +53,11 @@ class MyApp extends StatelessWidget {
           Locale('pt'), // Spanish
         ],
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
-          primarySwatch: Colors.blue,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(
+              0xff03A9F4,
+            ),
+          ),
           useMaterial3: true,
           datePickerTheme: const DatePickerThemeData(elevation: 0),
           timePickerTheme: const TimePickerThemeData(elevation: 0),

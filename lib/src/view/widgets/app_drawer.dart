@@ -13,7 +13,7 @@ class AppDrawer extends StatelessWidget {
         children: [
           AppBar(
             automaticallyImplyLeading: false,
-            backgroundColor: Colors.blue,
+            backgroundColor: const Color(0xff03A9F4),
             foregroundColor: Colors.white,
             title: const FittedBox(
               child: Text(

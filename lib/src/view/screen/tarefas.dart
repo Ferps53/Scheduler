@@ -52,7 +52,7 @@ class _TarefaScreenState extends State<TarefaScreen> {
       appBar: AppBar(
         elevation: 5,
         shadowColor: Colors.black87,
-        backgroundColor: Colors.blue,
+        backgroundColor: const Color(0xff03A9F4),
         foregroundColor: Colors.white,
         title: const Text("Tarefas"),
         centerTitle: true,
