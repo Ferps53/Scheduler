@@ -87,8 +87,7 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-        elevation: 0,
-        backgroundColor: Colors.white,
+        elevation: 2,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

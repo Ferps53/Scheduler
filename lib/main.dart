@@ -12,9 +12,12 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-
-  await FirebaseMessagingApi().iniciarNotificacoes();
+  try{
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    await FirebaseMessagingApi().iniciarNotificacoes();
+  }catch(e){
+    print(e);
+  }
 
   runApp(const MyApp());
 }
@@ -54,6 +57,9 @@ class MyApp extends StatelessWidget {
         ],
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
+            primary: const Color(
+              0xfe0379C4,
+            ),
             seedColor: const Color(
               0xff03A9F4,
             ),

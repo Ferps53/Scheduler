@@ -22,25 +22,22 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          Card(
-            color: Colors.white,
-            elevation: 10,
-            child: ListTile(
-              leading: Icon(
-                Icons.exit_to_app,
-                color: ColorScheme.fromSwatch().error,
-              ),
-              title: const Text("Sair"),
-              onTap: () {
-                Provider.of<Auth>(
-                  context,
-                  listen: false,
-                ).signOut();
-                Navigator.of(context).pushReplacementNamed(
-                  AppRouter.AUTH,
-                );
-              },
+          const Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.exit_to_app,
+              color: ColorScheme.fromSwatch().error,
             ),
+            title: const Text("Sair"),
+            onTap: () {
+              Provider.of<Auth>(
+                context,
+                listen: false,
+              ).signOut();
+              Navigator.of(context).pushReplacementNamed(
+                AppRouter.AUTH,
+              );
+            },
           )
         ],
       ),
