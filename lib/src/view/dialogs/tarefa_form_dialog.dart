@@ -42,7 +42,7 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
 
         _dateController.text = DateFormat('dd/MM/yyyy').format(date);
         _timeController.text =
-        "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
+            "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
       }
     }
     super.didChangeDependencies();
@@ -68,17 +68,17 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
       return await showDialog(
           context: context,
           builder: (context) => AlertDialog(
-            title: const Text("Ocorreu um erro!"),
-            content: const Text("Ocorreu um erro ao salvar a Tarefa"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text("Ok"),
-              )
-            ],
-          ));
+                title: const Text("Ocorreu um erro!"),
+                content: const Text("Ocorreu um erro ao salvar a Tarefa"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Ok"),
+                  )
+                ],
+              ));
     } finally {
       setState(() => _isLoading = false);
     }
@@ -106,7 +106,8 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
               child: Form(
                 key: _formKey,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -132,10 +133,10 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                         keyboardType: TextInputType.multiline,
                         maxLines: 3,
                         decoration:
-                        const InputDecoration(labelText: "Descrição"),
+                            const InputDecoration(labelText: "Descrição"),
                         textInputAction: TextInputAction.newline,
                         onSaved: (desc) =>
-                        _formData['description'] = desc ?? '',
+                            _formData['description'] = desc ?? '',
                         validator: (validator) {
                           final desc = validator ?? '';
                           if (desc.trim().isEmpty) {
@@ -165,11 +166,11 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                                   setState(() {
                                     novaData != null
                                         ? date = DateTime(
-                                        novaData.year,
-                                        novaData.month,
-                                        novaData.day,
-                                        time.hour,
-                                        time.minute)
+                                            novaData.year,
+                                            novaData.month,
+                                            novaData.day,
+                                            time.hour,
+                                            time.minute)
                                         : date;
                                     _dateController.text =
                                         DateFormat('dd/MM/yyyy').format(date);
@@ -181,17 +182,18 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                             flex: 1,
                             child: TextFormField(
                                 controller: _timeController,
-                                decoration: const InputDecoration(
-                                    labelText: "Horário"),
+                                decoration:
+                                    const InputDecoration(labelText: "Horário"),
                                 readOnly: true,
                                 onTap: () async {
                                   TimeOfDay? novoHorario = await showTimePicker(
-                                    builder: (context, child){
+                                    builder: (context, child) {
                                       return Localizations.override(
                                         context: context,
                                         locale: const Locale('pt', 'BR'),
-                                        child: child,);
-                                    } ,
+                                        child: child,
+                                      );
+                                    },
                                     context: context,
                                     initialTime: TimeOfDay.now(),
                                   );
@@ -207,7 +209,7 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                                         time.minute);
                                     date = newDate;
                                     _timeController.text =
-                                    "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
+                                        "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
                                   });
                                 }),
                           ),
@@ -232,23 +234,23 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                           ),
                           _isLoading
                               ? const Padding(
-                            padding: EdgeInsets.only(right: 30),
-                            child: CircularProgressIndicator(
-                              color: Colors.green,
-                              strokeWidth: 4,
-                            ),
-                          )
+                                  padding: EdgeInsets.only(right: 30),
+                                  child: CircularProgressIndicator(
+                                    color: Colors.green,
+                                    strokeWidth: 4,
+                                  ),
+                                )
                               : TextButton(
-                            style: TextButton.styleFrom(
-                                foregroundColor: Colors.green),
-                            onPressed: _submitForm,
-                            child: const Row(
-                              children: [
-                                Icon(Icons.save),
-                                Text("Salvar")
-                              ],
-                            ),
-                          ),
+                                  style: TextButton.styleFrom(
+                                      foregroundColor: Colors.green),
+                                  onPressed: _submitForm,
+                                  child: const Row(
+                                    children: [
+                                      Icon(Icons.save),
+                                      Text("Salvar")
+                                    ],
+                                  ),
+                                ),
                         ],
                       ),
                     ],

@@ -11,14 +11,10 @@ class AuthScreen extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              gradient: RadialGradient(
-                colors: [
-                  Theme.of(context).primaryColorLight,
-                  const Color(0xff03A9e4),
-                ],
-                radius: 1,
-                focalRadius: 2
-              ),
+              gradient: RadialGradient(colors: [
+                Theme.of(context).primaryColorLight,
+                const Color(0xff03A9e4),
+              ], radius: 1, focalRadius: 2),
             ),
           ),
           Center(

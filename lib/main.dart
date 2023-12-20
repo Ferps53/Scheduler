@@ -1,21 +1,22 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/firebase_options.dart';
 import 'package:todo_list/src/api/firebase/firebase_messaging.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
+import 'package:todo_list/src/utils/router.dart';
 import 'package:todo_list/src/view/screen/auth_home.dart';
 import 'package:todo_list/src/view/screen/tarefas.dart';
-import 'package:todo_list/src/utils/router.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  try{
-    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  try {
+    await Firebase.initializeApp(
+        options: DefaultFirebaseOptions.currentPlatform);
     await FirebaseMessagingApi().iniciarNotificacoes();
-  }catch(e){
+  } catch (e) {
     print(e);
   }
 

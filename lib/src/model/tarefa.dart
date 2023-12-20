@@ -41,7 +41,7 @@ class Tarefa with ChangeNotifier {
       _toggleConcluded();
       print(response.statusCode);
       throw HttpException(
-        msg: "Erro de server",
+        msg: response.body,
         statusCode: response.statusCode,
       );
     }
