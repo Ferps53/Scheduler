@@ -1,15 +1,13 @@
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:todo_list/src/model/tarefa.dart';
-import 'package:todo_list/src/utils/firebase_location.dart';
+import 'package:todo_list/src/utils/backendRoot.dart';
 import 'package:todo_list/src/utils/http_exception.dart';
 
 class TarefaList with ChangeNotifier {
   final String _token;
-  final String _uid;
   final List<Tarefa> _tarefas = [];
 
   List<Tarefa> get tarefas {
@@ -21,51 +19,54 @@ class TarefaList with ChangeNotifier {
   }
 
   List<Tarefa> get tarefasConcluidas {
-    return _tarefas.where((tarefa) => tarefa.isConcluded).toList();
+    return _tarefas.where((tarefa) => tarefa.isConcluded ?? false).toList();
   }
 
-  TarefaList(tarefas, this._token, this._uid);
+  TarefaList(tarefas, this._token);
 
   Future<void> loadTarefas() async {
     _tarefas.clear();
 
-    final response = await http.get(
-      Uri.parse("${FireBaseLocation.baseUrl}/$_uid.json?auth=$_token"),
-    );
+    final response = await http.get(Uri.parse("${BackendRoot.path}/tarefa"),
+        headers: {'Authorization': 'Bearer $_token'});
     if (jsonDecode(response.body) == null) {
       notifyListeners();
       return;
     }
-    Map<String, dynamic> data = jsonDecode(response.body);
+    var data = jsonDecode(response.body);
 
-    data.forEach((tarefaId, tarefaData) {
+    data.forEach((tarefaData) {
       _tarefas.add(Tarefa(
-        id: tarefaId,
-        title: tarefaData["title"],
-        description: tarefaData["description"],
-        createdAt: DateTime.parse(tarefaData["createdAt"]),
-        expiryDate: DateTime.parse(tarefaData["expiryDate"]),
-        isConcluded: tarefaData["isConcluded"] as bool,
+        id: tarefaData['id'],
+        title: tarefaData["titulo"],
+        description: tarefaData["descricao"],
+        createdAt: DateTime.parse(tarefaData["dataCriacao"]),
+        expiryDate: DateTime.parse(tarefaData["dataExpiracao"]),
+        isConcluded: tarefaData["fgConcluida"] as bool?,
       ));
     });
     notifyListeners();
   }
 
   Future<void> addTarefa(Tarefa tarefa) async {
-    final createdAt = DateTime.now();
-
     final response = await http.post(
-      Uri.parse("${FireBaseLocation.baseUrl}/$_uid.json?auth=$_token"),
+      Uri.parse("${BackendRoot.path}/tarefa"),
+      headers: {
+        'Authorization': 'Bearer $_token',
+        'Content-Type': 'application/json'
+      },
       body: jsonEncode({
-        'title': tarefa.title,
-        'description': tarefa.description,
-        'createdAt': createdAt.toIso8601String(),
-        'expiryDate': tarefa.expiryDate.toIso8601String(),
-        'isConcluded': tarefa.isConcluded,
+        "titulo": tarefa.title,
+        "descricao": tarefa.description,
+        "dataExpiracao": tarefa.expiryDate.toIso8601String()
       }),
     );
 
-    final id = jsonDecode(response.body)['name'];
+    print(response.statusCode);
+    print(response.body);
+
+    final id = jsonDecode(response.body)['id'];
+
     _tarefas.add(Tarefa(
       id: id,
       title: tarefa.title,
@@ -83,19 +84,25 @@ class TarefaList with ChangeNotifier {
       (element) => element.id == tarefa.id,
     );
 
-    if (index >= 0) {
-      await http.patch(
-        Uri.parse("${FireBaseLocation.baseUrl}/$_uid/${tarefa.id}.json?auth=$_token}"),
+    print("Onde vai: ${BackendRoot.path}/tarefa/${tarefa.id}");
+    if (index > 0) {
+      var response = await http.put(
+        Uri.parse("${BackendRoot.path}/tarefa/${tarefa.id}"),
+        headers: {
+          'Authorization': 'Bearer $_token',
+          "Content-Type": "application/json"
+        },
         body: jsonEncode({
-          'title': tarefa.title,
-          'description': tarefa.description,
-          'expiryDate': tarefa.expiryDate.toIso8601String(),
+          'id': tarefa.id,
+          'titulo': tarefa.title,
+          'descricao': tarefa.description,
+          'dataExpiracao': tarefa.expiryDate.toIso8601String(),
         }),
       );
-
-      _tarefas[index] = tarefa;
-      notifyListeners();
     }
+    _tarefas[index] = tarefa;
+
+    notifyListeners();
   }
 
   Future<void> removeTarefa(Tarefa tarefa) async {
@@ -110,9 +117,11 @@ class TarefaList with ChangeNotifier {
       notifyListeners();
 
       final response = await http.delete(
-        Uri.parse(
-            "${FireBaseLocation.baseUrl}/$_uid/${tarefa.id}.json?auth=$_token"),
+        Uri.parse("${BackendRoot.path}/tarefa/${tarefa.id}"),
+        headers: {'Authorization': 'Bearer $_token'},
       );
+
+      print(response.statusCode);
 
       if (response.statusCode >= 400) {
         _tarefas.insert(index, tarefa);
@@ -130,7 +139,7 @@ class TarefaList with ChangeNotifier {
     DateTime date = DateTime.now();
 
     final tarefa = Tarefa(
-      id: hasId ? data['id'] as String : Random().nextDouble.toString(),
+      id: hasId ? data['id'] as int : 1,
       title: data['title'] as String,
       description: data['description'] as String,
       createdAt: date,

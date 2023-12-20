@@ -34,12 +34,14 @@ class MyApp extends StatelessWidget {
           create: (_) => Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, TarefaList>(
-          create: (_) => TarefaList([], '', ''),
+          create: (_) => TarefaList(
+            [],
+            '',
+          ),
           update: (context, auth, previous) {
             return TarefaList(
               previous?.tarefas ?? [],
               auth.token ?? '',
-              auth.uid ?? '',
             );
           },
         ),

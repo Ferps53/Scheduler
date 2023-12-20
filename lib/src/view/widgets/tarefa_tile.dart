@@ -55,12 +55,11 @@ class TarefaTile extends StatelessWidget {
                     try {
                       tarefa.toggleConcluded(
                         auth.token ?? '',
-                        auth.uid ?? '',
                       );
                       msg.clearSnackBars();
                       msg.showSnackBar(
                         SnackBar(
-                          content: Text(tarefa.isConcluded
+                          content: Text(tarefa.isConcluded ?? false
                               ? "Tarefa marcada como concluída!!"
                               : "Tarefa desmarcada como concluída!"),
                           duration: const Duration(seconds: 2),
@@ -78,7 +77,7 @@ class TarefaTile extends StatelessWidget {
                     }
                   },
                   icon: Icon(
-                    tarefa.isConcluded
+                    tarefa.isConcluded ?? false
                         ? Icons.check_box
                         : Icons.check_box_outline_blank,
                     color: Colors.lightGreen,

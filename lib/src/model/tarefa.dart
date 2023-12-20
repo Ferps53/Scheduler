@@ -2,39 +2,44 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:todo_list/src/utils/firebase_location.dart';
+import 'package:todo_list/src/utils/backendRoot.dart';
 import 'package:todo_list/src/utils/http_exception.dart';
 
 class Tarefa with ChangeNotifier {
-  final String id;
+  int id;
   final String title;
   final String description;
   final DateTime createdAt;
   final DateTime expiryDate;
-  bool isConcluded;
+  bool? isConcluded;
   bool isDelayed;
 
   Tarefa(
-      {required this.id,
-      required this.title,
+      {required this.title,
       required this.description,
       required this.createdAt,
       required this.expiryDate,
       this.isConcluded = false,
-      this.isDelayed = false});
+      this.isDelayed = false,
+      required this.id});
 
   void _toggleConcluded() {
-    isConcluded = !isConcluded;
+    isConcluded ?? false;
+    isConcluded = !isConcluded!;
     notifyListeners();
   }
 
-  Future<void> toggleConcluded(String token, String uid) async {
+  Future<void> toggleConcluded(String token) async {
     _toggleConcluded();
-    final response = await http.patch(
+    final response = await http.put(
       Uri.parse(
-        "${FireBaseLocation.baseUrl}/$uid/$id.json?auth=$token",
+        "${BackendRoot.path}/tarefa/$id",
       ),
-      body: jsonEncode({"isConcluded": isConcluded}),
+      headers: {
+        'Authorization': 'Bearer $token',
+        "Content-Type": "application/json"
+      },
+      body: jsonEncode({"fgConcluded": isConcluded}),
     );
 
     if (response.statusCode >= 400) {
