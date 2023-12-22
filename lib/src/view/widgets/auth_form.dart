@@ -118,7 +118,6 @@ class _AuthFormState extends State<AuthForm>
 
     try {
       if (_isLogin()) {
-        print("Ao potencia");
         await auth.signIn(
           _authData['nomeUsuario']!,
           _authData['senha']!,

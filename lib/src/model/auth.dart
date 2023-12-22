@@ -3,8 +3,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:todo_list/src/utils/auth_exception.dart';
 import 'package:todo_list/src/utils/backendRoot.dart';
 
+import '../api/firebase/firebase_messaging.dart';
 import '../data/store.dart';
 
 class Auth with ChangeNotifier {
@@ -46,7 +48,25 @@ class Auth with ChangeNotifier {
       String username, String password, String? email, String urlFrag) async {
     var data = jsonEncode(
         {'nomeUsuario': username, 'senha': password, 'email': email ?? ''});
-    final response = await http.post(
+
+    if (urlFrag == "cadastro") {
+      var response = await http.post(
+        Uri.parse("${BackendRoot.path}/$urlFrag"),
+        headers: {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: data,
+      );
+
+      print(response.statusCode);
+
+      if (response.statusCode == 409) {
+        throw AuthException('USUARIO_EXISTE');
+      }
+      urlFrag = "login";
+    }
+    var response = await http.post(
       Uri.parse("${BackendRoot.path}/$urlFrag"),
       headers: {
         'Content-type': 'application/json',
@@ -54,7 +74,12 @@ class Auth with ChangeNotifier {
       },
       body: data,
     );
-    final body = jsonDecode(response.body);
+
+    if (response.statusCode == 401) {
+      throw AuthException('DADOS_INCORRETOS');
+    }
+
+    var body = jsonDecode(response.body);
 
     _token = body['access_token'];
     _refreshToken = body['refresh_token'];
@@ -72,6 +97,10 @@ class Auth with ChangeNotifier {
         ),
       ),
     );
+
+    print(_token!);
+
+    await FirebaseMessagingApi().iniciarNotificacoes(_token!);
 
     Store.saveMap("userData", {
       'token': _token,

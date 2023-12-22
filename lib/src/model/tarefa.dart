@@ -33,7 +33,7 @@ class Tarefa with ChangeNotifier {
     _toggleConcluded();
     final response = await http.put(
       Uri.parse(
-        "${BackendRoot.path}/tarefa/$id",
+        "${BackendRoot.path}/tarefa/$id/atualizarStatus",
       ),
       headers: {
         'Authorization': 'Bearer $token',

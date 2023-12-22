@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/firebase_options.dart';
-import 'package:todo_list/src/api/firebase/firebase_messaging.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
 import 'package:todo_list/src/utils/router.dart';
@@ -15,7 +14,6 @@ void main() async {
   try {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
-    await FirebaseMessagingApi().iniciarNotificacoes();
   } catch (e) {
     print(e);
   }
