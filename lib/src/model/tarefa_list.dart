@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:todo_list/src/model/tarefa.dart';
 import 'package:todo_list/src/utils/backend_root.dart';
+import 'package:todo_list/src/utils/http_defaults.dart';
 import 'package:todo_list/src/utils/http_exception.dart';
 
 class TarefaList with ChangeNotifier {
@@ -24,15 +24,26 @@ class TarefaList with ChangeNotifier {
 
   TarefaList(tarefas, this._token);
 
+  final String endpoint = "tarefa";
+
   Future<void> loadTarefas() async {
     _tarefas.clear();
 
-    final response = await http.get(Uri.parse("${BackendRoot.path}/tarefa"),
-        headers: {'Authorization': 'Bearer $_token'});
+    final response = await HttpDefaults.gerarChamadaHttpPadrao(
+        rootPath: BackendRoot.path,
+        endpoints: endpoint,
+        headers: HttpDefaults.gerarHeaderPadrao(token: _token),
+        httpMethod: "get");
+
+    print("${response.statusCode}:${response.reasonPhrase}");
+    print(response.body);
+
     if (jsonDecode(response.body) == null) {
+      print("${response.statusCode}:${response.reasonPhrase}");
       notifyListeners();
       return;
     }
+
     var data = jsonDecode(response.body);
 
     data.forEach((tarefaData) {
@@ -49,18 +60,18 @@ class TarefaList with ChangeNotifier {
   }
 
   Future<void> addTarefa(Tarefa tarefa) async {
-    final response = await http.post(
-      Uri.parse("${BackendRoot.path}/tarefa"),
-      headers: {
-        'Authorization': 'Bearer $_token',
-        'Content-Type': 'application/json'
-      },
-      body: jsonEncode({
-        "titulo": tarefa.title,
-        "descricao": tarefa.description,
-        "dataExpiracao": tarefa.expiryDate.toIso8601String()
-      }),
-    );
+    var data = {
+      "titulo": tarefa.title,
+      "descricao": tarefa.description,
+      "dataExpiracao": tarefa.expiryDate.toIso8601String()
+    };
+
+    final response = await HttpDefaults.gerarChamadaHttpPadrao(
+        rootPath: BackendRoot.path,
+        endpoints: endpoint,
+        headers: HttpDefaults.gerarHeaderPadrao(token: _token),
+        httpMethod: "post",
+        body: data);
 
     print(response.statusCode);
     print(response.body);
@@ -84,21 +95,22 @@ class TarefaList with ChangeNotifier {
       (element) => element.id == tarefa.id,
     );
 
-    print("Onde vai: ${BackendRoot.path}/tarefa/${tarefa.id}");
+    var data = {
+      'id': tarefa.id,
+      'titulo': tarefa.title,
+      'descricao': tarefa.description,
+      'dataExpiracao': tarefa.expiryDate.toIso8601String(),
+    };
+
     if (index > 0) {
-      var response = await http.put(
-        Uri.parse("${BackendRoot.path}/tarefa/${tarefa.id}"),
-        headers: {
-          'Authorization': 'Bearer $_token',
-          "Content-Type": "application/json"
-        },
-        body: jsonEncode({
-          'id': tarefa.id,
-          'titulo': tarefa.title,
-          'descricao': tarefa.description,
-          'dataExpiracao': tarefa.expiryDate.toIso8601String(),
-        }),
-      );
+      var response = await HttpDefaults.gerarChamadaHttpPadrao(
+          rootPath: BackendRoot.path,
+          endpoints: "$endpoint/${tarefa.id}",
+          headers: HttpDefaults.gerarHeaderPadrao(token: _token),
+          httpMethod: "put",
+          body: data);
+
+      print(response.statusCode);
     }
     _tarefas[index] = tarefa;
 
@@ -116,10 +128,11 @@ class TarefaList with ChangeNotifier {
       _tarefas.remove(tarefa);
       notifyListeners();
 
-      final response = await http.delete(
-        Uri.parse("${BackendRoot.path}/tarefa/${tarefa.id}"),
-        headers: {'Authorization': 'Bearer $_token'},
-      );
+      final response = await HttpDefaults.gerarChamadaHttpPadrao(
+          rootPath: BackendRoot.path,
+          endpoints: "$endpoint/${tarefa.id}",
+          headers: HttpDefaults.gerarHeaderPadrao(token: _token),
+          httpMethod: "delete");
 
       print(response.statusCode);
 

@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:todo_list/src/utils/auth_exception.dart';
 import 'package:todo_list/src/utils/backend_root.dart';
+import 'package:todo_list/src/utils/http_defaults.dart';
 
 import '../api/firebase/firebase_messaging.dart';
 import '../data/store.dart';
@@ -45,39 +45,42 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> _authenticate(
-      String username, String password, String? email, String urlFrag) async {
-    var data = jsonEncode(
-        {'nomeUsuario': username, 'senha': password, 'email': email ?? ''});
+      String username, String password, String? email, String endpoint) async {
+    final data = {
+      'nomeUsuario': username,
+      'senha': password,
+      'email': email ?? ''
+    };
 
-    print(data);
+    final header = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
 
-    if (urlFrag == "cadastro") {
-      var response = await http.post(
-        Uri.parse("${BackendRoot.path}/$urlFrag"),
-        headers: {
-          'Content-type': 'application/json',
-          'Accept': 'application/json',
-        },
+    if (endpoint == "cadastro") {
+      var response = await HttpDefaults.gerarChamadaHttpPadrao(
+        rootPath: BackendRoot.path,
+        endpoints: endpoint,
+        headers: header,
+        httpMethod: "post",
         body: data,
       );
-
-      print(response.statusCode);
 
       if (response.statusCode == 409) {
         throw AuthException('USUARIO_EXISTE');
       }
-      urlFrag = "login";
+      endpoint = "login";
     }
 
-
-    var response = await http.post(
-      Uri.parse("${BackendRoot.path}/$urlFrag"),
-      headers: {
-        'Content-type': 'application/json',
-        'Accept': 'application/json',
-      },
+    var response = await HttpDefaults.gerarChamadaHttpPadrao(
+      rootPath: BackendRoot.path,
+      endpoints: endpoint,
+      headers: header,
+      httpMethod: "post",
       body: data,
     );
+
+    print("Auth: ${response.statusCode}:${response.reasonPhrase}");
 
     if (response.statusCode == 401) {
       throw AuthException('DADOS_INCORRETOS');
@@ -85,7 +88,7 @@ class Auth with ChangeNotifier {
 
     var body = jsonDecode(response.body);
 
-    print(body);
+    print(body['access_token']);
 
     _token = body['access_token'];
     _refreshToken = body['refresh_token'];
@@ -103,8 +106,6 @@ class Auth with ChangeNotifier {
         ),
       ),
     );
-
-    print(_token!);
 
     await FirebaseMessagingApi().iniciarNotificacoes(_token!);
 

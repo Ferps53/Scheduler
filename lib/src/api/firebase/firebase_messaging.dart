@@ -1,8 +1,6 @@
-import 'dart:convert';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:http/http.dart' as http;
 import 'package:todo_list/src/utils/backend_root.dart';
+import 'package:todo_list/src/utils/http_defaults.dart';
 
 class FirebaseMessagingApi {
   final _firebaseMessaging = FirebaseMessaging.instance;
@@ -10,21 +8,16 @@ class FirebaseMessagingApi {
   Future<void> iniciarNotificacoes(String token) async {
     final fcmToken = await _firebaseMessaging.getToken();
 
-    print("${BackendRoot.path}/notificacao/salvar/token");
+    var data = {"fcmToken": "$fcmToken"};
 
-    var data = jsonEncode(
-      {'fcmToken': '$fcmToken'},
-    );
-
-    var response = await http.put(
-      Uri.parse("${BackendRoot.path}/notificacao/salvar/token"),
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
+    var response = await HttpDefaults.gerarChamadaHttpPadrao(
+      rootPath: BackendRoot.path,
+      endpoints: "notificacao/salvar/token",
+      headers: HttpDefaults.gerarHeaderPadrao(token: token),
+      httpMethod: "put",
       body: data,
     );
 
-    print(jsonDecode(response.body));
+    print("${response.statusCode} : ${response.reasonPhrase}");
   }
 }

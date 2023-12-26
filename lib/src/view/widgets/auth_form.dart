@@ -133,7 +133,8 @@ class _AuthFormState extends State<AuthForm>
     } on AuthException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
-      _showErrorDialog("Ocorreu um erro inesperado!!!!");
+      print(error);
+      _showErrorDialog(error.toString());
     }
 
     setState(() => _isLoading = false);
@@ -153,7 +154,7 @@ class _AuthFormState extends State<AuthForm>
         // height: _isLogin() ? 310 : 400,
         height: _isLogin() ? 310 : 410,
         width: deviceSize.width * 0.75,
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(12),
         child: Form(
           key: _formKey,
           child: Column(
@@ -175,8 +176,8 @@ class _AuthFormState extends State<AuthForm>
               ),
               AnimatedContainer(
                 constraints: BoxConstraints(
-                  minHeight: _isLogin() ? 0 : 60,
-                  maxHeight: _isLogin() ? 0 : 120,
+                  minHeight: _isLogin() ? 0 : 30,
+                  maxHeight: _isLogin() ? 0 : 60,
                 ),
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.linear,
@@ -228,8 +229,8 @@ class _AuthFormState extends State<AuthForm>
               ),
               AnimatedContainer(
                 constraints: BoxConstraints(
-                  minHeight: _isLogin() ? 0 : 60,
-                  maxHeight: _isLogin() ? 0 : 120,
+                  minHeight: _isLogin() ? 0 : 30,
+                  maxHeight: _isLogin() ? 0 : 60,
                 ),
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.linear,
