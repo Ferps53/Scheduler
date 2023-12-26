@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:todo_list/src/utils/backendRoot.dart';
+import 'package:todo_list/src/utils/backend_root.dart';
 import 'package:todo_list/src/utils/http_exception.dart';
 
 class Tarefa with ChangeNotifier {

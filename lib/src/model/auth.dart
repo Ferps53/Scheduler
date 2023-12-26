@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:todo_list/src/utils/auth_exception.dart';
-import 'package:todo_list/src/utils/backendRoot.dart';
+import 'package:todo_list/src/utils/backend_root.dart';
 
 import '../api/firebase/firebase_messaging.dart';
 import '../data/store.dart';
@@ -49,6 +49,8 @@ class Auth with ChangeNotifier {
     var data = jsonEncode(
         {'nomeUsuario': username, 'senha': password, 'email': email ?? ''});
 
+    print(data);
+
     if (urlFrag == "cadastro") {
       var response = await http.post(
         Uri.parse("${BackendRoot.path}/$urlFrag"),
@@ -66,6 +68,8 @@ class Auth with ChangeNotifier {
       }
       urlFrag = "login";
     }
+
+
     var response = await http.post(
       Uri.parse("${BackendRoot.path}/$urlFrag"),
       headers: {
@@ -80,6 +84,8 @@ class Auth with ChangeNotifier {
     }
 
     var body = jsonDecode(response.body);
+
+    print(body);
 
     _token = body['access_token'];
     _refreshToken = body['refresh_token'];

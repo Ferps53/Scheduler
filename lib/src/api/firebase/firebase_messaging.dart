@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:http/http.dart' as http;
-import 'package:todo_list/src/utils/backendRoot.dart';
+import 'package:todo_list/src/utils/backend_root.dart';
 
 class FirebaseMessagingApi {
   final _firebaseMessaging = FirebaseMessaging.instance;
