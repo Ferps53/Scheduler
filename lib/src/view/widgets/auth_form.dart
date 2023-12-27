@@ -152,7 +152,7 @@ class _AuthFormState extends State<AuthForm>
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
         // height: _isLogin() ? 310 : 400,
-        height: _isLogin() ? 310 : 410,
+        height: _isLogin() ? 320 : 440,
         width: deviceSize.width * 0.75,
         padding: const EdgeInsets.all(12),
         child: Form(
@@ -170,13 +170,15 @@ class _AuthFormState extends State<AuthForm>
                   final username = _nomeUser ?? '';
                   if (username.trim().isEmpty) {
                     return "Informe um usuário válido";
+                  } else if (username.length > 16 || username.length < 3) {
+                    return "Informe um nome entre 3 a 16 letras";
                   }
                   return null;
                 },
               ),
               AnimatedContainer(
                 constraints: BoxConstraints(
-                  minHeight: _isLogin() ? 0 : 30,
+                  minHeight: _isLogin() ? 0 : 40,
                   maxHeight: _isLogin() ? 0 : 60,
                 ),
                 duration: const Duration(milliseconds: 300),
@@ -216,8 +218,10 @@ class _AuthFormState extends State<AuthForm>
                 obscureText: true,
                 validator: (_password) {
                   final password = _password ?? '';
-                  if (password.isEmpty || password.length < 5) {
+                  if (password.isEmpty) {
                     return "Informe uma senha válida";
+                  } else if (password.length < 6 && _isSignup()) {
+                    return "Informe uma senha maior que 6 letras";
                   }
                   return null;
                 },
@@ -229,7 +233,7 @@ class _AuthFormState extends State<AuthForm>
               ),
               AnimatedContainer(
                 constraints: BoxConstraints(
-                  minHeight: _isLogin() ? 0 : 30,
+                  minHeight: _isLogin() ? 0 : 40,
                   maxHeight: _isLogin() ? 0 : 60,
                 ),
                 duration: const Duration(milliseconds: 300),

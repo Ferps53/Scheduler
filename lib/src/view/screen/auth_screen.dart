@@ -13,7 +13,7 @@ class AuthScreen extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: RadialGradient(colors: [
                 Theme.of(context).primaryColorLight,
-                const Color(0xff03A9e4),
+                const Color(0xff0099d4),
               ], radius: 1, focalRadius: 2),
             ),
           ),
@@ -30,12 +30,12 @@ class AuthScreen extends StatelessWidget {
                       color: Theme.of(context).primaryColorDark,
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
-                          vertical: 12.0,
-                          horizontal: 20,
+                          vertical: 10.0,
+                          horizontal: 35,
                         ),
                         child: Text(
-                          "Lista de Tarefas",
-                          style: TextStyle(color: Colors.white, fontSize: 30),
+                          "Scheduler",
+                          style: TextStyle(color: Colors.white, fontSize: 45),
                         ),
                       ),
                     ),
