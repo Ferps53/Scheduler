@@ -104,12 +104,12 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                   widget.tarefa == null ? "Criar Tarefa" : "Atualizar Tarefa"),
             ),
             Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Form(
                 key: _formKey,
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -192,6 +192,9 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                                   ),
                                 ),
                         ],
+                      ),
+                      const SizedBox(
+                        height: 10,
                       ),
                     ],
                   ),
