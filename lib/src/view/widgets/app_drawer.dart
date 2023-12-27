@@ -18,7 +18,22 @@ class AppDrawer extends StatelessWidget {
             label: "Seja bem-vindo $username!",
             implyLeading: false,
           ),
-          const Spacer(),
+          ListTile(
+              leading: Icon(
+                Icons.settings_outlined,
+                color: Colors.grey.shade900,
+              ),
+              title: const Text("Configurações"),
+              onTap: () {}),
+          const Divider(),
+          ListTile(
+            leading: Icon(
+              Icons.info_outline,
+              color: Theme.of(context).primaryColor,
+            ),
+            title: const Text("Sobre o App"),
+            onTap: () {},
+          ),
           const Divider(),
           ListTile(
             leading: Icon(
@@ -35,7 +50,13 @@ class AppDrawer extends StatelessWidget {
                 AppRouter.AUTH,
               );
             },
-          )
+          ),
+          const Divider(),
+          const Spacer(),
+          const Text(
+            "Scheduler - Organize suas tarefas",
+            style: TextStyle(height: 2),
+          ),
         ],
       ),
     );
