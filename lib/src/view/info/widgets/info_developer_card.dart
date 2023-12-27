@@ -1,7 +1,7 @@
 part of '../screen/info_screen.dart';
 
 class _InfoDeveloperCard extends StatelessWidget {
-  const _InfoDeveloperCard({super.key});
+  const _InfoDeveloperCard();
 
   @override
   Widget build(BuildContext context) {

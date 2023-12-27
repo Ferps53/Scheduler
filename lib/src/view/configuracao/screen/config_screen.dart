@@ -11,7 +11,9 @@ class ConfigScreen extends StatelessWidget {
     return const Scaffold(
       drawer: AppDrawer(),
       appBar: DefaultAppBar(label: "Configurações do App"),
-      body: Placeholder(),
+      body: Center(
+        child: Text("Em construção"),
+      ),
     );
   }
 }
