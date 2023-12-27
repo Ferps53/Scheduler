@@ -59,6 +59,8 @@ class MyApp extends StatelessWidget {
           Locale('pt'), // Spanish
         ],
         theme: ThemeData(
+          fontFamily: 'Ubuntu', // <-- 1
+          textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Ubuntu'),
           colorScheme: ColorScheme.fromSeed(
             primary: const Color(
               0xfe0379C4,
