@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
-import 'package:todo_list/src/view/widgets/app_drawer.dart';
-import 'package:todo_list/src/view/widgets/default_app_bar.dart';
-import 'package:todo_list/src/view/widgets/tarefa_floating_icon_button.dart';
-import 'package:todo_list/src/view/widgets/tarefa_tile.dart';
+import 'package:todo_list/src/view/default_widgets/app_drawer.dart';
+
+import '../../default_widgets/default_app_bar.dart';
+import '../widgets/tarefa_floating_icon_button.dart';
+import '../widgets/tarefa_tile.dart';
 
 class TarefaScreen extends StatefulWidget {
   const TarefaScreen({super.key});

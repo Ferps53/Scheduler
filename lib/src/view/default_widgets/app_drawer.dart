@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/utils/router.dart';
-import 'package:todo_list/src/view/widgets/default_app_bar.dart';
+import 'package:todo_list/src/view/default_widgets/default_app_bar.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    Color iconColor = Colors.grey.shade800;
     String username =
         Provider.of<Auth>(context, listen: false).username ?? "Sem nome";
     return Drawer(
@@ -20,19 +21,33 @@ class AppDrawer extends StatelessWidget {
           ),
           ListTile(
               leading: Icon(
+                Icons.edit_calendar_outlined,
+                color: iconColor,
+              ),
+              title: const Text("Tarefas"),
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(AppRouter.tarefas);
+              }),
+          const Divider(),
+          ListTile(
+              leading: Icon(
                 Icons.settings_outlined,
-                color: Colors.grey.shade900,
+                color: iconColor,
               ),
               title: const Text("Configurações"),
-              onTap: () {}),
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(AppRouter.config);
+              }),
           const Divider(),
           ListTile(
             leading: Icon(
               Icons.info_outline,
-              color: Theme.of(context).primaryColor,
+              color: iconColor,
             ),
             title: const Text("Sobre o App"),
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(AppRouter.info);
+            },
           ),
           const Divider(),
           ListTile(
@@ -47,7 +62,7 @@ class AppDrawer extends StatelessWidget {
                 listen: false,
               ).signOut();
               Navigator.of(context).pushReplacementNamed(
-                AppRouter.AUTH,
+                AppRouter.auth,
               );
             },
           ),

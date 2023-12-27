@@ -6,8 +6,10 @@ import 'package:todo_list/firebase_options.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
 import 'package:todo_list/src/utils/router.dart';
-import 'package:todo_list/src/view/screen/auth_home.dart';
-import 'package:todo_list/src/view/screen/tarefa_screen.dart';
+import 'package:todo_list/src/view/auth/screen/auth_home.dart';
+import 'package:todo_list/src/view/configuracao/screen/config_screen.dart';
+import 'package:todo_list/src/view/info/screen/info_screen.dart';
+import 'package:todo_list/src/view/tarefa/screen/tarefa_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -70,8 +72,10 @@ class MyApp extends StatelessWidget {
           timePickerTheme: const TimePickerThemeData(elevation: 0),
         ),
         routes: {
-          AppRouter.AUTH: (context) => const AuthOrHome(),
-          AppRouter.TAREFAS: (context) => const TarefaScreen(),
+          AppRouter.auth: (context) => const AuthOrHome(),
+          AppRouter.tarefas: (context) => const TarefaScreen(),
+          AppRouter.info: (context) => const InfoScreen(),
+          AppRouter.config: (context) => const ConfigScreen(),
         },
       ),
     );

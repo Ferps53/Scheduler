@@ -85,6 +85,9 @@ flutter:
 
   assets:
     - assets/images/relaxed.jpg
+    - assets/icons/icon.png
+    - assets/images/flutter_framework.jpg
+    - assets/images/quarkus.jpg
 
   # assets:
   #   - images/a_dot_burr.jpeg
