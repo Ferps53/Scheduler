@@ -11,7 +11,7 @@ class FirebaseMessagingApi {
 
     var data = {"fcmToken": "$fcmToken"};
 
-    var response = await HttpDefaults.gerarChamadaHttpPadrao(
+    await HttpDefaults.gerarChamadaHttpPadrao(
       rootPath: BackendRoot.path,
       endpoints: "notificacao/salvar/token",
       headers: HttpDefaults.gerarHeaderPadrao(token: token),

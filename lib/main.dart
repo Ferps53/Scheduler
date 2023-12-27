@@ -7,7 +7,7 @@ import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
 import 'package:todo_list/src/utils/router.dart';
 import 'package:todo_list/src/view/screen/auth_home.dart';
-import 'package:todo_list/src/view/screen/tarefas.dart';
+import 'package:todo_list/src/view/screen/tarefa_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

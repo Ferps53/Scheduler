@@ -103,6 +103,7 @@ class Auth with ChangeNotifier {
         ),
       ),
     );
+    _username = username;
 
     await FirebaseMessagingApi().iniciarNotificacoes(_token!);
 

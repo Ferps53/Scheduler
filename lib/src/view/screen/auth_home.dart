@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/view/screen/auth_screen.dart';
-import 'package:todo_list/src/view/screen/tarefas.dart';
+import 'package:todo_list/src/view/screen/tarefa_screen.dart';
 
 class AuthOrHome extends StatelessWidget {
   const AuthOrHome({super.key});

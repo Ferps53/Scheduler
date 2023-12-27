@@ -2,24 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/utils/router.dart';
+import 'package:todo_list/src/view/widgets/default_app_bar.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String username =
+        Provider.of<Auth>(context, listen: false).username ?? "Sem nome";
     return Drawer(
       child: Column(
         children: [
-          AppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: const Color(0xff03A9F4),
-            foregroundColor: Colors.white,
-            title: const FittedBox(
-              child: Text(
-                "Mantenha suas Tarefas em dia!",
-              ),
-            ),
+          DefaultAppBar(
+            label: "Seja bem-vindo $username!",
+            implyLeading: false,
           ),
           const Spacer(),
           const Divider(),

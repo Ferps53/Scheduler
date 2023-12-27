@@ -40,7 +40,6 @@ class TarefaList with ChangeNotifier {
       notifyListeners();
       return;
     }
-
     var data = jsonDecode(response.body);
 
     data.forEach((tarefaData) {
@@ -53,6 +52,7 @@ class TarefaList with ChangeNotifier {
         isConcluded: tarefaData["fgConcluida"] ?? false,
       ));
     });
+
     notifyListeners();
   }
 
