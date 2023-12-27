@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/model/tarefa.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
+import 'package:todo_list/src/view/default_widgets/default_dialog.dart';
 
 import '../dialogs/tarefa_form_dialog.dart';
 
@@ -89,9 +90,12 @@ class TarefaTile extends StatelessWidget {
                 onPressed: () {
                   showDialog<bool>(
                     context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text("Excluir Tarefa?"),
-                      content: const Text("Tem certeza?"),
+                    builder: (context) => DefaultDialog(
+                      headerLabel: "Excluir Tarefa",
+                      content: const Text(
+                        "Tem certeza?",
+                        style: TextStyle(fontSize: 20),
+                      ),
                       actions: [
                         TextButton(
                           onPressed: () {
