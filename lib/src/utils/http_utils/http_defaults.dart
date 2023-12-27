@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:todo_list/src/utils/http_utils/http_methods_enum.dart';
 
 class HttpDefaults {
   static Map<String, String> gerarHeaderPadrao({String? token}) {
@@ -18,7 +19,7 @@ class HttpDefaults {
     required String rootPath,
     required String endpoints,
     required Map<String, String> headers,
-    required String httpMethod,
+    required HttpMethods httpMethod,
     Object? body,
   }) {
     final Uri url = Uri.parse("$rootPath/$endpoints");
@@ -26,15 +27,15 @@ class HttpDefaults {
     print(url.toString());
 
     switch (httpMethod) {
-      case "get":
+      case HttpMethods.get:
         return http.get(url, headers: headers);
-      case "post":
+      case HttpMethods.post:
         return http.post(url, headers: headers, body: jsonEncode(body));
-      case "put":
+      case HttpMethods.put:
         return http.put(url, headers: headers, body: jsonEncode(body));
-      case "patch":
+      case HttpMethods.patch:
         return http.patch(url, headers: headers, body: jsonEncode(body));
-      case "delete":
+      case HttpMethods.delete:
         return http.delete(url, headers: headers);
       default:
         throw Exception("Método Http incorreto!");

@@ -4,7 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:todo_list/src/utils/auth_exception.dart';
 import 'package:todo_list/src/utils/backend_root.dart';
-import 'package:todo_list/src/utils/http_defaults.dart';
+import 'package:todo_list/src/utils/http_utils/http_defaults.dart';
+import 'package:todo_list/src/utils/http_utils/http_methods_enum.dart';
 
 import '../api/firebase/firebase_messaging.dart';
 import '../data/store.dart';
@@ -62,7 +63,7 @@ class Auth with ChangeNotifier {
         rootPath: BackendRoot.path,
         endpoints: endpoint,
         headers: header,
-        httpMethod: "post",
+        httpMethod: HttpMethods.post,
         body: data,
       );
 
@@ -76,19 +77,15 @@ class Auth with ChangeNotifier {
       rootPath: BackendRoot.path,
       endpoints: endpoint,
       headers: header,
-      httpMethod: "post",
+      httpMethod: HttpMethods.post,
       body: data,
     );
-
-    print("Auth: ${response.statusCode}:${response.reasonPhrase}");
 
     if (response.statusCode == 401) {
       throw AuthException('DADOS_INCORRETOS');
     }
 
     var body = jsonDecode(response.body);
-
-    print(body['access_token']);
 
     _token = body['access_token'];
     _refreshToken = body['refresh_token'];

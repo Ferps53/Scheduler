@@ -3,8 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:todo_list/src/model/tarefa.dart';
 import 'package:todo_list/src/utils/backend_root.dart';
-import 'package:todo_list/src/utils/http_defaults.dart';
-import 'package:todo_list/src/utils/http_exception.dart';
+import 'package:todo_list/src/utils/http_utils/http_defaults.dart';
+import 'package:todo_list/src/utils/http_utils/http_exception.dart';
+import 'package:todo_list/src/utils/http_utils/http_methods_enum.dart';
 
 class TarefaList with ChangeNotifier {
   final String _token;
@@ -19,7 +20,7 @@ class TarefaList with ChangeNotifier {
   }
 
   List<Tarefa> get tarefasConcluidas {
-    return _tarefas.where((tarefa) => tarefa.isConcluded ?? false).toList();
+    return _tarefas.where((tarefa) => tarefa.isConcluded!).toList();
   }
 
   TarefaList(tarefas, this._token);
@@ -33,13 +34,9 @@ class TarefaList with ChangeNotifier {
         rootPath: BackendRoot.path,
         endpoints: endpoint,
         headers: HttpDefaults.gerarHeaderPadrao(token: _token),
-        httpMethod: "get");
-
-    print("${response.statusCode}:${response.reasonPhrase}");
-    print(response.body);
+        httpMethod: HttpMethods.get);
 
     if (jsonDecode(response.body) == null) {
-      print("${response.statusCode}:${response.reasonPhrase}");
       notifyListeners();
       return;
     }
@@ -53,7 +50,7 @@ class TarefaList with ChangeNotifier {
         description: tarefaData["descricao"],
         createdAt: DateTime.parse(tarefaData["dataCriacao"]),
         expiryDate: DateTime.parse(tarefaData["dataExpiracao"]),
-        isConcluded: tarefaData["fgConcluida"] as bool?,
+        isConcluded: tarefaData["fgConcluida"] ?? false,
       ));
     });
     notifyListeners();
@@ -70,12 +67,8 @@ class TarefaList with ChangeNotifier {
         rootPath: BackendRoot.path,
         endpoints: endpoint,
         headers: HttpDefaults.gerarHeaderPadrao(token: _token),
-        httpMethod: "post",
+        httpMethod: HttpMethods.post,
         body: data);
-
-    print(response.statusCode);
-    print(response.body);
-
     final id = jsonDecode(response.body)['id'];
 
     _tarefas.add(Tarefa(
@@ -103,14 +96,12 @@ class TarefaList with ChangeNotifier {
     };
 
     if (index > 0) {
-      var response = await HttpDefaults.gerarChamadaHttpPadrao(
+      await HttpDefaults.gerarChamadaHttpPadrao(
           rootPath: BackendRoot.path,
           endpoints: "$endpoint/${tarefa.id}",
           headers: HttpDefaults.gerarHeaderPadrao(token: _token),
-          httpMethod: "put",
+          httpMethod: HttpMethods.put,
           body: data);
-
-      print(response.statusCode);
     }
     _tarefas[index] = tarefa;
 
@@ -132,9 +123,7 @@ class TarefaList with ChangeNotifier {
           rootPath: BackendRoot.path,
           endpoints: "$endpoint/${tarefa.id}",
           headers: HttpDefaults.gerarHeaderPadrao(token: _token),
-          httpMethod: "delete");
-
-      print(response.statusCode);
+          httpMethod: HttpMethods.delete);
 
       if (response.statusCode >= 400) {
         _tarefas.insert(index, tarefa);

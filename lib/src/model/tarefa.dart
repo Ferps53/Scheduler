@@ -1,9 +1,9 @@
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:todo_list/src/utils/backend_root.dart';
-import 'package:todo_list/src/utils/http_exception.dart';
+import 'package:todo_list/src/utils/http_utils/http_defaults.dart';
+import 'package:todo_list/src/utils/http_utils/http_exception.dart';
+import 'package:todo_list/src/utils/http_utils/http_methods_enum.dart';
 
 class Tarefa with ChangeNotifier {
   int id;
@@ -24,27 +24,28 @@ class Tarefa with ChangeNotifier {
       required this.id});
 
   void _toggleConcluded() {
-    isConcluded ?? false;
+    isConcluded ??= false;
     isConcluded = !isConcluded!;
     notifyListeners();
   }
 
   Future<void> toggleConcluded(String token) async {
     _toggleConcluded();
-    final response = await http.put(
-      Uri.parse(
-        "${BackendRoot.path}/tarefa/$id/atualizarStatus",
-      ),
-      headers: {
-        'Authorization': 'Bearer $token',
-        "Content-Type": "application/json"
-      },
-      body: jsonEncode({"fgConcluded": isConcluded}),
+
+
+    final data = {"fgConcluida": isConcluded};
+    final String endpoint = "tarefa/$id/atualizarStatus";
+
+    final response = await HttpDefaults.gerarChamadaHttpPadrao(
+      rootPath: BackendRoot.path,
+      endpoints: endpoint,
+      headers: HttpDefaults.gerarHeaderPadrao(token: token),
+      httpMethod: HttpMethods.put,
+      body: data,
     );
 
     if (response.statusCode >= 400) {
       _toggleConcluded();
-      print(response.statusCode);
       throw HttpException(
         msg: response.body,
         statusCode: response.statusCode,

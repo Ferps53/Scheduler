@@ -1,6 +1,7 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:todo_list/src/utils/backend_root.dart';
-import 'package:todo_list/src/utils/http_defaults.dart';
+import 'package:todo_list/src/utils/http_utils/http_defaults.dart';
+import 'package:todo_list/src/utils/http_utils/http_methods_enum.dart';
 
 class FirebaseMessagingApi {
   final _firebaseMessaging = FirebaseMessaging.instance;
@@ -14,10 +15,9 @@ class FirebaseMessagingApi {
       rootPath: BackendRoot.path,
       endpoints: "notificacao/salvar/token",
       headers: HttpDefaults.gerarHeaderPadrao(token: token),
-      httpMethod: "put",
+      httpMethod: HttpMethods.put,
       body: data,
     );
 
-    print("${response.statusCode} : ${response.reasonPhrase}");
   }
 }
