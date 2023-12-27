@@ -12,6 +12,8 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: FittedBox(
         child: Text(label),
       ),
+      elevation: 8,
+      shadowColor: Colors.black54,
       automaticallyImplyLeading: implyLeading ?? true,
       foregroundColor: Colors.white,
       backgroundColor: const Color(0xff03A9F4),
