@@ -8,7 +8,7 @@ class _InfoDeveloperCard extends StatelessWidget {
     return Card(
       child: ListTile(
         leading: const CircleAvatar(
-          backgroundImage: AssetImage("assets/images/relaxed.jpg"),
+          backgroundImage: AssetImage("assets/images/creator.png"),
         ),
         title: const Text("Desenvolvedor do App"),
         subtitle: const Text("Felipe Brostolin Ribeiro"),
