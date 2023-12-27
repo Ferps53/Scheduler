@@ -16,7 +16,7 @@ class InfoScreen extends StatelessWidget {
     return const Scaffold(
       drawer: AppDrawer(),
       appBar: DefaultAppBar(label: "Sobre o App"),
-      body: SingleChildScrollView(
+      body: Center(
         child: Padding(
           padding: EdgeInsets.all(4.0),
           child: Card(
