@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/model/tarefa.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
+import 'package:todo_list/src/view/default_widgets/default_dialog.dart';
 
 import '../dialogs/tarefa_form_dialog.dart';
 
@@ -55,12 +56,11 @@ class TarefaTile extends StatelessWidget {
                     try {
                       tarefa.toggleConcluded(
                         auth.token ?? '',
-                        auth.uid ?? '',
                       );
                       msg.clearSnackBars();
                       msg.showSnackBar(
                         SnackBar(
-                          content: Text(tarefa.isConcluded
+                          content: Text(tarefa.isConcluded ?? false
                               ? "Tarefa marcada como concluída!!"
                               : "Tarefa desmarcada como concluída!"),
                           duration: const Duration(seconds: 2),
@@ -78,7 +78,7 @@ class TarefaTile extends StatelessWidget {
                     }
                   },
                   icon: Icon(
-                    tarefa.isConcluded
+                    tarefa.isConcluded ?? false
                         ? Icons.check_box
                         : Icons.check_box_outline_blank,
                     color: Colors.lightGreen,
@@ -90,9 +90,12 @@ class TarefaTile extends StatelessWidget {
                 onPressed: () {
                   showDialog<bool>(
                     context: context,
-                    builder: (context) => AlertDialog(
-                      title: const Text("Excluir Tarefa?"),
-                      content: const Text("Tem certeza?"),
+                    builder: (context) => DefaultDialog(
+                      headerLabel: "Excluir Tarefa",
+                      content: const Text(
+                        "Tem certeza?",
+                        style: TextStyle(fontSize: 20),
+                      ),
                       actions: [
                         TextButton(
                           onPressed: () {

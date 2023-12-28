@@ -2,17 +2,22 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:todo_list/src/utils/auth_exception.dart';
+import 'package:todo_list/src/utils/backend_root.dart';
+import 'package:todo_list/src/utils/http_utils/http_defaults.dart';
+import 'package:todo_list/src/utils/http_utils/http_methods_enum.dart';
 
+import '../api/firebase/firebase_messaging.dart';
 import '../data/store.dart';
-import '../utils/auth_exception.dart';
 
 class Auth with ChangeNotifier {
   String? _token;
+  String? _username;
   String? _email;
-  String? _uid;
   DateTime? _expDate;
   Timer? _signOutTimer;
+  String? _refreshToken;
+  DateTime? _expDateRefresh;
 
   bool get isAuth {
     final isValid = _expDate?.isAfter(DateTime.now()) ?? false;
@@ -28,50 +33,88 @@ class Auth with ChangeNotifier {
     return isAuth ? _email : null;
   }
 
-  String? get uid {
-    return isAuth ? _uid : null;
+  String? get username {
+    return isAuth ? _username : null;
+  }
+
+  String? get refreshToken {
+    return isAuth ? _refreshToken : null;
+  }
+
+  DateTime? get refreshTokenExp {
+    return _expDateRefresh;
   }
 
   Future<void> _authenticate(
-      String email, String password, String urlFragment) async {
-    final url =
-        "https://identitytoolkit.googleapis.com/v1/accounts:$urlFragment?key=AIzaSyAYffe5cGS4BrMNTS7eNx_fghIjB8tAh-E";
-    final response = await http.post(
-      Uri.parse(url),
-      body: jsonEncode(
-        {
-          'email': email,
-          'password': password,
-          "returnSecureToken": true,
-        },
-      ),
-    );
+      String username, String password, String? email, String endpoint) async {
+    final data = {
+      'nomeUsuario': username,
+      'senha': password,
+      'email': email ?? ''
+    };
 
-    final body = jsonDecode(response.body);
+    final header = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
 
-    if (body['error'] != null) {
-      throw AuthException(body["error"]["message"]);
-    } else {
-      _token = body['idToken'];
-      _email = body['email'];
-      _uid = body['localId'];
-      _expDate = DateTime.now().add(
-        Duration(
-          seconds: int.parse(
-            body['expiresIn'],
-          ),
-        ),
+    if (endpoint == "cadastro") {
+      var response = await HttpDefaults.gerarChamadaHttpPadrao(
+        rootPath: BackendRoot.path,
+        endpoints: endpoint,
+        headers: header,
+        httpMethod: HttpMethods.post,
+        body: data,
       );
 
-      Store.saveMap("userData", {
-        'token': _token,
-        'email': _email,
-        'uid': _uid,
-        'expDate': _expDate!.toIso8601String(),
-      });
-      _autoSignOut();
-      notifyListeners();
+      if (response.statusCode == 409) {
+        throw AuthException('USUARIO_EXISTE');
+      }
+      endpoint = "login";
     }
+
+    var response = await HttpDefaults.gerarChamadaHttpPadrao(
+      rootPath: BackendRoot.path,
+      endpoints: endpoint,
+      headers: header,
+      httpMethod: HttpMethods.post,
+      body: data,
+    );
+
+    if (response.statusCode == 401) {
+      throw AuthException('DADOS_INCORRETOS');
+    }
+
+    var body = jsonDecode(response.body);
+
+    _token = body['access_token'];
+    _refreshToken = body['refresh_token'];
+    _expDate = DateTime.now().add(
+      Duration(
+        seconds: int.parse(
+          body['expires_in'].toString(),
+        ),
+      ),
+    );
+    _expDateRefresh = DateTime.now().add(
+      Duration(
+        seconds: int.parse(
+          body['refresh_expires_in'].toString(),
+        ),
+      ),
+    );
+    _username = username;
+
+    await FirebaseMessagingApi().iniciarNotificacoes(_token!);
+
+    Store.saveMap("userData", {
+      'token': _token,
+      'email': _email,
+      'username': _username,
+      'expDate': _expDate!.toIso8601String(),
+    });
+    _autoSignOut();
+    notifyListeners();
   }
 
   Future<void> tryAutoLogin() async {
@@ -86,26 +129,36 @@ class Auth with ChangeNotifier {
 
     _token = userData['token'];
     _email = userData['email'];
-    _uid = userData['uid'];
+    _username = userData['username'];
     _expDate = expiryDate;
 
     _autoSignOut();
     notifyListeners();
   }
 
-  Future<void> signUp(String email, String password) async {
-    return _authenticate(email, password, "signUp");
+  Future<void> signUp(String username, String password, String email) async {
+    return _authenticate(
+      username,
+      password,
+      email,
+      "cadastro",
+    );
   }
 
-  Future<void> signIn(String email, String password) async {
-    return _authenticate(email, password, "signInWithPassword");
+  Future<void> signIn(String username, String password, String email) async {
+    return _authenticate(
+      username,
+      password,
+      email,
+      "login",
+    );
   }
 
   void signOut() {
     _token = null;
     _email = null;
     _expDate = null;
-    _uid = null;
+    _username = null;
     _clearAutoSignOut();
     Store.remove("userData").then((value) => notifyListeners());
   }

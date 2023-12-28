@@ -1,15 +1,23 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:todo_list/src/utils/backend_root.dart';
+import 'package:todo_list/src/utils/http_utils/http_defaults.dart';
+import 'package:todo_list/src/utils/http_utils/http_methods_enum.dart';
 
-class FirebaseMessagingApi{
-
+class FirebaseMessagingApi {
   final _firebaseMessaging = FirebaseMessaging.instance;
 
-   Future<void> iniciarNotificacoes() async{
+  Future<void> iniciarNotificacoes(String token) async {
+    final fcmToken = await _firebaseMessaging.getToken();
 
-    final token = await _firebaseMessaging.getToken();
+    var data = {"fcmToken": "$fcmToken"};
 
-    print("Token:$token");
+    await HttpDefaults.gerarChamadaHttpPadrao(
+      rootPath: BackendRoot.path,
+      endpoints: "notificacao/salvar/token",
+      headers: HttpDefaults.gerarHeaderPadrao(token: token),
+      httpMethod: HttpMethods.put,
+      body: data,
+    );
 
   }
-
 }

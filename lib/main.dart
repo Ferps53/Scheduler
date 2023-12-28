@@ -3,19 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/firebase_options.dart';
-import 'package:todo_list/src/api/firebase/firebase_messaging.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
 import 'package:todo_list/src/utils/router.dart';
-import 'package:todo_list/src/view/screen/auth_home.dart';
-import 'package:todo_list/src/view/screen/tarefas.dart';
+import 'package:todo_list/src/view/auth/screen/auth_home.dart';
+import 'package:todo_list/src/view/configuracao/screen/config_screen.dart';
+import 'package:todo_list/src/view/info/screen/info_screen.dart';
+import 'package:todo_list/src/view/tarefa/screen/tarefa_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
     await Firebase.initializeApp(
         options: DefaultFirebaseOptions.currentPlatform);
-    await FirebaseMessagingApi().iniciarNotificacoes();
   } catch (e) {
     print(e);
   }
@@ -34,12 +34,14 @@ class MyApp extends StatelessWidget {
           create: (_) => Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, TarefaList>(
-          create: (_) => TarefaList([], '', ''),
+          create: (_) => TarefaList(
+            [],
+            '',
+          ),
           update: (context, auth, previous) {
             return TarefaList(
               previous?.tarefas ?? [],
               auth.token ?? '',
-              auth.uid ?? '',
             );
           },
         ),
@@ -57,6 +59,8 @@ class MyApp extends StatelessWidget {
           Locale('pt'), // Spanish
         ],
         theme: ThemeData(
+          fontFamily: 'Ubuntu', // <-- 1
+          textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Ubuntu'),
           colorScheme: ColorScheme.fromSeed(
             primary: const Color(
               0xfe0379C4,
@@ -70,8 +74,10 @@ class MyApp extends StatelessWidget {
           timePickerTheme: const TimePickerThemeData(elevation: 0),
         ),
         routes: {
-          AppRouter.AUTH: (context) => const AuthOrHome(),
-          AppRouter.TAREFAS: (context) => const TarefaScreen(),
+          AppRouter.auth: (context) => const AuthOrHome(),
+          AppRouter.tarefas: (context) => const TarefaScreen(),
+          AppRouter.info: (context) => const InfoScreen(),
+          AppRouter.config: (context) => const ConfigScreen(),
         },
       ),
     );

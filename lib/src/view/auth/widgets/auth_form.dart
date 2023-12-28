@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
 
-import '../../utils/auth_exception.dart';
+import '../../../utils/auth_exception.dart';
 
 enum AuthMode { SingUp, Login }
 
@@ -81,8 +81,9 @@ class _AuthFormState extends State<AuthForm>
   }
 
   final Map<String, String> _authData = {
+    'nomeUsuario': '',
+    'senha': '',
     'email': '',
-    'password': '',
   };
 
   void _showErrorDialog(String msg) {
@@ -118,19 +119,22 @@ class _AuthFormState extends State<AuthForm>
     try {
       if (_isLogin()) {
         await auth.signIn(
+          _authData['nomeUsuario']!,
+          _authData['senha']!,
           _authData['email']!,
-          _authData['password']!,
         );
       } else {
         await auth.signUp(
+          _authData['nomeUsuario']!,
+          _authData['senha']!,
           _authData['email']!,
-          _authData['password']!,
         );
       }
     } on AuthException catch (error) {
       _showErrorDialog(error.toString());
     } catch (error) {
-      _showErrorDialog("Ocorreu um erro inesperado!!!!");
+      print(error);
+      _showErrorDialog(error.toString());
     }
 
     setState(() => _isLoading = false);
@@ -148,43 +152,76 @@ class _AuthFormState extends State<AuthForm>
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,
         // height: _isLogin() ? 310 : 400,
-        height: _isLogin() ? 310 : 400,
+        height: _isLogin() ? 320 : 440,
         width: deviceSize.width * 0.75,
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(12),
         child: Form(
           key: _formKey,
           child: Column(
             children: [
               TextFormField(
-                decoration: const InputDecoration(
-                  labelText: 'E-mail',
-                ),
+                decoration: const InputDecoration(labelText: 'Nome do Usuário'),
                 autofocus: true,
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.next,
-                onSaved: (email) => _authData['email'] = email ?? '',
-                validator: (_email) {
-                  final email = _email ?? '';
-                  if (email.trim().isEmpty || !email.contains('@')) {
-                    return "Informe um email válido";
+                onSaved: (username) =>
+                    _authData['nomeUsuario'] = username ?? '',
+                validator: (_nomeUser) {
+                  final username = _nomeUser ?? '';
+                  if (username.trim().isEmpty) {
+                    return "Informe um usuário válido";
+                  } else if (username.length > 16 || username.length < 3) {
+                    return "Informe um nome entre 3 a 16 letras";
                   }
-
                   return null;
                 },
+              ),
+              AnimatedContainer(
+                constraints: BoxConstraints(
+                  minHeight: _isLogin() ? 0 : 40,
+                  maxHeight: _isLogin() ? 0 : 60,
+                ),
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.linear,
+                child: FadeTransition(
+                  opacity: _opacityAnimation!,
+                  child: SlideTransition(
+                    position: _slideAnimation!,
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'E-mail',
+                      ),
+                      autofocus: true,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      onSaved: (email) => _authData['email'] = email ?? '',
+                      validator: (_email) {
+                        final email = _email ?? '';
+                        if ((email.trim().isEmpty || !email.contains('@')) &&
+                            _isSignup()) {
+                          return "Informe um email válido";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ),
               ),
               TextFormField(
                 decoration: const InputDecoration(
                   labelText: 'Senha',
                 ),
                 controller: _passwordController,
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.next,
-                onSaved: (password) => _authData['password'] = password ?? '',
+                onSaved: (password) => _authData['senha'] = password ?? '',
                 obscureText: true,
                 validator: (_password) {
                   final password = _password ?? '';
-                  if (password.isEmpty || password.length < 5) {
+                  if (password.isEmpty) {
                     return "Informe uma senha válida";
+                  } else if (password.length < 6 && _isSignup()) {
+                    return "Informe uma senha maior que 6 letras";
                   }
                   return null;
                 },
@@ -196,8 +233,8 @@ class _AuthFormState extends State<AuthForm>
               ),
               AnimatedContainer(
                 constraints: BoxConstraints(
-                  minHeight: _isLogin() ? 0 : 60,
-                  maxHeight: _isLogin() ? 0 : 120,
+                  minHeight: _isLogin() ? 0 : 40,
+                  maxHeight: _isLogin() ? 0 : 60,
                 ),
                 duration: const Duration(milliseconds: 300),
                 curve: Curves.linear,
@@ -209,7 +246,7 @@ class _AuthFormState extends State<AuthForm>
                         decoration: const InputDecoration(
                           labelText: 'Confirmar Senha',
                         ),
-                        keyboardType: TextInputType.emailAddress,
+                        keyboardType: TextInputType.text,
                         textInputAction: TextInputAction.next,
                         obscureText: true,
                         validator: _isLogin()

@@ -92,6 +92,8 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
           mainAxisSize: MainAxisSize.min,
           children: [
             AppBar(
+              elevation: 8,
+              shadowColor: Colors.black54,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(25),
@@ -102,12 +104,12 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                   widget.tarefa == null ? "Criar Tarefa" : "Atualizar Tarefa"),
             ),
             Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Form(
                 key: _formKey,
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -148,71 +150,9 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Flexible(
-                            flex: 1,
-                            child: TextFormField(
-                                controller: _dateController,
-                                decoration: const InputDecoration(
-                                    labelText: "Data Limite"),
-                                readOnly: true,
-                                onTap: () async {
-                                  DateTime? novaData = await showDatePicker(
-                                    locale: const Locale("pt", "BR"),
-                                    context: context,
-                                    initialDate: DateTime.now(),
-                                    firstDate: DateTime.now(),
-                                    lastDate: DateTime(2030),
-                                  );
-                                  setState(() {
-                                    novaData != null
-                                        ? date = DateTime(
-                                            novaData.year,
-                                            novaData.month,
-                                            novaData.day,
-                                            time.hour,
-                                            time.minute)
-                                        : date;
-                                    _dateController.text =
-                                        DateFormat('dd/MM/yyyy').format(date);
-                                  });
-                                }),
-                          ),
+                          textFormFieldData(context),
                           const SizedBox(width: 20),
-                          Flexible(
-                            flex: 1,
-                            child: TextFormField(
-                                controller: _timeController,
-                                decoration:
-                                    const InputDecoration(labelText: "Horário"),
-                                readOnly: true,
-                                onTap: () async {
-                                  TimeOfDay? novoHorario = await showTimePicker(
-                                    builder: (context, child) {
-                                      return Localizations.override(
-                                        context: context,
-                                        locale: const Locale('pt', 'BR'),
-                                        child: child,
-                                      );
-                                    },
-                                    context: context,
-                                    initialTime: TimeOfDay.now(),
-                                  );
-                                  setState(() {
-                                    novoHorario != null
-                                        ? time = novoHorario
-                                        : time;
-                                    DateTime newDate = DateTime(
-                                        date.year,
-                                        date.month,
-                                        date.day,
-                                        time.hour,
-                                        time.minute);
-                                    date = newDate;
-                                    _timeController.text =
-                                        "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
-                                  });
-                                }),
-                          ),
+                          textFormFieldHorario(context),
                         ],
                       ),
                       const SizedBox(
@@ -253,6 +193,9 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
                                 ),
                         ],
                       ),
+                      const SizedBox(
+                        height: 10,
+                      ),
                     ],
                   ),
                 ),
@@ -260,5 +203,62 @@ class _TarefaFormDialogState extends State<TarefaFormDialog> {
             ),
           ],
         ));
+  }
+
+  Flexible textFormFieldData(BuildContext context) {
+    return Flexible(
+      flex: 1,
+      child: TextFormField(
+          controller: _dateController,
+          decoration: const InputDecoration(labelText: "Data Limite"),
+          readOnly: true,
+          onTap: () async {
+            DateTime? novaData = await showDatePicker(
+              locale: const Locale("pt", "BR"),
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime.now(),
+              lastDate: DateTime(2030),
+            );
+            setState(() {
+              novaData != null
+                  ? date = DateTime(novaData.year, novaData.month, novaData.day,
+                      time.hour, time.minute)
+                  : date;
+              _dateController.text = DateFormat('dd/MM/yyyy').format(date);
+            });
+          }),
+    );
+  }
+
+  Flexible textFormFieldHorario(BuildContext context) {
+    return Flexible(
+      flex: 1,
+      child: TextFormField(
+          controller: _timeController,
+          decoration: const InputDecoration(labelText: "Horário"),
+          readOnly: true,
+          onTap: () async {
+            TimeOfDay? novoHorario = await showTimePicker(
+              builder: (context, child) {
+                return Localizations.override(
+                  context: context,
+                  locale: const Locale('pt', 'BR'),
+                  child: child,
+                );
+              },
+              context: context,
+              initialTime: TimeOfDay.now(),
+            );
+            setState(() {
+              novoHorario != null ? time = novoHorario : time;
+              DateTime newDate = DateTime(
+                  date.year, date.month, date.day, time.hour, time.minute);
+              date = newDate;
+              _timeController.text =
+                  "${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}";
+            });
+          }),
+    );
   }
 }
