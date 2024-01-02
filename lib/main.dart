@@ -9,6 +9,7 @@ import 'package:todo_list/src/utils/router.dart';
 import 'package:todo_list/src/view/auth/screen/auth_home.dart';
 import 'package:todo_list/src/view/configuracao/screen/config_screen.dart';
 import 'package:todo_list/src/view/info/screen/info_screen.dart';
+import 'package:todo_list/src/view/lixeira/screen/lixeira_screen.dart';
 import 'package:todo_list/src/view/tarefa/screen/tarefa_screen.dart';
 
 void main() async {
@@ -78,6 +79,7 @@ class MyApp extends StatelessWidget {
           AppRouter.tarefas: (context) => const TarefaScreen(),
           AppRouter.info: (context) => const InfoScreen(),
           AppRouter.config: (context) => const ConfigScreen(),
+          AppRouter.lixeira: (context) => const LixeiraScreen(),
         },
       ),
     );

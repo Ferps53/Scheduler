@@ -12,6 +12,7 @@ class Tarefa with ChangeNotifier {
   final DateTime expiryDate;
   DateTime? concludedAt;
   bool? isConcluded;
+  bool? isLixeira;
   bool isDelayed;
 
   Tarefa(
@@ -21,6 +22,7 @@ class Tarefa with ChangeNotifier {
       required this.expiryDate,
       this.isConcluded = false,
       this.isDelayed = false,
+      this.isLixeira = false,
       required this.id});
 
   void _toggleConcluded() {

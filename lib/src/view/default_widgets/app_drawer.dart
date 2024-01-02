@@ -31,6 +31,16 @@ class AppDrawer extends StatelessWidget {
           const Divider(),
           ListTile(
               leading: Icon(
+                Icons.delete,
+                color: iconColor,
+              ),
+              title: const Text("Lixeira"),
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(AppRouter.lixeira);
+              }),
+          const Divider(),
+          ListTile(
+              leading: Icon(
                 Icons.settings_outlined,
                 color: iconColor,
               ),

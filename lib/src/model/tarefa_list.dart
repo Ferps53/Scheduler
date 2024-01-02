@@ -43,14 +43,16 @@ class TarefaList with ChangeNotifier {
     var data = jsonDecode(response.body);
 
     data.forEach((tarefaData) {
-      _tarefas.add(Tarefa(
-        id: tarefaData['id'],
-        title: tarefaData["titulo"],
-        description: tarefaData["descricao"],
-        createdAt: DateTime.parse(tarefaData["dataCriacao"]),
-        expiryDate: DateTime.parse(tarefaData["dataExpiracao"]),
-        isConcluded: tarefaData["fgConcluida"] ?? false,
-      ));
+      if (tarefaData['fgLixeira'] != true) {
+        _tarefas.add(Tarefa(
+          id: tarefaData['id'],
+          title: tarefaData["titulo"],
+          description: tarefaData["descricao"],
+          createdAt: DateTime.parse(tarefaData["dataCriacao"]),
+          expiryDate: DateTime.parse(tarefaData["dataExpiracao"]),
+          isConcluded: tarefaData["fgConcluida"] ?? false,
+        ));
+      }
     });
 
     notifyListeners();
