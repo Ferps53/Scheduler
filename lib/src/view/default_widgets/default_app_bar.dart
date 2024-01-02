@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String label;
   final bool? implyLeading;
+  final List<Widget>? actions;
 
-  const DefaultAppBar({required this.label, super.key, this.implyLeading});
+  const DefaultAppBar(
+      {required this.label, super.key, this.implyLeading, this.actions});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +20,7 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       foregroundColor: Colors.white,
       backgroundColor: const Color(0xff03A9F4),
       centerTitle: true,
+      actions: actions,
     );
   }
 
