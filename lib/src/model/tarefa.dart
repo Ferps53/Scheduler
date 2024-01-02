@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:todo_list/src/utils/backend_root.dart';
 import 'package:todo_list/src/utils/http_utils/http_defaults.dart';
@@ -11,6 +10,7 @@ class Tarefa with ChangeNotifier {
   final String description;
   final DateTime createdAt;
   final DateTime expiryDate;
+  DateTime? concludedAt;
   bool? isConcluded;
   bool isDelayed;
 
@@ -24,6 +24,8 @@ class Tarefa with ChangeNotifier {
       required this.id});
 
   void _toggleConcluded() {
+    concludedAt == null ? concludedAt = DateTime.now() : concludedAt = null;
+    print(concludedAt?.toIso8601String());
     isConcluded ??= false;
     isConcluded = !isConcluded!;
     notifyListeners();
@@ -32,8 +34,10 @@ class Tarefa with ChangeNotifier {
   Future<void> toggleConcluded(String token) async {
     _toggleConcluded();
 
-
-    final data = {"fgConcluida": isConcluded};
+    final data = {
+      "fgConcluida": isConcluded,
+      "dataConclusao": concludedAt?.toIso8601String()
+    };
     final String endpoint = "tarefa/$id/atualizarStatus";
 
     final response = await HttpDefaults.gerarChamadaHttpPadrao(
