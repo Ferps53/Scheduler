@@ -92,9 +92,11 @@ class TarefaTile extends StatelessWidget {
                     context: context,
                     builder: (context) => DefaultDialog(
                       headerLabel: "Excluir Tarefa",
-                      content: const Text(
-                        "Tem certeza?",
-                        style: TextStyle(fontSize: 20),
+                      content: const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "Você tem certeza que quer apagar essa tarefa? Ela será enviada para a lixeira",
+                        ),
                       ),
                       actions: [
                         TextButton(
