@@ -43,7 +43,7 @@ class LixeiraTile extends StatelessWidget {
             onPressed: () {},
             icon: const Icon(
               Icons.restore_from_trash_outlined,
-              color: Colors.lightGreenAccent,
+              color: Colors.lightGreen,
             ),
           ),
         ),

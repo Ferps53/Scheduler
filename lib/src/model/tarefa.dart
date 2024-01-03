@@ -11,8 +11,10 @@ class Tarefa with ChangeNotifier {
   final DateTime createdAt;
   final DateTime expiryDate;
   DateTime? concludedAt;
+  DateTime? excludedAt;
   bool? isConcluded;
   bool? isLixeira;
+
   bool isDelayed;
 
   Tarefa(

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
+import 'package:todo_list/src/model/lixeira_list.dart';
 import 'package:todo_list/src/model/tarefa.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
 import 'package:todo_list/src/view/default_widgets/default_dialog.dart';
@@ -112,7 +115,11 @@ class TarefaTile extends StatelessWidget {
                           context,
                           listen: false,
                         ).removeTarefa(tarefa);
-                      } catch (error) {
+                        await Provider.of<LixeiraList>(
+                          context,
+                          listen: false,
+                        ).addTarefaToLixeira(tarefa);
+                      } on HttpException catch (error) {
                         msg.showSnackBar(
                           SnackBar(
                             content: Text(

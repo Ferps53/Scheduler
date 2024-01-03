@@ -21,12 +21,17 @@ class LixeiraList with ChangeNotifier {
     return _tarefas.length;
   }
 
+  Future<void> addTarefaToLixeira(Tarefa tarefa) async {
+    _tarefas.add(tarefa);
+    notifyListeners();
+  }
+
   Future<void> loadTarefas() async {
     _tarefas.clear();
 
     final response = await HttpDefaults.gerarChamadaHttpPadrao(
         rootPath: BackendRoot.path,
-        endpoints: "/tarefa",
+        endpoints: "/tarefa/lixeira",
         headers: HttpDefaults.gerarHeaderPadrao(token: _token),
         httpMethod: HttpMethods.get);
 
@@ -37,16 +42,14 @@ class LixeiraList with ChangeNotifier {
     var data = jsonDecode(response.body);
 
     data.forEach((tarefaData) {
-      if (tarefaData['fgLixera'] == true) {
-        _tarefas.add(Tarefa(
-          id: tarefaData['id'],
-          title: tarefaData["titulo"],
-          description: tarefaData["descricao"],
-          createdAt: DateTime.parse(tarefaData["dataCriacao"]),
-          expiryDate: DateTime.parse(tarefaData["dataExpiracao"]),
-          isConcluded: tarefaData["fgConcluida"] ?? false,
-        ));
-      }
+      _tarefas.add(Tarefa(
+        id: tarefaData['id'],
+        title: tarefaData["titulo"],
+        description: tarefaData["descricao"],
+        createdAt: DateTime.parse(tarefaData["dataCriacao"]),
+        expiryDate: DateTime.parse(tarefaData["dataExpiracao"]),
+        isConcluded: tarefaData["fgConcluida"] ?? false,
+      ));
     });
 
     notifyListeners();

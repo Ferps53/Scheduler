@@ -1,10 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:todo_list/src/model/tarefa.dart';
 import 'package:todo_list/src/utils/backend_root.dart';
 import 'package:todo_list/src/utils/http_utils/http_defaults.dart';
-import 'package:todo_list/src/utils/http_utils/http_exception.dart';
 import 'package:todo_list/src/utils/http_utils/http_methods_enum.dart';
 
 class TarefaList with ChangeNotifier {
@@ -43,16 +43,14 @@ class TarefaList with ChangeNotifier {
     var data = jsonDecode(response.body);
 
     data.forEach((tarefaData) {
-      if (tarefaData['fgLixeira'] != true) {
-        _tarefas.add(Tarefa(
-          id: tarefaData['id'],
-          title: tarefaData["titulo"],
-          description: tarefaData["descricao"],
-          createdAt: DateTime.parse(tarefaData["dataCriacao"]),
-          expiryDate: DateTime.parse(tarefaData["dataExpiracao"]),
-          isConcluded: tarefaData["fgConcluida"] ?? false,
-        ));
-      }
+      _tarefas.add(Tarefa(
+        id: tarefaData['id'],
+        title: tarefaData["titulo"],
+        description: tarefaData["descricao"],
+        createdAt: DateTime.parse(tarefaData["dataCriacao"]),
+        expiryDate: DateTime.parse(tarefaData["dataExpiracao"]),
+        isConcluded: tarefaData["fgConcluida"] ?? false,
+      ));
     });
 
     notifyListeners();
@@ -117,23 +115,27 @@ class TarefaList with ChangeNotifier {
 
     if (index >= 0) {
       final tarefa = _tarefas[index];
+      tarefa.isLixeira = true;
+
+      var data = {
+        "fgLixeira": tarefa.isLixeira,
+        "dataEnvioLixeira": DateTime.now().toIso8601String(),
+      };
 
       _tarefas.remove(tarefa);
       notifyListeners();
-
-      final response = await HttpDefaults.gerarChamadaHttpPadrao(
+      var response = await HttpDefaults.gerarChamadaHttpPadrao(
           rootPath: BackendRoot.path,
-          endpoints: "$endpoint/${tarefa.id}",
+          endpoints: "/tarefa/${tarefa.id}/atualizarStatusLixeira",
           headers: HttpDefaults.gerarHeaderPadrao(token: _token),
-          httpMethod: HttpMethods.delete);
+          httpMethod: HttpMethods.put,
+          body: data);
 
       if (response.statusCode >= 400) {
-        _tarefas.insert(index, tarefa);
+        _tarefas.add(tarefa);
         notifyListeners();
         throw HttpException(
-          msg: "Não foi possivel excluir a tarefa ;(",
-          statusCode: response.statusCode,
-        );
+            "Não foi posível enviar tarefa para a lixeira: ${response.statusCode}");
       }
     }
   }
