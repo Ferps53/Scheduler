@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/firebase_options.dart';
 import 'package:todo_list/src/model/auth.dart';
+import 'package:todo_list/src/model/lixeira_list.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
 import 'package:todo_list/src/utils/router.dart';
 import 'package:todo_list/src/view/auth/screen/auth_home.dart';
@@ -41,6 +42,18 @@ class MyApp extends StatelessWidget {
           ),
           update: (context, auth, previous) {
             return TarefaList(
+              previous?.tarefas ?? [],
+              auth.token ?? '',
+            );
+          },
+        ),
+        ChangeNotifierProxyProvider<Auth, LixeiraList>(
+          create: (_) => LixeiraList(
+            [],
+            '',
+          ),
+          update: (context, auth, previous) {
+            return LixeiraList(
               previous?.tarefas ?? [],
               auth.token ?? '',
             );

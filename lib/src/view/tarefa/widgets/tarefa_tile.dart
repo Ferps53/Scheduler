@@ -29,22 +29,14 @@ class TarefaTile extends StatelessWidget {
           leading: const Icon(Icons.edit_calendar),
           title: FittedBox(
             fit: BoxFit.scaleDown,
-            child: Column(
-              children: [
-                Text(
-                  tarefa.title,
-                  style: const TextStyle(fontSize: 20),
-                ),
-                Row(
-                  children: [
-                    Text(
-                      "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year} - ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}",
-                      style: const TextStyle(fontSize: 14),
-                    )
-                  ],
-                )
-              ],
+            child: Text(
+              tarefa.title,
+              style: const TextStyle(fontSize: 20),
             ),
+          ),
+          subtitle: Text(
+            "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year} - ${date.hour.toString().padLeft(2, '0')}:${date.minute.toString().padLeft(2, '0')}",
+            style: const TextStyle(fontSize: 14),
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
