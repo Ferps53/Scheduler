@@ -49,7 +49,7 @@ class _LixeiraScreenState extends State<LixeiraScreen> {
               onRefresh: () => _refreshTarefas(context),
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: lixeiraList.quantidadeTarefas == 0 || lixeiraList
+                child: lixeiraList.quantidadeTarefas == 0
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
