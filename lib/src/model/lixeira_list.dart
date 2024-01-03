@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:todo_list/src/model/tarefa.dart';
 
 import '../utils/backend_root.dart';
@@ -21,9 +23,44 @@ class LixeiraList with ChangeNotifier {
     return _tarefas.length;
   }
 
-  Future<void> addTarefaToLixeira(Tarefa tarefa) async {
-    _tarefas.add(tarefa);
+  Future<void> removerTarefaLixeira(Tarefa tarefa) async {
+    _tarefas.remove(tarefa);
     notifyListeners();
+
+    var data = {"fgLixeira": false, "dataEnvioLixeira": null};
+
+    var response = await HttpDefaults.gerarChamadaHttpPadrao(
+        rootPath: BackendRoot.path,
+        endpoints: "/tarefa/${tarefa.id}/atualizarStatusLixeira",
+        headers: HttpDefaults.gerarHeaderPadrao(token: _token),
+        httpMethod: HttpMethods.put,
+        body: data);
+
+    if (response.statusCode >= 400) {
+      _tarefas.add(tarefa);
+      notifyListeners();
+      throw HttpException(
+          "Não foi possível remover tarefa da lixeira : ${response.statusCode}");
+    }
+  }
+
+  Future<void> removerTarefaDefinitivamente(Tarefa tarefa) async {
+    _tarefas.remove(tarefa);
+    notifyListeners();
+
+    var response = await HttpDefaults.gerarChamadaHttpPadrao(
+        rootPath: BackendRoot.path,
+        endpoints: "tarefa/${tarefa.id}",
+        headers: HttpDefaults.gerarHeaderPadrao(
+          token: _token,
+        ),
+        httpMethod: HttpMethods.delete);
+    if (response.statusCode >= 400) {
+      _tarefas.add(tarefa);
+      notifyListeners();
+      throw HttpException(
+          "Não foi possível remover tarefa da lixeira : ${response.statusCode}");
+    }
   }
 
   Future<void> loadTarefas() async {
@@ -39,19 +76,23 @@ class LixeiraList with ChangeNotifier {
       notifyListeners();
       return;
     }
-    var data = jsonDecode(response.body);
+    try {
+      var data = jsonDecode(response.body);
+      data.forEach((tarefaData) {
+        _tarefas.add(Tarefa(
+          id: tarefaData['id'],
+          title: tarefaData["titulo"],
+          description: tarefaData["descricao"],
+          createdAt: DateTime.parse(tarefaData["dataCriacao"]),
+          expiryDate: DateTime.parse(tarefaData["dataExpiracao"]),
+          isConcluded: tarefaData["fgConcluida"] ?? false,
+        ));
+      });
 
-    data.forEach((tarefaData) {
-      _tarefas.add(Tarefa(
-        id: tarefaData['id'],
-        title: tarefaData["titulo"],
-        description: tarefaData["descricao"],
-        createdAt: DateTime.parse(tarefaData["dataCriacao"]),
-        expiryDate: DateTime.parse(tarefaData["dataExpiracao"]),
-        isConcluded: tarefaData["fgConcluida"] ?? false,
-      ));
-    });
-
-    notifyListeners();
+      notifyListeners();
+    } catch (error) {
+      loadTarefas();
+      notifyListeners();
+    }
   }
 }

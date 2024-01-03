@@ -34,10 +34,13 @@ class DefaultDialog extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: content,
+          Container(
+            constraints: const BoxConstraints(minHeight: 100),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: content,
+              ),
             ),
           ),
           const SizedBox(

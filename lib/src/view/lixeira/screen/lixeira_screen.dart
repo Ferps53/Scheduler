@@ -36,6 +36,7 @@ class _LixeiraScreenState extends State<LixeiraScreen> {
   @override
   Widget build(BuildContext context) {
     LixeiraList lixeiraList = Provider.of(context);
+    print(lixeiraList.tarefas);
     return Scaffold(
       drawer: const AppDrawer(),
       appBar: const DefaultAppBar(
@@ -48,7 +49,7 @@ class _LixeiraScreenState extends State<LixeiraScreen> {
               onRefresh: () => _refreshTarefas(context),
               child: Padding(
                 padding: const EdgeInsets.only(top: 10),
-                child: lixeiraList.quantidadeTarefas == 0
+                child: lixeiraList.quantidadeTarefas == 0 || lixeiraList
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
