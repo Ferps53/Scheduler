@@ -14,7 +14,7 @@ class _ServicesCard extends StatelessWidget {
             ),
             title: Text("Serviços do Aplicativo"),
             subtitle: Text(
-              "O schdeuler conta com um sistema de notificações sobre as tarefas que estão para vencer. Além da interface simples para organizar seus afazeres.",
+              "O Scheduler conta com um sistema de notificações sobre as tarefas que estão para vencer. Além da interface simples para organizar seus afazeres.",
               softWrap: true,
             ),
           )
