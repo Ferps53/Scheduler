@@ -15,7 +15,7 @@ class LixeiraInfoDialog extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text("Fechar"),
+          child: const Text("Fechar"),
         )
       ],
     );

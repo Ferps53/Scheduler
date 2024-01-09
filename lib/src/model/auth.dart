@@ -96,13 +96,16 @@ class Auth with ChangeNotifier {
         ),
       ),
     );
-    _expDateRefresh = DateTime.now().add(
-      Duration(
-        seconds: int.parse(
-          body['refresh_expires_in'].toString(),
-        ),
-      ),
-    );
+    _expDateRefresh = body['refresh_expires_in'] != null
+        ? DateTime.now().add(
+            Duration(
+              seconds: int.parse(
+                body['refresh_expires_in'].toString(),
+              ),
+            ),
+          )
+        : null;
+
     _username = username;
 
     await FirebaseMessagingApi().iniciarNotificacoes(_token!);
