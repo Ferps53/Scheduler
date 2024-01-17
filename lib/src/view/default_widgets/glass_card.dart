@@ -15,14 +15,14 @@ class GlassCard extends StatelessWidget {
       required this.width,
       required this.heigth,
       required this.backgroundColor,
-      this.startGradient = 0.3,
+      this.startGradient = 0.5,
       this.endGradient = 0.25,
       super.key});
 
   @override
   Widget build(BuildContext context) {
     final borderRadius = BorderRadius.circular(20);
-    return Container(
+    return AnimatedContainer(
       width: width,
       height: heigth,
       constraints: const BoxConstraints(
@@ -32,6 +32,7 @@ class GlassCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: borderRadius,
       ),
+      duration: const Duration(milliseconds: 300),
       child: Stack(
         children: [
           BackdropFilter(

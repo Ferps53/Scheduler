@@ -146,7 +146,7 @@ class _AuthFormState extends State<AuthForm>
     final deviceSize = MediaQuery.of(context).size;
     return GlassCard(
       backgroundColor: Colors.white,
-      heigth: deviceSize.height * 0.6,
+      heigth: _isLogin() ? 320 : 440,
       width: deviceSize.width * 0.8,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
