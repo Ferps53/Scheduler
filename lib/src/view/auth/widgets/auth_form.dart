@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
+import 'package:todo_list/src/view/default_widgets/glass_card.dart';
 
 import '../../../utils/auth_exception.dart';
 
@@ -143,11 +144,10 @@ class _AuthFormState extends State<AuthForm>
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    return Card(
-      elevation: 8,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
+    return GlassCard(
+      backgroundColor: Colors.white,
+      heigth: deviceSize.height * 0.6,
+      width: deviceSize.width * 0.8,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeIn,

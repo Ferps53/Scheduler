@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_list/src/view/auth/widgets/auth_form.dart';
+import 'package:todo_list/src/view/default_widgets/glass_card.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -12,7 +13,7 @@ class AuthScreen extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               gradient: RadialGradient(colors: [
-                Theme.of(context).primaryColorLight,
+                Theme.of(context).primaryColorLight.withOpacity(0.5),
                 const Color(0xff0099d4),
               ], radius: 1, focalRadius: 2),
             ),
@@ -25,9 +26,12 @@ class AuthScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Card(
-                      elevation: 8,
-                      color: Theme.of(context).primaryColorDark,
+                    GlassCard(
+                      startGradient: 0.75,
+                      endGradient: 0.6,
+                      heigth: MediaQuery.of(context).size.height * 0.15,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      backgroundColor: Theme.of(context).primaryColorDark,
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 10.0,
