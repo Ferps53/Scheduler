@@ -3,9 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
-import 'package:todo_list/src/styles/app_colors.dart';
 import 'package:todo_list/src/view/default_widgets/default_dialog.dart';
 import 'package:todo_list/src/view/default_widgets/glass_card.dart';
+import 'package:todo_list/src/view/default_widgets/glass_text_button.dart';
 
 import '../../../utils/auth_exception.dart';
 
@@ -93,15 +93,15 @@ class _AuthFormState extends State<AuthForm>
     showDialog(
       context: context,
       builder: ((context) => DefaultDialog(
-            height: 300,
+            height: 250,
             headerLabel: "Ocorreu um erro",
             content: Text(msg),
             actions: [
-              TextButton(
+              GlassTextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text("Fechar"),
+                buttonLabel: "Fechar",
               ),
             ],
           )),
@@ -266,31 +266,17 @@ class _AuthFormState extends State<AuthForm>
                   ? const Center(
                       child: CircularProgressIndicator(),
                     )
-                  : TextButton(
+                  : GlassTextButton(
                       onPressed: _submit,
-                      focusNode: _focusNode,
-                      child: Text(
-                        _isLogin() ? 'ENTRAR' : 'REGISTRAR',
-                        style: const TextStyle(color: AppColors.textColor),
-                      ),
-                      style: TextButton.styleFrom(
-                          backgroundColor:
-                              AppColors.backgroundColor.withOpacity(0.25),
-                          elevation: 2,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 30,
-                            vertical: 8,
-                          )),
+                      buttonLabel: _isLogin() ? "ENTRAR" : "RESGISTRAR",
                     ),
               const Spacer(),
-              TextButton(
-                onPressed: _switchAuthMode,
-                style: TextButton.styleFrom(
-                  backgroundColor: AppColors.backgroundColor.withOpacity(0.25),
-                ),
-                child: Text(
-                  _isLogin() ? "DESEJA REGISTRAR?" : "JÁ POSSUÍ CONTA?",
-                  style: const TextStyle(color: AppColors.textColor),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GlassTextButton(
+                  onPressed: _switchAuthMode,
+                  buttonLabel:
+                      _isLogin() ? "DESEJA REGISTRAR?" : "JÁ POSSUÍ CONTA?",
                 ),
               ),
             ],

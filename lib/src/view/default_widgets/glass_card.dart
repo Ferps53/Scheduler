@@ -11,15 +11,16 @@ class GlassCard extends StatelessWidget {
   final double endGradient;
   final bool isDialog;
 
-  const GlassCard(
-      {required this.child,
-      this.width,
-      this.height,
-      required this.backgroundColor,
-      this.startGradient = 0.3,
-      this.endGradient = 0.05,
-      this.isDialog = false,
-      super.key});
+  const GlassCard({
+    required this.child,
+    this.width,
+    this.height,
+    required this.backgroundColor,
+    this.startGradient = 0.3,
+    this.endGradient = 0.05,
+    this.isDialog = false,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,7 @@ class GlassCard extends StatelessWidget {
                         offset: const Offset(3, 10),
                         blurRadius: 20,
                         spreadRadius: 5,
-                        color: Colors.white.withOpacity(0.05)),
+                        color: Colors.white.withOpacity(0.2)),
                   ],
                   gradient: LinearGradient(
                     begin: Alignment.topLeft,
