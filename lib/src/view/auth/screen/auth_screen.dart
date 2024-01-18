@@ -11,10 +11,10 @@ class AuthScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: RadialGradient(colors: [
-                Theme.of(context).primaryColorLight.withOpacity(0.5),
-                const Color(0xff0099d4),
+                Colors.white,
+                Color(0xff0099d4),
               ], radius: 1, focalRadius: 2),
             ),
           ),
@@ -29,7 +29,7 @@ class AuthScreen extends StatelessWidget {
                     GlassCard(
                       startGradient: 0.75,
                       endGradient: 0.6,
-                      heigth: MediaQuery.of(context).size.height * 0.15,
+                      heigth: MediaQuery.of(context).size.height * 0.11,
                       width: MediaQuery.of(context).size.width * 0.8,
                       backgroundColor: Theme.of(context).primaryColorDark,
                       child: const Padding(
@@ -42,6 +42,9 @@ class AuthScreen extends StatelessWidget {
                           style: TextStyle(color: Colors.white, fontSize: 45),
                         ),
                       ),
+                    ),
+                    const SizedBox(
+                      height: 5,
                     ),
                     const AuthForm()
                   ],

@@ -148,13 +148,8 @@ class _AuthFormState extends State<AuthForm>
       backgroundColor: Colors.white,
       heigth: _isLogin() ? 320 : 440,
       width: deviceSize.width * 0.8,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeIn,
-        // height: _isLogin() ? 310 : 400,
-        height: _isLogin() ? 320 : 440,
-        width: deviceSize.width * 0.75,
-        padding: const EdgeInsets.all(12),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -268,7 +263,7 @@ class _AuthFormState extends State<AuthForm>
                   ? const Center(
                       child: CircularProgressIndicator(),
                     )
-                  : ElevatedButton(
+                  : TextButton(
                       onPressed: _submit,
                       focusNode: _focusNode,
                       child: Text(

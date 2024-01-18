@@ -37,8 +37,8 @@ class GlassCard extends StatelessWidget {
         children: [
           BackdropFilter(
             filter: ImageFilter.blur(
-              sigmaX: 5,
-              sigmaY: 5,
+              sigmaX: 10,
+              sigmaY: 10,
             ),
           ),
           Container(
@@ -55,10 +55,7 @@ class GlassCard extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(child: child),
-          ),
+          Center(child: child),
         ],
       ),
     );
