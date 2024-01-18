@@ -12,6 +12,7 @@ class DeleteTarefaDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultDialog(
+      height: 300,
       headerLabel: "Deletar tarefa",
       content: const Padding(
         padding: EdgeInsets.all(8),

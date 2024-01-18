@@ -1,57 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/src/styles/app_colors.dart';
+import 'package:todo_list/src/view/default_widgets/glass_card.dart';
 
 class DefaultDialog extends StatelessWidget {
   final String headerLabel;
   final List<Widget> actions;
   final Widget content;
+  final double height;
 
   const DefaultDialog(
       {required this.headerLabel,
       required this.content,
       required this.actions,
+      required this.height,
       super.key});
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      elevation: 2,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AppBar(
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-            elevation: 8,
-            shadowColor: Colors.black54,
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(25),
-                    topRight: Radius.circular(25))),
-            foregroundColor: Colors.white,
-            backgroundColor: const Color(0xff03A9F4),
-            title: Text(headerLabel),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            constraints: const BoxConstraints(minHeight: 100),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: content,
+        elevation: 0,
+        backgroundColor: const Color(0x00000000),
+        child: GlassCard(
+          height: height,
+          backgroundColor: AppColors.backgroundColor,
+          startGradient: 0.5,
+          endGradient: 0.05,
+          child: Column(
+            children: [
+              AppBar(
+                automaticallyImplyLeading: false,
+                centerTitle: true,
+                elevation: 8,
+                shadowColor: Colors.black54,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20))),
+                foregroundColor: Colors.white,
+                backgroundColor: AppColors.baseColor.withOpacity(0.5),
+                title: Text(headerLabel),
               ),
-            ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                constraints: const BoxConstraints(minHeight: 100),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: content,
+                  ),
+                ),
+              ),
+              const Spacer(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: actions,
+                ),
+              )
+            ],
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: actions,
-          )
-        ],
-      ),
-    );
+        ));
   }
 }

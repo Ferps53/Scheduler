@@ -7,6 +7,7 @@ class LixeiraInfoDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultDialog(
+      height: 200,
       headerLabel: "Sobre a Lixeira",
       content: const Text(
           "Tarefas duram 15 dias na lixeira antes de serem excluídas pernamentemente"),

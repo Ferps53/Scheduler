@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/styles/app_colors.dart';
+import 'package:todo_list/src/view/default_widgets/default_dialog.dart';
 import 'package:todo_list/src/view/default_widgets/glass_card.dart';
 
 import '../../../utils/auth_exception.dart';
@@ -91,8 +92,9 @@ class _AuthFormState extends State<AuthForm>
   void _showErrorDialog(String msg) {
     showDialog(
       context: context,
-      builder: ((context) => AlertDialog(
-            title: const Text("Ocorreu um erro"),
+      builder: ((context) => DefaultDialog(
+            height: 300,
+            headerLabel: "Ocorreu um erro",
             content: Text(msg),
             actions: [
               TextButton(
@@ -147,7 +149,7 @@ class _AuthFormState extends State<AuthForm>
     final deviceSize = MediaQuery.of(context).size;
     return GlassCard(
       backgroundColor: Colors.white,
-      heigth: _isLogin() ? 320 : 440,
+      height: _isLogin() ? 320 : 440,
       width: deviceSize.width * 0.8,
       child: Padding(
         padding: const EdgeInsets.all(8.0),

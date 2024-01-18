@@ -4,27 +4,35 @@ import 'package:flutter/material.dart';
 
 class GlassCard extends StatelessWidget {
   final Widget child;
-  final double width;
-  final double heigth;
+  final double? width;
+  final double? height;
   final Color backgroundColor;
   final double startGradient;
   final double endGradient;
+  final bool isDialog;
 
   const GlassCard(
       {required this.child,
-      required this.width,
-      required this.heigth,
+      this.width,
+      this.height,
       required this.backgroundColor,
       this.startGradient = 0.3,
       this.endGradient = 0.05,
+      this.isDialog = false,
       super.key});
 
   @override
   Widget build(BuildContext context) {
-    final borderRadius = BorderRadius.circular(20);
+    final borderRadius = isDialog
+        ? const BorderRadius.only(
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          )
+        : BorderRadius.circular(20);
+
     return AnimatedContainer(
       width: width,
-      height: heigth,
+      height: height,
       constraints: const BoxConstraints(
         maxHeight: double.infinity,
         maxWidth: double.infinity,

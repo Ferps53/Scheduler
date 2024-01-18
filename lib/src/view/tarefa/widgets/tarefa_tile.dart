@@ -85,6 +85,7 @@ class TarefaTile extends StatelessWidget {
                   showDialog<bool>(
                     context: context,
                     builder: (context) => DefaultDialog(
+                      height: 200,
                       headerLabel: "Excluir Tarefa",
                       content: const Padding(
                         padding: EdgeInsets.all(8.0),
