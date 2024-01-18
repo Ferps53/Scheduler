@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
+import 'package:todo_list/src/styles/app_colors.dart';
 import 'package:todo_list/src/view/default_widgets/glass_card.dart';
 
 import '../../../utils/auth_exception.dart';
@@ -268,18 +269,26 @@ class _AuthFormState extends State<AuthForm>
                       focusNode: _focusNode,
                       child: Text(
                         _isLogin() ? 'ENTRAR' : 'REGISTRAR',
+                        style: const TextStyle(color: AppColors.textColor),
                       ),
-                      style: ElevatedButton.styleFrom(
+                      style: TextButton.styleFrom(
+                          backgroundColor:
+                              AppColors.backgroundColor.withOpacity(0.25),
+                          elevation: 2,
                           padding: const EdgeInsets.symmetric(
-                        horizontal: 30,
-                        vertical: 8,
-                      )),
+                            horizontal: 30,
+                            vertical: 8,
+                          )),
                     ),
               const Spacer(),
               TextButton(
                 onPressed: _switchAuthMode,
+                style: TextButton.styleFrom(
+                  backgroundColor: AppColors.backgroundColor.withOpacity(0.25),
+                ),
                 child: Text(
                   _isLogin() ? "DESEJA REGISTRAR?" : "JÁ POSSUÍ CONTA?",
+                  style: const TextStyle(color: AppColors.textColor),
                 ),
               ),
             ],

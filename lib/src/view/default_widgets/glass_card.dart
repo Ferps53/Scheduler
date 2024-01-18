@@ -15,8 +15,8 @@ class GlassCard extends StatelessWidget {
       required this.width,
       required this.heigth,
       required this.backgroundColor,
-      this.startGradient = 0.5,
-      this.endGradient = 0.25,
+      this.startGradient = 0.3,
+      this.endGradient = 0.05,
       super.key});
 
   @override
@@ -33,30 +33,40 @@ class GlassCard extends StatelessWidget {
         borderRadius: borderRadius,
       ),
       duration: const Duration(milliseconds: 300),
-      child: Stack(
-        children: [
-          BackdropFilter(
-            filter: ImageFilter.blur(
-              sigmaX: 10,
-              sigmaY: 10,
-            ),
+      child: ClipRRect(
+        borderRadius: borderRadius,
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 3,
+            sigmaY: 3,
           ),
-          Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white.withOpacity(0.2)),
-              borderRadius: borderRadius,
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  backgroundColor.withOpacity(startGradient),
-                  backgroundColor.withOpacity(endGradient)
-                ],
+          child: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.white.withOpacity(0.2)),
+                  borderRadius: borderRadius,
+                  boxShadow: [
+                    BoxShadow(
+                        offset: const Offset(3, 10),
+                        blurRadius: 20,
+                        spreadRadius: 5,
+                        color: Colors.white.withOpacity(0.05)),
+                  ],
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      backgroundColor.withOpacity(startGradient),
+                      backgroundColor.withOpacity(endGradient)
+                    ],
+                  ),
+                ),
               ),
-            ),
+              Center(child: child),
+            ],
           ),
-          Center(child: child),
-        ],
+        ),
       ),
     );
   }

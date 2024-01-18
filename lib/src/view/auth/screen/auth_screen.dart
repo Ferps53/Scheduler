@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:todo_list/src/view/auth/widgets/auth_form.dart';
 import 'package:todo_list/src/view/default_widgets/glass_card.dart';
 
+import '../../../styles/app_colors.dart';
+
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
 
@@ -13,8 +15,8 @@ class AuthScreen extends StatelessWidget {
           Container(
             decoration: const BoxDecoration(
               gradient: RadialGradient(colors: [
-                Colors.white,
-                Color(0xff0099d4),
+                AppColors.gradientLightColor,
+                AppColors.baseColor,
               ], radius: 1, focalRadius: 2),
             ),
           ),
@@ -27,19 +29,31 @@ class AuthScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     GlassCard(
-                      startGradient: 0.75,
-                      endGradient: 0.6,
+                      startGradient: 0.4,
+                      endGradient: 0.65,
                       heigth: MediaQuery.of(context).size.height * 0.11,
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      backgroundColor: Theme.of(context).primaryColorDark,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      backgroundColor: AppColors.textColor,
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 10.0,
                           horizontal: 35,
                         ),
-                        child: Text(
-                          "Scheduler",
-                          style: TextStyle(color: Colors.white, fontSize: 45),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.calendar_today_outlined,
+                              color: Colors.white,
+                              size: 40,
+                            ),
+                            Text(
+                              "Scheduler",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 45),
+                            ),
+                          ],
                         ),
                       ),
                     ),

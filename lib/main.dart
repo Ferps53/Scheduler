@@ -6,6 +6,7 @@ import 'package:todo_list/firebase_options.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/model/lixeira_list.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
+import 'package:todo_list/src/styles/app_colors.dart';
 import 'package:todo_list/src/utils/router.dart';
 import 'package:todo_list/src/view/auth/screen/auth_home.dart';
 import 'package:todo_list/src/view/configuracao/screen/config_screen.dart';
@@ -74,7 +75,11 @@ class MyApp extends StatelessWidget {
         ],
         theme: ThemeData(
           fontFamily: 'Ubuntu', // <-- 1
-          textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Ubuntu'),
+          textTheme: Theme.of(context).textTheme.apply(
+                fontFamily: 'Ubuntu',
+                bodyColor: AppColors.textColor,
+                displayColor: AppColors.textColor,
+              ),
           colorScheme: ColorScheme.fromSeed(
             primary: const Color(
               0xfe0379C4,
