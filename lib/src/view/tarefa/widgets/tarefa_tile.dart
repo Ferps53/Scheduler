@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
 import 'package:todo_list/src/model/tarefa.dart';
 import 'package:todo_list/src/model/tarefa_list.dart';
-import 'package:todo_list/src/view/default_widgets/default_dialog.dart';
+import 'package:todo_list/src/view/default_widgets/glass_alert_dialog.dart';
 
 import '../dialogs/tarefa_form_dialog.dart';
 
@@ -84,30 +84,18 @@ class TarefaTile extends StatelessWidget {
                 onPressed: () {
                   showDialog<bool>(
                     context: context,
-                    builder: (context) => DefaultDialog(
-                      height: 200,
-                      headerLabel: "Excluir Tarefa",
-                      content: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(
-                          "Você tem certeza que quer apagar essa tarefa? Ela será enviada para a lixeira",
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(false);
-                          },
-                          child: const Text("Não"),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop(true);
-                          },
-                          child: const Text("Sim"),
-                        ),
-                      ],
-                    ),
+                    builder: (context) => GlassAlertDialog.warn(
+                        height: 250,
+                        headerLabel: "Excluir Tarefa",
+                        textContent:
+                            "Você tem certeza que quer apagar essa tarefa? Ela será enviada para a lixeira",
+                        firstButtonText: "Não",
+                        firstButtonAction: () =>
+                            Navigator.of(context).pop(false),
+                        secondButtonAction: () {
+                          Navigator.of(context).pop(true);
+                        },
+                        secondButtonText: "Sim"),
                   ).then((value) async {
                     if (value ?? false) {
                       try {

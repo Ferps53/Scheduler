@@ -13,10 +13,10 @@ class AuthScreen extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: RadialGradient(colors: [
-                AppColors.gradientLightColor,
-                AppColors.baseColor,
+                AppColors.infoColors.lightColor,
+                AppColors.infoColors.baseColor,
               ], radius: 1, focalRadius: 2),
             ),
           ),
@@ -33,7 +33,7 @@ class AuthScreen extends StatelessWidget {
                       endGradient: 0.65,
                       height: MediaQuery.of(context).size.height * 0.11,
                       width: MediaQuery.of(context).size.width * 0.9,
-                      backgroundColor: AppColors.textColor,
+                      backgroundColor: AppColors.infoColors.textColor,
                       child: const Padding(
                         padding: EdgeInsets.symmetric(
                           vertical: 10.0,

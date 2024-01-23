@@ -77,8 +77,8 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Ubuntu', // <-- 1
           textTheme: Theme.of(context).textTheme.apply(
                 fontFamily: 'Ubuntu',
-                bodyColor: AppColors.textColor,
-                displayColor: AppColors.textColor,
+                bodyColor: AppColors.infoColors.textColor,
+                displayColor: AppColors.infoColors.textColor,
               ),
           colorScheme: ColorScheme.fromSeed(
             primary: const Color(

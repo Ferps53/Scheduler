@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_list/src/model/auth.dart';
-import 'package:todo_list/src/view/default_widgets/default_dialog.dart';
+import 'package:todo_list/src/styles/app_colors.dart';
+import 'package:todo_list/src/view/default_widgets/glass_alert_dialog.dart';
 import 'package:todo_list/src/view/default_widgets/glass_card.dart';
 import 'package:todo_list/src/view/default_widgets/glass_text_button.dart';
 
@@ -92,19 +93,12 @@ class _AuthFormState extends State<AuthForm>
   void _showErrorDialog(String msg) {
     showDialog(
       context: context,
-      builder: ((context) => DefaultDialog(
-            height: 250,
-            headerLabel: "Ocorreu um erro",
-            content: Text(msg),
-            actions: [
-              GlassTextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                buttonLabel: "Fechar",
-              ),
-            ],
-          )),
+      builder: (context) => GlassAlertDialog.danger(
+        headerLabel: 'Ocorreu um erro durante autenticação',
+        textContent: msg,
+        firstButtonText: 'ok',
+        firstButtonAction: () => Navigator.of(context).pop(),
+      ),
     );
   }
 
@@ -267,6 +261,7 @@ class _AuthFormState extends State<AuthForm>
                       child: CircularProgressIndicator(),
                     )
                   : GlassTextButton(
+                      colors: AppColors.infoColors,
                       onPressed: _submit,
                       buttonLabel: _isLogin() ? "ENTRAR" : "RESGISTRAR",
                     ),
@@ -274,6 +269,7 @@ class _AuthFormState extends State<AuthForm>
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: GlassTextButton(
+                  colors: AppColors.infoColors,
                   onPressed: _switchAuthMode,
                   buttonLabel:
                       _isLogin() ? "DESEJA REGISTRAR?" : "JÁ POSSUÍ CONTA?",
