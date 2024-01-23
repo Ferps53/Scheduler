@@ -58,7 +58,7 @@ class Auth with ChangeNotifier {
       'Accept': 'application/json',
     };
 
-    if (endpoint == "cadastro") {
+    if (endpoint == "auth/cadastro") {
       var response = await HttpDefaults.gerarChamadaHttpPadrao(
         rootPath: BackendRoot.path,
         endpoints: endpoint,
@@ -70,7 +70,7 @@ class Auth with ChangeNotifier {
       if (response.statusCode == 409) {
         throw AuthException('USUARIO_EXISTE');
       }
-      endpoint = "login";
+      endpoint = "auth/login";
     }
 
     var response = await HttpDefaults.gerarChamadaHttpPadrao(
@@ -144,7 +144,7 @@ class Auth with ChangeNotifier {
       username,
       password,
       email,
-      "cadastro",
+      "auth/cadastro",
     );
   }
 
@@ -153,7 +153,7 @@ class Auth with ChangeNotifier {
       username,
       password,
       email,
-      "login",
+      "auth/login",
     );
   }
 
