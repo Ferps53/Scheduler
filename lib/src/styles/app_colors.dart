@@ -23,11 +23,11 @@ enum AppColors {
     Color(0xffE5F2E5),
   ),
   warn(
-    Color(0xff9f6600),
-    Color(0xffff781f),
-    Color(0xffff8b3d),
-    Color(0xffff9d5c),
-    Color(0xffffaf7a),
+    Color(0xff3a2e04),
+    Color(0xffc0990c),
+    Color(0xfff1c21b),
+    Color(0xfff8e080),
+    Color(0xfffdf5d9),
   );
 
   const AppColors(

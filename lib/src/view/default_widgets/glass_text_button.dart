@@ -30,7 +30,7 @@ class GlassTextButton extends StatelessWidget {
       ),
       child: Text(
         buttonLabel,
-        style: TextStyle(color: colors.textColor),
+        style: const TextStyle(color: Colors.white),
       ),
     );
   }

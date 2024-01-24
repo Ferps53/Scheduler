@@ -34,10 +34,6 @@ class GlassCard extends StatelessWidget {
     return AnimatedContainer(
       width: width,
       height: height,
-      constraints: const BoxConstraints(
-        maxHeight: double.infinity,
-        maxWidth: double.infinity,
-      ),
       decoration: BoxDecoration(
         borderRadius: borderRadius,
       ),

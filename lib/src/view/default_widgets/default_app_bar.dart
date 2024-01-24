@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_list/src/styles/app_colors.dart';
 
 class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String label;
@@ -14,11 +15,11 @@ class DefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
       title: FittedBox(
         child: Text(label),
       ),
-      elevation: 8,
+      elevation: 2,
       shadowColor: Colors.black54,
       automaticallyImplyLeading: implyLeading ?? true,
       foregroundColor: Colors.white,
-      backgroundColor: const Color(0xff03A9F4),
+      backgroundColor: AppColors.infoColors.baseColor,
       centerTitle: true,
       actions: actions,
     );
