@@ -81,13 +81,8 @@ class MyApp extends StatelessWidget {
                 displayColor: AppColors.infoColors.textColor,
               ),
           colorScheme: ColorScheme.fromSeed(
-            primary: const Color(
-              0xfe0379C4,
-            ),
-            seedColor: const Color(
-              0xff03A9F4,
-            ),
-          ),
+              seedColor: AppColors.infoColors.primaryColor,
+              primary: AppColors.infoColors.primaryColor),
           useMaterial3: true,
           datePickerTheme: const DatePickerThemeData(elevation: 0),
           timePickerTheme: const TimePickerThemeData(elevation: 0),

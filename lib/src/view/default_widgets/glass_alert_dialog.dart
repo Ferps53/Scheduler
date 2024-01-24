@@ -7,7 +7,6 @@ class GlassAlertDialog extends StatelessWidget {
   final String headerLabel;
   final double height;
   final String textContent;
-  final Widget? iconContent;
   final String firstButtonText;
   final void Function()? firstButtonAction;
   final String? secondButtonText;
@@ -18,7 +17,6 @@ class GlassAlertDialog extends StatelessWidget {
     super.key,
     required this.headerLabel,
     required this.textContent,
-    this.iconContent,
     required this.firstButtonText,
     this.firstButtonAction,
     this.secondButtonText,
@@ -31,7 +29,6 @@ class GlassAlertDialog extends StatelessWidget {
     super.key,
     required this.headerLabel,
     required this.textContent,
-    this.iconContent,
     required this.firstButtonText,
     this.firstButtonAction,
     this.secondButtonText,
@@ -44,7 +41,6 @@ class GlassAlertDialog extends StatelessWidget {
     super.key,
     required this.headerLabel,
     required this.textContent,
-    this.iconContent,
     required this.firstButtonText,
     this.firstButtonAction,
     this.secondButtonText,
@@ -57,7 +53,6 @@ class GlassAlertDialog extends StatelessWidget {
     super.key,
     required this.headerLabel,
     required this.textContent,
-    this.iconContent,
     required this.firstButtonText,
     this.firstButtonAction,
     this.secondButtonText,
@@ -71,35 +66,17 @@ class GlassAlertDialog extends StatelessWidget {
     return DefaultDialog(
       color: colors,
       headerLabel: headerLabel,
-      content: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: _gerarContent(),
+      content: Text(
+        textContent,
+        softWrap: true,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+        ),
       ),
       actions: _gerarActionButtons(),
       height: height,
     );
-  }
-
-  List<Widget> _gerarContent() {
-    if (iconContent != null) {
-      return [
-        iconContent!,
-        Text(
-          textContent,
-          style: TextStyle(color: colors.textColor),
-        )
-      ];
-    }
-    return [
-      Text(
-        textContent,
-        style: TextStyle(
-          color: colors.textColor,
-        ),
-      ),
-    ];
   }
 
   List<Widget> _gerarActionButtons() {
@@ -107,13 +84,13 @@ class GlassAlertDialog extends StatelessWidget {
       return [
         GlassTextButton(
           colors: colors,
-          onPressed: secondButtonAction,
-          buttonLabel: secondButtonText!,
+          onPressed: firstButtonAction,
+          buttonLabel: firstButtonText,
         ),
         GlassTextButton(
           colors: colors,
-          onPressed: firstButtonAction,
-          buttonLabel: firstButtonText,
+          onPressed: secondButtonAction,
+          buttonLabel: secondButtonText!,
         ),
       ];
     }

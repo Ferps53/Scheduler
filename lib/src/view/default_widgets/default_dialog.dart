@@ -39,8 +39,13 @@ class DefaultDialog extends StatelessWidget {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20))),
               foregroundColor: Colors.white,
-              backgroundColor: color.primaryColor.withOpacity(0.5),
-              title: Text(headerLabel),
+              backgroundColor: color.baseColor.withOpacity(0.7),
+              title: FittedBox(
+                fit: BoxFit.fitHeight,
+                child: Text(
+                  headerLabel,
+                ),
+              ),
             ),
             const SizedBox(
               height: 10,
