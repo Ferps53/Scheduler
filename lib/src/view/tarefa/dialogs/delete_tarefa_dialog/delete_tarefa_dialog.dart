@@ -12,7 +12,6 @@ class DeleteTarefaDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GlassAlertDialog.danger(
-      height: 250,
       headerLabel: "Deletar tarefa",
       textContent: "Tem certeza que quer deletar esta tarefa definitvamente?",
       firstButtonText: "Deletar",
