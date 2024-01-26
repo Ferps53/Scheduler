@@ -33,9 +33,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => Auth(),
-        ),
         ChangeNotifierProxyProvider<Auth, TarefaList>(
           create: (_) => TarefaList(
             [],
@@ -74,7 +71,7 @@ class MyApp extends StatelessWidget {
           Locale('pt'), // Spanish
         ],
         theme: ThemeData(
-          fontFamily: 'Ubuntu', // <-- 1
+          fontFamily: 'Ubuntu',
           textTheme: Theme.of(context).textTheme.apply(
                 fontFamily: 'Ubuntu',
                 bodyColor: AppColors.infoColors.textColor,
