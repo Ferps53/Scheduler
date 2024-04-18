@@ -1,85 +1,43 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:provider/provider.dart';
-import 'package:todo_list/firebase_options.dart';
-import 'package:todo_list/src/model/auth.dart';
-import 'package:todo_list/src/model/tarefa_list.dart';
-import 'package:todo_list/src/utils/router.dart';
-import 'package:todo_list/src/view/auth/screen/auth_home.dart';
-import 'package:todo_list/src/view/configuracao/screen/config_screen.dart';
-import 'package:todo_list/src/view/info/screen/info_screen.dart';
-import 'package:todo_list/src/view/tarefa/screen/tarefa_screen.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:todo_list/core/router/router.dart';
+import 'package:todo_list/core/styles/app_colors.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  try {
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
-  } catch (e) {
-    print(e);
-  }
-
-  runApp(const MyApp());
+void main() {
+  runApp(const ProviderScope(child: MainWidget()));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MainWidget extends ConsumerWidget {
+  const MainWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => Auth(),
-        ),
-        ChangeNotifierProxyProvider<Auth, TarefaList>(
-          create: (_) => TarefaList(
-            [],
-            '',
-          ),
-          update: (context, auth, previous) {
-            return TarefaList(
-              previous?.tarefas ?? [],
-              auth.token ?? '',
-            );
-          },
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Todo List',
-        localizationsDelegates: const [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: const [
-          Locale('en'), // English
-          Locale('pt'), // Spanish
-        ],
-        theme: ThemeData(
-          fontFamily: 'Ubuntu', // <-- 1
-          textTheme: Theme.of(context).textTheme.apply(fontFamily: 'Ubuntu'),
-          colorScheme: ColorScheme.fromSeed(
-            primary: const Color(
-              0xfe0379C4,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(goRouterProvider);
+    return MaterialApp.router(
+      title: "Scheduler",
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        visualDensity: VisualDensity.compact,
+        fontFamily: 'Ubuntu',
+        textTheme: Theme.of(context).textTheme.apply(
+              fontFamily: 'Ubuntu',
+              bodyColor: AppColors.infoColors.textColor,
+              displayColor: AppColors.infoColors.textColor,
             ),
-            seedColor: const Color(
-              0xff03A9F4,
-            ),
-          ),
-          useMaterial3: true,
-          datePickerTheme: const DatePickerThemeData(elevation: 0),
-          timePickerTheme: const TimePickerThemeData(elevation: 0),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: AppColors.infoColors.baseColor,
+          primary: AppColors.infoColors.primaryColor,
         ),
-        routes: {
-          AppRouter.auth: (context) => const AuthOrHome(),
-          AppRouter.tarefas: (context) => const TarefaScreen(),
-          AppRouter.info: (context) => const InfoScreen(),
-          AppRouter.config: (context) => const ConfigScreen(),
-        },
+        useMaterial3: true,
+        scaffoldBackgroundColor: const Color(0xffdfdfdf),
+        appBarTheme: AppBarTheme(
+          foregroundColor: Colors.white,
+          backgroundColor: AppColors.infoColors.baseColor,
+        ),
       ),
+      routerDelegate: router.routerDelegate,
+      routeInformationParser: router.routeInformationParser,
+      routeInformationProvider: router.routeInformationProvider,
     );
   }
 }
