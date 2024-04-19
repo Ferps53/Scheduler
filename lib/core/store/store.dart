@@ -4,9 +4,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final storeProvider = Provider(
-  (ref) async => Store(
-    prefs: await SharedPreferences.getInstance(),
-  ),
+  (ref) async {
+    SharedPreferences.setPrefix("todoList");
+    return Store(prefs: await SharedPreferences.getInstance());
+  },
 );
 
 class Store {
@@ -14,7 +15,7 @@ class Store {
 
   Store({required SharedPreferences prefs}) : _prefs = prefs;
 
-  Future<bool> saveString(String key, String value) async {
+  Future<bool> saveString(String key, String value) {
     return _prefs.setString(key, value);
   }
 
