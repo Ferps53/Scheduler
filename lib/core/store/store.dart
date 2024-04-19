@@ -3,7 +3,11 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final storeProvider = Provider((ref) async => Store(prefs: await SharedPreferences.getInstance()));
+final storeProvider = Provider(
+  (ref) async => Store(
+    prefs: await SharedPreferences.getInstance(),
+  ),
+);
 
 class Store {
   final SharedPreferences _prefs;
@@ -12,6 +16,10 @@ class Store {
 
   Future<bool> saveString(String key, String value) async {
     return _prefs.setString(key, value);
+  }
+
+  Future<bool> saveMap(String key, Map<String, Object> map) {
+    return saveString(key, jsonEncode(map));
   }
 
   String getSavedString(String key) {
