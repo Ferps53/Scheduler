@@ -19,7 +19,7 @@ class Store {
     return _prefs.setString(key, value);
   }
 
-  Future<bool> saveMap(String key, Map<String, Object> map) {
+  Future<bool> saveMap(String key, Map<String, dynamic> map) {
     return saveString(key, jsonEncode(map));
   }
 

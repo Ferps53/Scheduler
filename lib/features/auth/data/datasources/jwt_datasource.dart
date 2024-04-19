@@ -1,11 +1,12 @@
-import '../model/jwt_model.dart';
+import 'package:todo_list/core/store/store.dart';
+import 'package:todo_list/features/auth/auth.dart';
 
 abstract class JwtDatasource {
-  
-    Future<JwtModel> login();
+  Future<JwtModel> fetchJwt(DadosLogin dadosLogin);
 
-    Future<JwtModel> autoLogin();
+  Future<void> saveJwt(JwtModel jwt, String key, Store store);
 
-    void signOut();
+  JwtModel? getJwtFromLocalStorage(String key);
 
+  void removeJwt();
 }

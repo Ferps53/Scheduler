@@ -1,0 +1,4 @@
+enum StatusUsuario {
+  logado,
+  deslogado,
+}
