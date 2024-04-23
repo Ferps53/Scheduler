@@ -8,11 +8,11 @@ class LoginPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Scaffold(
-      body: const Stack(
+    return const Scaffold(
+      body: Stack(
         children: [
-         Background(),
-         LoginForm()
+          Background(),
+          LoginForm(),
         ],
       ),
     );
@@ -31,6 +31,8 @@ class Background extends StatelessWidget {
       height: double.infinity,
       decoration: BoxDecoration(
         gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
           colors: [
             AppColors.infoColors.lightColor,
             AppColors.infoColors.baseColor,
