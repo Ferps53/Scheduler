@@ -30,9 +30,9 @@ final goRouterProvider = Provider(
         if (indoParaLogin) {
           switch (statusUsuarioNotifier.statusUsuario) {
             case StatusUsuario.deslogado:
-              return null;
+              return NamedRoutes.login.routePath;
             case StatusUsuario.logado:
-              return "/tarefas";
+              return NamedRoutes.tarefas.routePath;
           }
         }
         return null;
