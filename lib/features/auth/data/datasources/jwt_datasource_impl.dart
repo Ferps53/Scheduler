@@ -21,7 +21,7 @@ class JwtDatasourceImpl implements JwtDatasource {
   @override
   JwtModel? getJwtFromLocalStorage(String key) {
     final jsonStored = _store.getMap(key);
-    if (jsonStored != {}) {
+    if (jsonStored.isNotEmpty) {
       return JwtModel.fromJson(_store.getMap(key));
     } else {
       return null;
