@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:todo_list/core/core.dart';
 
 class LoginTextField extends StatefulWidget {
@@ -50,6 +49,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
             controller: widget.controller,
             obscureText: isHidden,
             decoration: InputDecoration(
+              label: Text(widget.label),
               border: OutlineInputBorder(
                 borderSide:
                     BorderSide(color: AppColors.infoColors.backgroundColor),
@@ -82,10 +82,12 @@ class _LoginTextFieldState extends State<LoginTextField> {
                         setState(() => isHidden = !isHidden);
                       },
                       icon: Icon(
-                          isHidden ? Icons.visibility : Icons.visibility_off))
+                          isHidden ? Icons.visibility : Icons.visibility_off),
+                    )
                   : null,
             ),
           ),
+          if (widget.glassTextButton != null) widget.glassTextButton as Widget
         ],
       ),
     );

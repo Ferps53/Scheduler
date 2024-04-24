@@ -4,7 +4,11 @@ import 'package:todo_list/core/router/router.dart';
 import 'package:todo_list/core/styles/app_colors.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MainWidget()));
+  runApp(
+    const ProviderScope(
+      child: MainWidget(),
+    ),
+  );
 }
 
 class MainWidget extends ConsumerWidget {
