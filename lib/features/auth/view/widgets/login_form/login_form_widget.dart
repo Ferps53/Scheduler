@@ -20,7 +20,7 @@ class LoginForm extends ConsumerWidget {
             children: [
               const AppLogo(),
               const SizedBox(
-                height: 5,
+                height: 4,
               ),
               GlassCard(
                 height: 296,
@@ -33,7 +33,7 @@ class LoginForm extends ConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const SizedBox(height: 10),
+                        const Spacer(),
                         LoginTextField(
                           icon: Icons.email,
                           label: 'Email',
@@ -50,7 +50,7 @@ class LoginForm extends ConsumerWidget {
                           },
                         ),
                         const SizedBox(
-                          height: 10,
+                          height: 8,
                         ),
                         LoginTextField(
                           glassTextButton: Container(
