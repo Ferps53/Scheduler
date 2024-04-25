@@ -119,7 +119,7 @@ class AppLogo extends StatelessWidget {
               ),
             ),
             Text(
-              'Scheduler',
+              'Agenda',
               style: TextStyle(
                 fontSize: 40,
                 color: Colors.white,
