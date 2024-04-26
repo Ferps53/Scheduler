@@ -27,7 +27,6 @@ class LoginRepoImpl implements LoginRepo {
   }
 
   StatusUsuario _jwtToStatus(JwtModel? jwtModel) {
-    print(jwtModel);
     if (jwtModel != null) {
       final Map<String, dynamic> tokenPayload =
           JwtDecoder.decode(jwtModel.access_token);
