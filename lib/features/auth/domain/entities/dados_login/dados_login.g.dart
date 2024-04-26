@@ -8,12 +8,14 @@ part of 'dados_login.dart';
 
 _$DadosLoginImpl _$$DadosLoginImplFromJson(Map<String, dynamic> json) =>
     _$DadosLoginImpl(
-      login: json['login'] as String,
+      nomeUsuario: json['nomeUsuario'] as String,
+      email: json['email'] as String,
       senha: json['senha'] as String,
     );
 
 Map<String, dynamic> _$$DadosLoginImplToJson(_$DadosLoginImpl instance) =>
     <String, dynamic>{
-      'login': instance.login,
+      'nomeUsuario': instance.nomeUsuario,
+      'email': instance.email,
       'senha': instance.senha,
     };

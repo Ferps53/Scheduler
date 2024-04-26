@@ -30,14 +30,9 @@ class LoginRepoImpl implements LoginRepo {
     if (jwtModel != null) {
       final Map<String, dynamic> tokenPayload =
           JwtDecoder.decode(jwtModel.access_token);
-
-      final groups = tokenPayload['groups'][0];
-
-      return switch (groups) {
-        'Usuario' => StatusUsuario.logado,
-        Object() => StatusUsuario.deslogado,
-        null => StatusUsuario.deslogado,
-      };
+      if (tokenPayload.isNotEmpty) {
+        return StatusUsuario.logado;
+      }
     }
     return StatusUsuario.deslogado;
   }

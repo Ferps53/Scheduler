@@ -4,6 +4,8 @@ import 'package:todo_list/core/core.dart';
 import 'package:todo_list/core/presentation/generic_widgets/glass_card.dart';
 import 'package:todo_list/core/presentation/generic_widgets/glass_text_button.dart';
 import 'package:todo_list/core/presentation/generic_widgets/glass_text_button_loading.dart';
+import 'package:todo_list/features/auth/domain/entities/dados_login/dados_login.dart';
+import 'package:todo_list/features/auth/view/providers/auth_notifier.dart';
 import 'package:todo_list/features/auth/view/widgets/login_form/login_text_field.dart';
 
 class LoginForm extends ConsumerWidget {
@@ -23,7 +25,10 @@ class LoginForm extends ConsumerWidget {
               const SizedBox(
                 height: 4,
               ),
-              FormBody(formKey: formKey),
+              FormBody(
+                formKey: formKey,
+                formContext: context,
+              ),
             ],
           ),
         ),
@@ -36,8 +41,10 @@ class FormBody extends StatelessWidget {
   const FormBody({
     super.key,
     required this.formKey,
+    required this.formContext,
   });
 
+  final BuildContext formContext;
   final GlobalKey<FormState> formKey;
 
   @override
@@ -97,19 +104,54 @@ class FormBody extends StatelessWidget {
                 },
               ),
               const Spacer(),
-              const GlassTextLoadingButton(
-                colors: AppColors.infoColors,
-              ),
-              //GlassTextButton(
-              //onPressed: () {},
-              //buttonLabel: 'Entrar',
-              //colors: AppColors.infoColors,
-              //textSize: 24,
-              //),
+              LoginButton(formContext: formContext),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class LoginButton extends ConsumerWidget {
+  const LoginButton({super.key, required this.formContext});
+
+  final BuildContext formContext;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loginState = ref.watch(loginAsyncNotifierProvider);
+    return loginState.when(
+      data: (data) => LoginButtonWithAction(formContext: formContext),
+      error: (_, __) => LoginButtonWithAction(formContext: formContext),
+      loading: () => const GlassTextLoadingButton(colors: AppColors.infoColors),
+    );
+  }
+}
+
+class LoginButtonWithAction extends ConsumerWidget {
+  const LoginButtonWithAction({
+    super.key,
+    required this.formContext,
+  });
+
+  final BuildContext formContext;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return GlassTextButton(
+      onPressed: () async {
+        ref.read(loginAsyncNotifierProvider.notifier).login(
+              const DadosLogin(
+                nomeUsuario: "",
+                email: 'teste7@gmail.com',
+                senha: '123453',
+              ),
+              formContext,
+            );
+      },
+      buttonLabel: 'Entrar',
+      colors: AppColors.infoColors,
+      textSize: 24,
     );
   }
 }

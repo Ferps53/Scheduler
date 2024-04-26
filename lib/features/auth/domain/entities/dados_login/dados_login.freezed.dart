@@ -20,7 +20,8 @@ DadosLogin _$DadosLoginFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DadosLogin {
-  String get login => throw _privateConstructorUsedError;
+  String get nomeUsuario => throw _privateConstructorUsedError;
+  String get email => throw _privateConstructorUsedError;
   String get senha => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +36,7 @@ abstract class $DadosLoginCopyWith<$Res> {
           DadosLogin value, $Res Function(DadosLogin) then) =
       _$DadosLoginCopyWithImpl<$Res, DadosLogin>;
   @useResult
-  $Res call({String login, String senha});
+  $Res call({String nomeUsuario, String email, String senha});
 }
 
 /// @nodoc
@@ -51,13 +52,18 @@ class _$DadosLoginCopyWithImpl<$Res, $Val extends DadosLogin>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? login = null,
+    Object? nomeUsuario = null,
+    Object? email = null,
     Object? senha = null,
   }) {
     return _then(_value.copyWith(
-      login: null == login
-          ? _value.login
-          : login // ignore: cast_nullable_to_non_nullable
+      nomeUsuario: null == nomeUsuario
+          ? _value.nomeUsuario
+          : nomeUsuario // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       senha: null == senha
           ? _value.senha
@@ -75,7 +81,7 @@ abstract class _$$DadosLoginImplCopyWith<$Res>
       __$$DadosLoginImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String login, String senha});
+  $Res call({String nomeUsuario, String email, String senha});
 }
 
 /// @nodoc
@@ -89,13 +95,18 @@ class __$$DadosLoginImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? login = null,
+    Object? nomeUsuario = null,
+    Object? email = null,
     Object? senha = null,
   }) {
     return _then(_$DadosLoginImpl(
-      login: null == login
-          ? _value.login
-          : login // ignore: cast_nullable_to_non_nullable
+      nomeUsuario: null == nomeUsuario
+          ? _value.nomeUsuario
+          : nomeUsuario // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
               as String,
       senha: null == senha
           ? _value.senha
@@ -108,19 +119,22 @@ class __$$DadosLoginImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$DadosLoginImpl with DiagnosticableTreeMixin implements _DadosLogin {
-  const _$DadosLoginImpl({required this.login, required this.senha});
+  const _$DadosLoginImpl(
+      {required this.nomeUsuario, required this.email, required this.senha});
 
   factory _$DadosLoginImpl.fromJson(Map<String, dynamic> json) =>
       _$$DadosLoginImplFromJson(json);
 
   @override
-  final String login;
+  final String nomeUsuario;
+  @override
+  final String email;
   @override
   final String senha;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'DadosLogin(login: $login, senha: $senha)';
+    return 'DadosLogin(nomeUsuario: $nomeUsuario, email: $email, senha: $senha)';
   }
 
   @override
@@ -128,7 +142,8 @@ class _$DadosLoginImpl with DiagnosticableTreeMixin implements _DadosLogin {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'DadosLogin'))
-      ..add(DiagnosticsProperty('login', login))
+      ..add(DiagnosticsProperty('nomeUsuario', nomeUsuario))
+      ..add(DiagnosticsProperty('email', email))
       ..add(DiagnosticsProperty('senha', senha));
   }
 
@@ -137,13 +152,15 @@ class _$DadosLoginImpl with DiagnosticableTreeMixin implements _DadosLogin {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DadosLoginImpl &&
-            (identical(other.login, login) || other.login == login) &&
+            (identical(other.nomeUsuario, nomeUsuario) ||
+                other.nomeUsuario == nomeUsuario) &&
+            (identical(other.email, email) || other.email == email) &&
             (identical(other.senha, senha) || other.senha == senha));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, login, senha);
+  int get hashCode => Object.hash(runtimeType, nomeUsuario, email, senha);
 
   @JsonKey(ignore: true)
   @override
@@ -161,14 +178,17 @@ class _$DadosLoginImpl with DiagnosticableTreeMixin implements _DadosLogin {
 
 abstract class _DadosLogin implements DadosLogin {
   const factory _DadosLogin(
-      {required final String login,
+      {required final String nomeUsuario,
+      required final String email,
       required final String senha}) = _$DadosLoginImpl;
 
   factory _DadosLogin.fromJson(Map<String, dynamic> json) =
       _$DadosLoginImpl.fromJson;
 
   @override
-  String get login;
+  String get nomeUsuario;
+  @override
+  String get email;
   @override
   String get senha;
   @override
