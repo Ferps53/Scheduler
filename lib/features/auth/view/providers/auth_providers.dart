@@ -1,8 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo_list/core/dio/dio_provider.dart';
-import 'package:todo_list/core/store/store.dart';
-import 'package:todo_list/features/auth/data/datasources/datasources.dart';
-import 'package:todo_list/features/auth/data/repo/login_repo_impl.dart';
+import 'package:scheduler/core/dio/dio_provider.dart';
+import 'package:scheduler/core/store/store.dart';
+import 'package:scheduler/features/auth/auth.dart';
 
 final jwtDatasourceProvider = Provider((ref) async {
   final dio = ref.read(dioProvider);

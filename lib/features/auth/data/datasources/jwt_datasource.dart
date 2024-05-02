@@ -1,4 +1,4 @@
-import 'package:todo_list/features/auth/auth.dart';
+import 'package:scheduler/features/auth/auth.dart';
 
 abstract class JwtDatasource {
   Future<JwtModel> fetchJwt(DadosLogin dadosLogin);

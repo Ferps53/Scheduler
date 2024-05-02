@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_list/core/core.dart';
+import 'package:scheduler/core/core.dart';
 
 class GlassTextLoadingButton extends StatelessWidget {
   final AppColors colors;

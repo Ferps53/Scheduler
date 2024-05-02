@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo_list/core/router/router.dart';
-import 'package:todo_list/core/styles/app_colors.dart';
+import 'package:scheduler/core/core.dart';
 
 void main() {
   runApp(

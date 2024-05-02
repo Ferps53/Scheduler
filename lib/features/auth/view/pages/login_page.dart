@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo_list/core/styles/app_colors.dart';
-import 'package:todo_list/features/auth/view/widgets/login_form/login_form.dart';
+import 'package:scheduler/core/core.dart';
+import 'package:scheduler/features/auth/view/widgets/login_form/login_form_widget.dart';
 
 class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});

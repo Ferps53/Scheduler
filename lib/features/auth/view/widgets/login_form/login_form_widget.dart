@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:todo_list/core/core.dart';
-import 'package:todo_list/core/presentation/generic_widgets/glass_card.dart';
-import 'package:todo_list/core/presentation/generic_widgets/glass_text_button.dart';
-import 'package:todo_list/core/presentation/generic_widgets/glass_text_button_loading.dart';
-import 'package:todo_list/features/auth/domain/entities/dados_login/dados_login.dart';
-import 'package:todo_list/features/auth/view/providers/auth_notifier.dart';
-import 'package:todo_list/features/auth/view/widgets/login_form/login_text_field.dart';
+import 'package:scheduler/core/core.dart';
+import 'package:scheduler/core/presentation/presentation.dart';
+import 'package:scheduler/features/auth/auth.dart';
+import 'package:scheduler/features/auth/view/providers/auth_notifier.dart';
+import 'package:scheduler/features/auth/view/widgets/login_form/login_text_field.dart';
 
 class LoginForm extends ConsumerWidget {
   const LoginForm({super.key});
@@ -179,7 +177,7 @@ class AppLogo extends StatelessWidget {
               ),
             ),
             Text(
-              'Agenda',
+              'Scheduler',
               style: TextStyle(
                 fontSize: 40,
                 color: Colors.white,

@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:todo_list/core/router/named_routes.dart';
-import 'package:todo_list/features/auth/domain/entities/entities.dart';
-import 'package:todo_list/features/auth/view/providers/auth_providers.dart';
+import 'package:scheduler/core/core.dart';
+import 'package:scheduler/features/auth/auth.dart';
+import 'package:scheduler/features/auth/view/providers/auth_providers.dart';
 
 final loginAsyncNotifierProvider =
     AsyncNotifierProvider.autoDispose<LoginAsyncNotifier, StatusUsuario>(() {

@@ -1,8 +1,6 @@
-import 'dart:ui';
-
 import 'package:dio/dio.dart';
-import 'package:todo_list/core/core.dart';
-import 'package:todo_list/features/auth/auth.dart';
+import 'package:scheduler/core/core.dart';
+import 'package:scheduler/features/auth/auth.dart';
 
 class FakeJwtDatasource implements JwtDatasource {
   final Store _store;
@@ -13,8 +11,10 @@ class FakeJwtDatasource implements JwtDatasource {
   Future<JwtModel> fetchJwt(DadosLogin dadosLogin) {
     if (dadosLogin.email == "felipebrostolinribeiro@gmail.com" &&
         dadosLogin.senha == "123456") {
-      return Future.delayed(const Duration(milliseconds: 200),
-          () => JwtModel(access_token: "aa", refresh_token: "a"));
+      return Future.delayed(
+        const Duration(milliseconds: 200),
+        () => JwtModel(access_token: "aa", refresh_token: "a"),
+      );
     }
     throw Exception("Rapaiz");
   }

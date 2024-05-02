@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
-import 'package:todo_list/features/auth/domain/domain.dart';
-import 'package:todo_list/features/auth/domain/entities/entities.dart';
-import 'package:todo_list/features/auth/domain/entities/status_usuario.dart';
+import 'package:scheduler/features/auth/auth.dart';
 
 final statusUsuarioProvider = Provider<StatusUsuarioProvider>((ref) {
   return StatusUsuarioProvider();
