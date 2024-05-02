@@ -15,6 +15,10 @@ dependencies:
   http: ^1.1.0
   shared_preferences: ^2.0.6
 
+  hive: ^2.2.3
+  hive_flutter:
+  path_provider:
+
   cupertino_icons: ^1.0.2
   flutter_localizations:
     sdk: flutter
@@ -41,6 +45,9 @@ dev_dependencies:
   build_runner: ^2.4.9
   freezed: ^2.5.2
   json_serializable: ^6.7.1
+  hive_generator:
+
+
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
