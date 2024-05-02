@@ -59,54 +59,72 @@ class FormBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(),
-              LoginTextField(
-                icon: Icons.email,
-                label: 'Email',
-                isSecret: false,
-                controller: TextEditingController(),
-                validator: (String? email) {
-                  if (email == null || email.isEmpty) {
-                    return 'Escreva seu email de acesso';
-                  }
-                  if (!email.contains('@')) {
-                    return 'Email inválido';
-                  }
-                  return null;
-                },
-              ),
+              const _EmailField(),
               const SizedBox(
                 height: 8,
               ),
-              LoginTextField(
-                glassTextButton: Container(
-                  alignment: Alignment.topRight,
-                  child: GlassTextButton(
-                    onPressed: () {},
-                    buttonLabel: 'Esqueceu a senha?',
-                    colors: AppColors.infoColors,
-                    textSize: 12,
-                  ),
-                ),
-                icon: Icons.lock,
-                label: 'Senha',
-                isSecret: true,
-                controller: TextEditingController(),
-                validator: (String? senha) {
-                  if (senha == null || senha.isEmpty) {
-                    return 'Digite sua senha';
-                  }
-                  if (senha.length < 6) {
-                    return 'Digite uma senha maior';
-                  }
-                  return null;
-                },
-              ),
+              const _PasswordField(),
               const Spacer(),
               LoginButton(formContext: formContext),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _PasswordField extends StatelessWidget {
+  const _PasswordField();
+
+  @override
+  Widget build(BuildContext context) {
+    return LoginTextField(
+      glassTextButton: Container(
+        alignment: Alignment.topRight,
+        child: GlassTextButton(
+          onPressed: () {},
+          buttonLabel: 'Esqueceu a senha?',
+          colors: AppColors.infoColors,
+          textSize: 12,
+        ),
+      ),
+      icon: Icons.lock,
+      label: 'Senha',
+      isSecret: true,
+      controller: TextEditingController(),
+      validator: (String? senha) {
+        if (senha == null || senha.isEmpty) {
+          return 'Digite sua senha';
+        }
+        if (senha.length < 6) {
+          return 'Digite uma senha maior';
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class _EmailField extends StatelessWidget {
+  const _EmailField();
+
+  @override
+  Widget build(BuildContext context) {
+    return LoginTextField(
+      icon: Icons.email,
+      label: 'Email',
+      isSecret: false,
+      controller: TextEditingController(),
+      validator: (String? email) {
+        if (email == null || email.isEmpty) {
+          return 'Escreva seu email de acesso';
+        }
+        if (!email.contains('@')) {
+          return 'Email inválido';
+        }
+        return null;
+      },
     );
   }
 }
