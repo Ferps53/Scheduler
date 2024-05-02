@@ -29,14 +29,9 @@ class MainWidget extends ConsumerWidget {
             ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: AppColors.infoColors.baseColor,
-          primary: AppColors.infoColors.primaryColor,
+          brightness: Brightness.dark,
         ),
         useMaterial3: true,
-        scaffoldBackgroundColor: const Color(0xffdfdfdf),
-        appBarTheme: AppBarTheme(
-          foregroundColor: Colors.white,
-          backgroundColor: AppColors.infoColors.baseColor,
-        ),
       ),
       routerDelegate: router.routerDelegate,
       routeInformationParser: router.routeInformationParser,

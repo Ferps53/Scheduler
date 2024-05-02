@@ -30,7 +30,9 @@ class FakeJwtDatasource implements JwtDatasource {
   }
 
   @override
-  void removeJwt() {}
+  void removeJwt() {
+    _store.remove('token');
+  }
 
   @override
   Future<void> saveJwt(JwtModel jwt, String key) async {

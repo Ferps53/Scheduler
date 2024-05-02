@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:scheduler/core/presentation/generic_widgets/glass_widgets/glass_widgets.dart';
+import 'package:scheduler/core/styles/app_colors.dart';
 
 class TarefaPage extends StatelessWidget {
   const TarefaPage({super.key});
@@ -10,7 +13,23 @@ class TarefaPage extends StatelessWidget {
         title: const Text('Tarefas'),
         centerTitle: true,
       ),
-      body: const Placeholder(),
+      body: Placeholder(
+        child: Column(
+          children: [
+            Center(
+              child: Card(
+                elevation: 8,
+                child: Transform.scale(
+                  scale: 0.6,
+                  child: LoadingAnimationWidget.inkDrop(
+                      color: AppColors.infoColors.primaryColor, size: 80),
+                ),
+              ),
+            ),
+            const GlassTextLoadingButton(colors: AppColors.infoColors)
+          ],
+        ),
+      ),
     );
   }
 }

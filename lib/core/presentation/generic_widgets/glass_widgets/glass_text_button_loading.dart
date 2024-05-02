@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scheduler/core/core.dart';
 
 class GlassTextLoadingButton extends StatelessWidget {
@@ -19,9 +20,8 @@ class GlassTextLoadingButton extends StatelessWidget {
       child: Center(
         child: Transform.scale(
           scale: 0.8,
-          child: CircularProgressIndicator(
-            color: colors.textColor,
-          ),
+          child: LoadingAnimationWidget.waveDots(
+              color: colors.textColor, size: 32),
         ),
       ),
     );
