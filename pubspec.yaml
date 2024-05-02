@@ -1,4 +1,4 @@
-name: todo_list
+name: scheduler
 description: O app para realizar o agendamento de suas atividades diárias! 
 publish_to: "none" 
 
