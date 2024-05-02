@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scheduler/core/core.dart';
-import 'package:scheduler/core/presentation/presentation.dart';
 import 'package:scheduler/features/auth/auth.dart';
-import 'package:scheduler/features/auth/view/providers/auth_notifier.dart';
-import 'package:scheduler/features/auth/view/widgets/login_form/login_text_field.dart';
 
 class LoginForm extends ConsumerWidget {
   const LoginForm({super.key});
@@ -19,14 +17,28 @@ class LoginForm extends ConsumerWidget {
           alignment: Alignment.center,
           child: Column(
             children: [
-              const AppLogo(),
+              const AppLogo()
+                  .animate()
+                  .fade(
+                      duration: 400.ms,
+                      begin: 0,
+                      end: 1,
+                      curve: Curves.easeInOut)
+                  .scale(curve: Curves.easeInOut),
               const SizedBox(
                 height: 4,
               ),
               FormBody(
                 formKey: formKey,
                 formContext: context,
-              ),
+              )
+                  .animate()
+                  .fade(
+                      duration: 400.ms,
+                      begin: 0,
+                      end: 1,
+                      curve: Curves.easeInOut)
+                  .scale(curve: Curves.easeInOut),
             ],
           ),
         ),
@@ -195,7 +207,7 @@ class AppLogo extends StatelessWidget {
               ),
             ),
             Text(
-              'Scheduler',
+              'Agenda',
               style: TextStyle(
                 fontSize: 40,
                 color: Colors.white,

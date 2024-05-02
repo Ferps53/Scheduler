@@ -29,7 +29,7 @@ class MainWidget extends ConsumerWidget {
             ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: AppColors.infoColors.baseColor,
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
         ),
         useMaterial3: true,
       ),
