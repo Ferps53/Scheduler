@@ -26,9 +26,9 @@ final goRouterProvider = Provider(
         final indoParaLogin = state.fullPath == '/';
         if (indoParaLogin) {
           switch (statusUsuarioNotifier.statusUsuario) {
-            case StatusUsuario.deslogado:
+            case StatusLogin.deslogado:
               return NamedRoutes.login.routePath;
-            case StatusUsuario.logado:
+            case StatusLogin.logado:
               return NamedRoutes.tarefas.routePath;
           }
         }

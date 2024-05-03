@@ -5,16 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
-import 'package:scheduler/features/auth/view/providers/auth_providers.dart';
 
 final loginAsyncNotifierProvider =
-    AsyncNotifierProvider.autoDispose<LoginAsyncNotifier, StatusUsuario>(() {
+    AsyncNotifierProvider.autoDispose<LoginAsyncNotifier, StatusLogin>(() {
   return LoginAsyncNotifier();
 });
 
-class LoginAsyncNotifier extends AutoDisposeAsyncNotifier<StatusUsuario> {
+class LoginAsyncNotifier extends AutoDisposeAsyncNotifier<StatusLogin> {
   @override
-  Future<StatusUsuario> build() async {
+  Future<StatusLogin> build() async {
     final loginRepo = await ref.read(loginRepoProvider);
     return loginRepo.autoLogin();
   }
@@ -25,7 +24,7 @@ class LoginAsyncNotifier extends AutoDisposeAsyncNotifier<StatusUsuario> {
     state = await AsyncValue.guard(
       () async => await loginRepo.login(dadosLogin),
     );
-    if (state.value == StatusUsuario.logado) {
+    if (state.value == StatusLogin.logado) {
       if (context.mounted) {
         context.goNamed(NamedRoutes.tarefas.routeName);
       }
