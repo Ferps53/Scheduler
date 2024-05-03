@@ -1,4 +1,4 @@
-enum StatusUsuario {
+enum StatusLogin {
   logado,
   deslogado,
 }

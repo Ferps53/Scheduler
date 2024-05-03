@@ -20,11 +20,14 @@ class LoginForm extends ConsumerWidget {
               const AppLogo()
                   .animate()
                   .fade(
-                      duration: 400.ms,
-                      begin: 0,
-                      end: 1,
-                      curve: Curves.easeInOut)
-                  .scale(curve: Curves.easeInOut),
+                    duration: 400.ms,
+                    begin: 0,
+                    end: 1,
+                    curve: Curves.easeInOut,
+                  )
+                  .scale(
+                    curve: Curves.easeInOut,
+                  ),
               const SizedBox(
                 height: 4,
               ),
@@ -34,11 +37,14 @@ class LoginForm extends ConsumerWidget {
               )
                   .animate()
                   .fade(
-                      duration: 400.ms,
-                      begin: 0,
-                      end: 1,
-                      curve: Curves.easeInOut)
-                  .scale(curve: Curves.easeInOut),
+                    duration: 400.ms,
+                    begin: 0,
+                    end: 1,
+                    curve: Curves.easeInOut,
+                  )
+                  .scale(
+                    curve: Curves.easeInOut,
+                  ),
             ],
           ),
         ),
@@ -59,6 +65,8 @@ class FormBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController passwordController = TextEditingController();
+    final TextEditingController emailController = TextEditingController();
     return GlassCard(
       height: 296,
       backgroundColor: AppColors.infoColors.backgroundColor,
@@ -71,13 +79,17 @@ class FormBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Spacer(),
-              const _EmailField(),
+              _EmailField(emailController),
               const SizedBox(
                 height: 8,
               ),
-              const _PasswordField(),
+              _PasswordField(passwordController),
               const Spacer(),
-              LoginButton(formContext: formContext),
+              LoginButton(
+                formContext: formContext,
+                emailController,
+                passwordController,
+              ),
             ],
           ),
         ),
@@ -87,7 +99,9 @@ class FormBody extends StatelessWidget {
 }
 
 class _PasswordField extends StatelessWidget {
-  const _PasswordField();
+  const _PasswordField(this.passwordController);
+
+  final TextEditingController passwordController;
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +118,7 @@ class _PasswordField extends StatelessWidget {
       icon: Icons.lock,
       label: 'Senha',
       isSecret: true,
-      controller: TextEditingController(),
+      controller: passwordController,
       validator: (String? senha) {
         if (senha == null || senha.isEmpty) {
           return 'Digite sua senha';
@@ -119,7 +133,8 @@ class _PasswordField extends StatelessWidget {
 }
 
 class _EmailField extends StatelessWidget {
-  const _EmailField();
+  const _EmailField(this.emailController);
+  final TextEditingController emailController;
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +142,7 @@ class _EmailField extends StatelessWidget {
       icon: Icons.email,
       label: 'Email',
       isSecret: false,
-      controller: TextEditingController(),
+      controller: emailController,
       validator: (String? email) {
         if (email == null || email.isEmpty) {
           return 'Escreva seu email de acesso';
@@ -142,26 +157,40 @@ class _EmailField extends StatelessWidget {
 }
 
 class LoginButton extends ConsumerWidget {
-  const LoginButton({super.key, required this.formContext});
+  const LoginButton(this.emailController, this.passwordController,
+      {super.key, required this.formContext});
 
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
   final BuildContext formContext;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loginState = ref.watch(loginAsyncNotifierProvider);
     return loginState.when(
-      data: (data) => LoginButtonWithAction(formContext: formContext),
-      error: (_, __) => LoginButtonWithAction(formContext: formContext),
+      data: (data) => LoginButtonWithAction(
+        formContext: formContext,
+        passwordController: passwordController,
+        emailController: emailController,
+      ),
+      error: (_, __) => LoginButtonWithAction(
+        formContext: formContext,
+        passwordController: passwordController,
+        emailController: emailController,
+      ),
       loading: () => const GlassTextLoadingButton(colors: AppColors.infoColors),
     );
   }
 }
 
 class LoginButtonWithAction extends ConsumerWidget {
-  const LoginButtonWithAction({
-    super.key,
-    required this.formContext,
-  });
+  const LoginButtonWithAction(
+      {super.key,
+      required this.formContext,
+      required this.emailController,
+      required this.passwordController});
 
+  final TextEditingController passwordController;
+  final TextEditingController emailController;
   final BuildContext formContext;
 
   @override
@@ -169,10 +198,10 @@ class LoginButtonWithAction extends ConsumerWidget {
     return GlassTextButton(
       onPressed: () async {
         ref.read(loginAsyncNotifierProvider.notifier).login(
-              const DadosLogin(
+              DadosLogin(
                 nomeUsuario: "",
-                email: 'teste7@gmail.com',
-                senha: '123453',
+                email: emailController.text,
+                senha: passwordController.text,
               ),
               formContext,
             );

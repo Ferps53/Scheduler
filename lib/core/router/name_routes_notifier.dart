@@ -7,10 +7,10 @@ final statusUsuarioProvider = Provider<StatusUsuarioProvider>((ref) {
 });
 
 class StatusUsuarioProvider with ChangeNotifier {
-  StatusUsuario _statusUsuario = StatusUsuario.deslogado;
-  StatusUsuario get statusUsuario => _statusUsuario;
+  StatusLogin _statusUsuario = StatusLogin.deslogado;
+  StatusLogin get statusUsuario => _statusUsuario;
 
-  set statusUsuario(StatusUsuario statusUsuario) {
+  set statusUsuario(StatusLogin statusUsuario) {
     _statusUsuario = statusUsuario;
     notifyListeners();
   }
