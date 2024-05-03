@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scheduler/core/core.dart';
-import 'package:scheduler/core/presentation/presentation.dart';
 import 'package:scheduler/features/auth/auth.dart';
-import 'package:scheduler/features/auth/view/providers/auth_notifier.dart';
-import 'package:scheduler/features/auth/view/widgets/login_form/login_text_field.dart';
 
 class LoginForm extends ConsumerWidget {
   const LoginForm({super.key});

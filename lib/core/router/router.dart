@@ -3,9 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:scheduler/core/router/name_routes_notifier.dart';
 import 'package:scheduler/features/auth/auth.dart';
-import 'package:scheduler/features/auth/view/pages/home_page.dart';
-import 'package:scheduler/features/auth/view/pages/login_page.dart';
-import 'package:scheduler/features/auth/view/providers/auth_providers.dart';
 import 'package:scheduler/features/tarefa/presentation/pages/tarefa_page.dart';
 
 import 'named_routes.dart';
