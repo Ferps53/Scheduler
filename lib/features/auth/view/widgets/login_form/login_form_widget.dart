@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
@@ -16,14 +17,14 @@ class LoginForm extends ConsumerWidget {
           alignment: Alignment.center,
           child: Column(
             children: [
-              const AppLogo(),
+              const AppLogo().animate().fade(duration: 400.ms).scale(),
               const SizedBox(
                 height: 4,
               ),
               FormBody(
                 formKey: formKey,
                 formContext: context,
-              ),
+              ).animate().fade(duration: 400.ms).scale(),
             ],
           ),
         ),
