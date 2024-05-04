@@ -16,7 +16,7 @@ class ForgotPasswordPage extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             title: Text(
-              "Recuperar senha",
+              "Recuperar Senha",
               style: TextStyle(
                   color: AppColors.infoColors.textColor, fontSize: 24),
             ),
