@@ -150,7 +150,6 @@ class _ButtonRowPassword extends StatelessWidget {
         Expanded(
           child: GlassTextButton(
             onPressed: () {
-              print(GoRouterState.of(context).path);
               context.push(NamedRoutes.forgotPassword.routePath);
             },
             buttonLabel: 'Esqueceu a senha?',
