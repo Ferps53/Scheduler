@@ -25,7 +25,7 @@ class GlassTextButton extends StatelessWidget {
       style: TextButton.styleFrom(
         backgroundColor: colors.backgroundColor.withOpacity(0.25),
         padding: const EdgeInsets.symmetric(
-          horizontal: 24,
+          horizontal: 16,
           vertical: 8,
         ),
       ),

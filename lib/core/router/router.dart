@@ -52,6 +52,50 @@ final goRouterProvider = Provider(
           name: NamedRoutes.tarefas.routeName,
           pageBuilder: (ctx, state) => const MaterialPage(child: TarefaPage()),
         ),
+        GoRoute(
+          path: NamedRoutes.createAccount.routePath,
+          name: NamedRoutes.createAccount.routeName,
+          pageBuilder: (ctx, state) => CustomTransitionPage(
+            child: const CreateAccountPage(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    SlideTransition(
+              position: animation.drive(
+                Tween<Offset>(
+                  begin: const Offset(-1, 0),
+                  end: Offset.zero,
+                ).chain(
+                  CurveTween(
+                    curve: Curves.easeInOut,
+                  ),
+                ),
+              ),
+              child: child,
+            ),
+          ),
+        ),
+        GoRoute(
+          path: NamedRoutes.forgotPassword.routePath,
+          name: NamedRoutes.forgotPassword.routeName,
+          pageBuilder: (ctx, state) => CustomTransitionPage(
+            child: const ForgotPasswordPage(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    SlideTransition(
+              position: animation.drive(
+                Tween<Offset>(
+                  begin: const Offset(1, 0),
+                  end: Offset.zero,
+                ).chain(
+                  CurveTween(
+                    curve: Curves.easeInOut,
+                  ),
+                ),
+              ),
+              child: child,
+            ),
+          ),
+        )
       ],
     );
   },

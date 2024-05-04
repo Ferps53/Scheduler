@@ -1,6 +1,5 @@
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:scheduler/features/auth/auth.dart';
-import 'package:scheduler/features/auth/domain/entities/status_login.dart';
 
 class LoginRepoImpl implements LoginRepo {
   final JwtDatasource _jwtDatasource;

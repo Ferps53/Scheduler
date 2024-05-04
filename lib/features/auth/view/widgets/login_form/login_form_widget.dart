@@ -1,6 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
 
@@ -106,15 +109,7 @@ class _PasswordField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LoginTextField(
-      glassTextButton: Container(
-        alignment: Alignment.topRight,
-        child: GlassTextButton(
-          onPressed: () {},
-          buttonLabel: 'Esqueceu a senha?',
-          colors: AppColors.infoColors,
-          textSize: 12,
-        ),
-      ),
+      glassTextButton: const _ButtonRowPassword(),
       icon: Icons.lock,
       label: 'Senha',
       isSecret: true,
@@ -128,6 +123,42 @@ class _PasswordField extends StatelessWidget {
         }
         return null;
       },
+    );
+  }
+}
+
+class _ButtonRowPassword extends StatelessWidget {
+  const _ButtonRowPassword();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: GlassTextButton(
+            onPressed: () {
+              context.push(NamedRoutes.createAccount.routePath);
+            },
+            buttonLabel: 'Criar Conta',
+            colors: AppColors.infoColors,
+            textSize: 12,
+          ),
+        ),
+        const SizedBox(
+          width: 4,
+        ),
+        Expanded(
+          child: GlassTextButton(
+            onPressed: () {
+              print(GoRouterState.of(context).path);
+              context.push(NamedRoutes.forgotPassword.routePath);
+            },
+            buttonLabel: 'Esqueceu a senha?',
+            colors: AppColors.infoColors,
+            textSize: 12,
+          ),
+        ),
+      ],
     );
   }
 }
