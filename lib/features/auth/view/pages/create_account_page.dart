@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
 
@@ -16,20 +15,74 @@ class CreateAccountPage extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             title: Text(
-              "Criar Conta",
+              "Criar uma Conta",
               style: TextStyle(
                   color: AppColors.infoColors.textColor, fontSize: 24),
             ),
           ),
-          body: Center(
-            child: GlassCard(
-              backgroundColor: Colors.white,
-              height: 100,
-              width: 100,
-              child: Transform.scale(
-                scale: 0.6,
-                child: LoadingAnimationWidget.inkDrop(
-                    color: AppColors.infoColors.baseColor, size: 100),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 8.0,
+            ),
+            child: Center(
+              child: GlassCard(
+                backgroundColor: Colors.white,
+                height: 400,
+                child: Form(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const SizedBox(
+                          height: 4,
+                        ),
+                        Text(
+                          "Criação de Conta",
+                          style: TextStyle(
+                            color: AppColors.infoColors.textColor,
+                            fontSize: 24,
+                          ),
+                        ),
+                        const Spacer(),
+                        LoginTextField(
+                          icon: Icons.person,
+                          label: 'Nome do Usuário',
+                          isSecret: false,
+                          controller: TextEditingController(),
+                        ),
+                        LoginTextField(
+                          icon: Icons.email,
+                          label: 'Email',
+                          isSecret: false,
+                          controller: TextEditingController(),
+                        ),
+                        LoginTextField(
+                          icon: Icons.lock,
+                          label: 'Senha',
+                          isSecret: true,
+                          controller: TextEditingController(),
+                        ),
+                        LoginTextField(
+                          icon: Icons.lock,
+                          label: 'Digite a Senha Novamente',
+                          isSecret: true,
+                          controller: TextEditingController(),
+                        ),
+                        const Spacer(),
+                        GlassTextButton(
+                          onPressed: () {},
+                          buttonLabel: 'Criar Conta',
+                          colors: AppColors.infoColors,
+                          textSize: 24,
+                        ),
+                        const SizedBox(
+                          height: 4,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
           ),
