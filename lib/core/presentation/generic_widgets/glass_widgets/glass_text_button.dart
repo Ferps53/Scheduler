@@ -7,6 +7,7 @@ class GlassTextButton extends StatelessWidget {
   final FocusNode? focusNode;
   final AppColors colors;
   final double? textSize;
+  final double transparency;
 
   const GlassTextButton({
     required this.onPressed,
@@ -15,6 +16,17 @@ class GlassTextButton extends StatelessWidget {
     this.focusNode,
     super.key,
     this.textSize,
+    this.transparency = .2,
+  });
+
+  const GlassTextButton.moreTransparent({
+    required this.onPressed,
+    required this.buttonLabel,
+    required this.colors,
+    this.focusNode,
+    super.key,
+    this.textSize = 12,
+    this.transparency = .1,
   });
 
   @override
@@ -23,10 +35,12 @@ class GlassTextButton extends StatelessWidget {
       focusNode: focusNode,
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        backgroundColor: colors.backgroundColor.withOpacity(0.25),
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 8,
+        backgroundColor: colors.backgroundColor.withOpacity(transparency),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(
+            color: Colors.white.withOpacity(.1),
+          ),
         ),
       ),
       child: Text(

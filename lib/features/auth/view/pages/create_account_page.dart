@@ -7,87 +7,83 @@ class CreateAccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        const Background(),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            title: Text(
-              "Criar uma Conta",
-              style: TextStyle(
-                  color: AppColors.infoColors.textColor, fontSize: 24),
-            ),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 8.0,
-            ),
-            child: Center(
-              child: GlassCard(
-                backgroundColor: Colors.white,
-                height: 400,
-                child: Form(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const SizedBox(
-                          height: 4,
-                        ),
-                        Text(
-                          "Criação de Conta",
-                          style: TextStyle(
-                            color: AppColors.infoColors.textColor,
-                            fontSize: 24,
-                          ),
-                        ),
-                        const Spacer(),
-                        LoginTextField(
-                          icon: Icons.person,
-                          label: 'Nome do Usuário',
-                          isSecret: false,
-                          controller: TextEditingController(),
-                        ),
-                        LoginTextField(
-                          icon: Icons.email,
-                          label: 'Email',
-                          isSecret: false,
-                          controller: TextEditingController(),
-                        ),
-                        LoginTextField(
-                          icon: Icons.lock,
-                          label: 'Senha',
-                          isSecret: true,
-                          controller: TextEditingController(),
-                        ),
-                        LoginTextField(
-                          icon: Icons.lock,
-                          label: 'Digite a Senha Novamente',
-                          isSecret: true,
-                          controller: TextEditingController(),
-                        ),
-                        const Spacer(),
-                        GlassTextButton(
-                          onPressed: () {},
-                          buttonLabel: 'Criar Conta',
-                          colors: AppColors.infoColors,
-                          textSize: 24,
-                        ),
-                        const SizedBox(
-                          height: 4,
-                        )
-                      ],
+    return const BackgroundGradientScaffold(
+      appBarLabel: 'Criar uma Conta',
+      child: _FormCreateAccount(),
+    );
+  }
+}
+
+class _FormCreateAccount extends StatelessWidget {
+  const _FormCreateAccount();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 14,
+      ),
+      child: Center(
+        child: GlassCard(
+          backgroundColor: Colors.white,
+          height: 400,
+          child: Form(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const SizedBox(
+                    height: 4,
+                  ),
+                  Text(
+                    "Criação de Conta",
+                    style: TextStyle(
+                      color: AppColors.infoColors.textColor,
+                      fontSize: 24,
                     ),
                   ),
-                ),
+                  const Spacer(),
+                  LoginTextField(
+                    icon: Icons.person,
+                    label: 'Nome do Usuário',
+                    isSecret: false,
+                    controller: TextEditingController(),
+                  ),
+                  LoginTextField(
+                    icon: Icons.email,
+                    label: 'Email',
+                    isSecret: false,
+                    controller: TextEditingController(),
+                  ),
+                  LoginTextField(
+                    icon: Icons.lock,
+                    label: 'Senha',
+                    isSecret: true,
+                    controller: TextEditingController(),
+                  ),
+                  LoginTextField(
+                    icon: Icons.lock,
+                    label: 'Digite a Senha Novamente',
+                    isSecret: true,
+                    controller: TextEditingController(),
+                  ),
+                  const Spacer(),
+                  GlassTextButton(
+                    onPressed: () {},
+                    buttonLabel: 'Criar Conta',
+                    colors: AppColors.infoColors,
+                    textSize: 24,
+                  ),
+                  const SizedBox(
+                    height: 4,
+                  )
+                ],
               ),
             ),
           ),
-        )
-      ],
+        ),
+      ),
     );
   }
 }

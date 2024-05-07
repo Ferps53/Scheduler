@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +14,7 @@ class LoginForm extends ConsumerWidget {
     return Center(
       child: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
+          padding: const EdgeInsets.symmetric(horizontal: 14),
           alignment: Alignment.center,
           child: Column(
             children: [
@@ -76,7 +74,7 @@ class FormBody extends StatelessWidget {
       child: Form(
         key: formKey,
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -135,20 +133,19 @@ class _ButtonRowPassword extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: GlassTextButton(
+          child: GlassTextButton.moreTransparent(
             onPressed: () {
               context.push(NamedRoutes.createAccount.routePath);
             },
             buttonLabel: 'Criar Conta',
             colors: AppColors.infoColors,
-            textSize: 12,
           ),
         ),
         const SizedBox(
           width: 4,
         ),
         Expanded(
-          child: GlassTextButton(
+          child: GlassTextButton.moreTransparent(
             onPressed: () {
               context.push(NamedRoutes.forgotPassword.routePath);
             },
