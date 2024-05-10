@@ -12,8 +12,8 @@ class BackgroundGradientScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-        systemNavigationBarColor: Colors.transparent));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        systemNavigationBarColor: AppColors.infoColors.baseColor));
     return Stack(
       children: [
         const Background(),
