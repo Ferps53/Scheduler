@@ -22,7 +22,6 @@ class DioInterceptor extends Interceptor {
       store: _store,
       dio: Dio(),
     ).getJwtFromLocalStorage();
-    print(jwtModel ?? "token não encontrado");
     if (jwtModel != null) {
       options.headers.addAll(
         {
