@@ -9,19 +9,27 @@ class TarefaDatasourceImpl implements TarefaDatasource {
 
   @override
   Future<void> deleteTarefa(int id) async {
-    await _dio.delete('/tarefa/{$id}');
+    await _dio.delete('/tarefa/$id');
   }
 
   @override
-  Future<TarefaModel> getTarefaById(int id) {
-    // TODO: implement getTarefaById
-    throw UnimplementedError();
+  Future<TarefaModel> getTarefaById(int id) async {
+    final response = await _dio.get<Map<String, Object?>>('/tarefa/$id');
+
+    return TarefaModel.fromJson(response.data!);
   }
 
   @override
-  Future<List<TarefaModel>> getTarefas() {
-    // TODO: implement getTarefas
-    throw UnimplementedError();
+  Future<List<TarefaModel>> getTarefas() async {
+    final response = await _dio.get<List<Map<String, Object?>>>('/tarefa');
+
+    List<TarefaModel> listTarefas = [];
+    if (response.data != null) {
+      for (var tarefa in response.data!) {
+        listTarefas.add(TarefaModel.fromJson(tarefa));
+      }
+    }
+    return listTarefas;
   }
 
   @override

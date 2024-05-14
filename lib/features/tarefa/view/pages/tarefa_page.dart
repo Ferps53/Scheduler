@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:scheduler/core/presentation/generic_widgets/glass_widgets/glass_widgets.dart';
-import 'package:scheduler/core/styles/app_colors.dart';
+import 'package:go_router/go_router.dart';
+import 'package:scheduler/core/core.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TarefaPage extends StatelessWidget {
   const TarefaPage({super.key});
@@ -10,25 +10,44 @@ class TarefaPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         title: const Text('Tarefas'),
-        centerTitle: true,
       ),
-      body: Placeholder(
-        child: Column(
-          children: [
-            Center(
-              child: Card(
-                elevation: 8,
-                child: Transform.scale(
-                  scale: 0.6,
-                  child: LoadingAnimationWidget.inkDrop(
-                      color: AppColors.infoColors.primaryColor, size: 80),
-                ),
-              ),
+      body: Column(
+        children: [
+          OutlinedButton(
+            onPressed: () async {
+              final prefs = await SharedPreferences.getInstance();
+              prefs.clear();
+              context.go(NamedRoutes.login.routePath);
+            },
+            child: const Text("Clear"),
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 3),
+                  itemCount: 30,
+                  itemBuilder: (context, index) {
+                    index++;
+                    return GridTile(
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: GlassCard(
+                          backgroundColor: AppColors.infoColors.backgroundColor,
+                          child: Center(
+                            child: Text("$index"),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
             ),
-            const GlassTextLoadingButton(colors: AppColors.infoColors)
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

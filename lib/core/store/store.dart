@@ -28,7 +28,11 @@ class Store {
   }
 
   Map<String, dynamic>? getMap(String key) {
-    return jsonDecode(getSavedString(key));
+    try {
+      return jsonDecode(getSavedString(key));
+    } catch (_) {
+      return null;
+    }
   }
 
   Future<bool> remove(String key) async {
