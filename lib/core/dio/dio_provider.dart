@@ -15,13 +15,15 @@ class DioInterceptor extends Interceptor {
 
   DioInterceptor(this._store);
 
-  //TODO: Nesse método trocar o uso direto da JwtModel pela Datasource
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     options.headers.addAll({'Content-Type': 'application/json'});
-    final mapToken = _store.getMap('token');
-    if (mapToken.isNotEmpty) {
-      final JwtModel jwtModel = JwtModel.fromJson(mapToken);
+    final JwtModel? jwtModel = JwtDatasourceImpl(
+      store: _store,
+      dio: Dio(),
+    ).getJwtFromLocalStorage();
+    print(jwtModel ?? "token não encontrado");
+    if (jwtModel != null) {
       options.headers.addAll(
         {
           'Authorization': 'Bearer ${jwtModel.access_token}',

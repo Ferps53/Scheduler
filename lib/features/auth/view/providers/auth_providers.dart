@@ -9,6 +9,6 @@ final jwtDatasourceProvider = Provider((ref) async {
 });
 
 final loginRepoProvider = Provider((ref) async {
-  final JwtDatasource jwtDatasource = await ref.read(jwtDatasourceProvider);
+  final JwtDatasourceImpl jwtDatasource = await ref.read(jwtDatasourceProvider);
   return LoginRepoImpl(jwtDatasource: jwtDatasource);
 });

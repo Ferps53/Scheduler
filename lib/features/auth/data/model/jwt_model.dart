@@ -7,7 +7,7 @@ part 'jwt_model.freezed.dart';
 class JwtModel with _$JwtModel {
   factory JwtModel({
     required String access_token,
-    required String? refresh_token,
+    required String refresh_token,
   }) = _JwtModel;
 
   factory JwtModel.fromJson(Map<String, Object?> json) =>
