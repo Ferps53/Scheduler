@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:scheduler/core/core.dart';
 
 class GlassTextButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String buttonLabel;
   final FocusNode? focusNode;
-  final AppColors colors;
   final double? textSize;
   final double transparency;
 
   const GlassTextButton({
     required this.onPressed,
     required this.buttonLabel,
-    required this.colors,
     this.focusNode,
     super.key,
     this.textSize,
@@ -22,7 +19,6 @@ class GlassTextButton extends StatelessWidget {
   const GlassTextButton.moreTransparent({
     required this.onPressed,
     required this.buttonLabel,
-    required this.colors,
     this.focusNode,
     super.key,
     this.textSize = 12,
@@ -35,7 +31,10 @@ class GlassTextButton extends StatelessWidget {
       focusNode: focusNode,
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        backgroundColor: colors.backgroundColor.withOpacity(transparency),
+        backgroundColor: Theme.of(context)
+            .colorScheme
+            .primaryContainer
+            .withOpacity(transparency),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(
@@ -46,7 +45,7 @@ class GlassTextButton extends StatelessWidget {
       child: Text(
         buttonLabel,
         style: TextStyle(
-          color: colors.textColor,
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
           fontSize: textSize,
         ),
       ),

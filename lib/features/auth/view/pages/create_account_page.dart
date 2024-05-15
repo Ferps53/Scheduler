@@ -19,15 +19,15 @@ class _FormCreateAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 14,
         ),
         child: GlassCard(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           height: 432,
-          child: _ContentForm(),
+          child: const _ContentForm(),
         ),
       ),
     );
@@ -35,9 +35,7 @@ class _FormCreateAccount extends StatelessWidget {
 }
 
 class _ContentForm extends StatelessWidget {
-  const _ContentForm({
-    super.key,
-  });
+  const _ContentForm();
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +43,7 @@ class _ContentForm extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(
@@ -86,74 +85,14 @@ class _ContentForm extends StatelessWidget {
             GlassTextButton(
               onPressed: () {},
               buttonLabel: 'Criar Conta',
-              colors: AppColors.infoColors,
               textSize: 24,
             ),
             const SizedBox(
               height: 4,
             )
           ],
->>>>>>> 7a8b6a28c9847dd730d6df62591ab8ad651a42ed
         ),
       ),
-    );
-  }
-}
-
-class _LoginFormColumn extends StatelessWidget {
-  const _LoginFormColumn();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const SizedBox(
-          height: 4,
-        ),
-        Text(
-          "Criação de Conta",
-          style: TextStyle(
-            color: AppColors.infoColors.textColor,
-            fontSize: 24,
-          ),
-        ),
-        const Spacer(),
-        LoginTextField(
-          icon: Icons.person,
-          label: 'Nome do Usuário',
-          isSecret: false,
-          controller: TextEditingController(),
-        ),
-        LoginTextField(
-          icon: Icons.email,
-          label: 'Email',
-          isSecret: false,
-          controller: TextEditingController(),
-        ),
-        LoginTextField(
-          icon: Icons.lock,
-          label: 'Senha',
-          isSecret: true,
-          controller: TextEditingController(),
-        ),
-        LoginTextField(
-          icon: Icons.lock,
-          label: 'Digite a Senha Novamente',
-          isSecret: true,
-          controller: TextEditingController(),
-        ),
-        const Spacer(),
-        GlassTextButton(
-          onPressed: () {},
-          buttonLabel: 'Criar Conta',
-          colors: AppColors.infoColors,
-          textSize: 24,
-        ),
-        const SizedBox(
-          height: 4,
-        )
-      ],
     );
   }
 }
