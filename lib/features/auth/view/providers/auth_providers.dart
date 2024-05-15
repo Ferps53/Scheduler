@@ -5,10 +5,10 @@ import 'package:scheduler/features/auth/auth.dart';
 final jwtDatasourceProvider = Provider((ref) async {
   final dio = ref.read(dioProvider);
   final store = ref.read(storeProvider);
-  return JwtDatasourceImpl(store: await store, dio: dio);
+  return JwtDatasourceImpl(store: await store, dio: await dio);
 });
 
 final loginRepoProvider = Provider((ref) async {
-  final JwtDatasource jwtDatasource = await ref.read(jwtDatasourceProvider);
+  final JwtDatasourceImpl jwtDatasource = await ref.read(jwtDatasourceProvider);
   return LoginRepoImpl(jwtDatasource: jwtDatasource);
 });

@@ -20,10 +20,10 @@ class FakeJwtDatasource implements JwtDatasource {
   }
 
   @override
-  JwtModel? getJwtFromLocalStorage(String key) {
-    final jsonStored = _store.getMap(key);
-    if (jsonStored.isNotEmpty) {
-      return JwtModel.fromJson(_store.getMap(key));
+  JwtModel? getJwtFromLocalStorage() {
+    final jsonStored = _store.getMap('token');
+    if (jsonStored != null) {
+      return JwtModel.fromJson(jsonStored);
     } else {
       return null;
     }
@@ -51,10 +51,10 @@ class JwtDatasourceImpl implements JwtDatasource {
   @override
   Future<JwtModel> fetchJwt(DadosLogin dadosLogin) async {
     try {
-      final response = await _dio.post("${Environments.backendRoot}/auth/login",
-          data: dadosLogin.toJson());
+      final response =
+          await _dio.post("/auth/login", data: dadosLogin.toJson());
       final jwtModel = JwtModel.fromJson(response.data);
-      saveJwt(jwtModel, 'token');
+      print(jwtModel.toString());
       return jwtModel;
     } catch (e) {
       rethrow;
@@ -62,11 +62,10 @@ class JwtDatasourceImpl implements JwtDatasource {
   }
 
   @override
-  JwtModel? getJwtFromLocalStorage(String key) {
-    final jsonStored = _store.getMap(key);
-    if (jsonStored.isNotEmpty) {
-      final jwt = JwtModel.fromJson(_store.getMap(key));
-      print(jwt);
+  JwtModel? getJwtFromLocalStorage() {
+    final jsonStored = _store.getMap('token');
+    if (jsonStored != null) {
+      final jwt = JwtModel.fromJson(jsonStored);
       return jwt;
     } else {
       return null;

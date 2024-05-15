@@ -9,7 +9,7 @@ class LoginRepoImpl implements LoginRepo {
 
   @override
   StatusLogin autoLogin() {
-    JwtModel? jwtModel = _jwtDatasource.getJwtFromLocalStorage('token');
+    JwtModel? jwtModel = _jwtDatasource.getJwtFromLocalStorage();
     return _jwtToStatus(jwtModel);
   }
 
