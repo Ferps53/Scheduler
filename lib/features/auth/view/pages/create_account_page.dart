@@ -93,67 +93,8 @@ class _ContentForm extends StatelessWidget {
               height: 4,
             )
           ],
->>>>>>> 7a8b6a28c9847dd730d6df62591ab8ad651a42ed
         ),
       ),
-    );
-  }
-}
-
-class _LoginFormColumn extends StatelessWidget {
-  const _LoginFormColumn();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const SizedBox(
-          height: 4,
-        ),
-        Text(
-          "Criação de Conta",
-          style: TextStyle(
-            color: AppColors.infoColors.textColor,
-            fontSize: 24,
-          ),
-        ),
-        const Spacer(),
-        LoginTextField(
-          icon: Icons.person,
-          label: 'Nome do Usuário',
-          isSecret: false,
-          controller: TextEditingController(),
-        ),
-        LoginTextField(
-          icon: Icons.email,
-          label: 'Email',
-          isSecret: false,
-          controller: TextEditingController(),
-        ),
-        LoginTextField(
-          icon: Icons.lock,
-          label: 'Senha',
-          isSecret: true,
-          controller: TextEditingController(),
-        ),
-        LoginTextField(
-          icon: Icons.lock,
-          label: 'Digite a Senha Novamente',
-          isSecret: true,
-          controller: TextEditingController(),
-        ),
-        const Spacer(),
-        GlassTextButton(
-          onPressed: () {},
-          buttonLabel: 'Criar Conta',
-          colors: AppColors.infoColors,
-          textSize: 24,
-        ),
-        const SizedBox(
-          height: 4,
-        )
-      ],
     );
   }
 }

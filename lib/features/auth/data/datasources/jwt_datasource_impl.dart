@@ -53,9 +53,7 @@ class JwtDatasourceImpl implements JwtDatasource {
     try {
       final response =
           await _dio.post("/auth/login", data: dadosLogin.toJson());
-      final jwtModel = JwtModel.fromJson(response.data);
-      print(jwtModel.toString());
-      return jwtModel;
+      return JwtModel.fromJson(response.data);
     } catch (e) {
       rethrow;
     }
