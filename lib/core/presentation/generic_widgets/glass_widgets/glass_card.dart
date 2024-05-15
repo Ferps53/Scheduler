@@ -6,7 +6,7 @@ class GlassCard extends StatelessWidget {
   final Widget child;
   final double? width;
   final double? height;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final double startGradient;
   final double endGradient;
   final bool isDialog;
@@ -15,7 +15,7 @@ class GlassCard extends StatelessWidget {
     required this.child,
     this.width,
     this.height,
-    required this.backgroundColor,
+    this.backgroundColor,
     this.startGradient = 0.3,
     this.endGradient = 0.05,
     this.isDialog = false,
@@ -24,6 +24,9 @@ class GlassCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final backgroundColorWidget =
+        backgroundColor ?? Theme.of(context).colorScheme.primaryContainer;
+
     final borderRadius = isDialog
         ? const BorderRadius.only(
             bottomLeft: Radius.circular(20),
@@ -54,8 +57,8 @@ class GlassCard extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      backgroundColor.withOpacity(startGradient),
-                      backgroundColor.withOpacity(endGradient)
+                      backgroundColorWidget.withOpacity(startGradient),
+                      backgroundColorWidget.withOpacity(endGradient)
                     ],
                   ),
                 ),

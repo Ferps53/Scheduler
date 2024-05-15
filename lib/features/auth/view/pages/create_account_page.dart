@@ -19,15 +19,15 @@ class _FormCreateAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Padding(
-        padding: EdgeInsets.symmetric(
+        padding: const EdgeInsets.symmetric(
           horizontal: 14,
         ),
         child: GlassCard(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
           height: 432,
-          child: _ContentForm(),
+          child: const _ContentForm(),
         ),
       ),
     );
@@ -35,9 +35,7 @@ class _FormCreateAccount extends StatelessWidget {
 }
 
 class _ContentForm extends StatelessWidget {
-  const _ContentForm({
-    super.key,
-  });
+  const _ContentForm();
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +43,7 @@ class _ContentForm extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             const SizedBox(
@@ -86,7 +85,6 @@ class _ContentForm extends StatelessWidget {
             GlassTextButton(
               onPressed: () {},
               buttonLabel: 'Criar Conta',
-              colors: AppColors.infoColors,
               textSize: 24,
             ),
             const SizedBox(

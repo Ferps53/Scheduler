@@ -37,9 +37,15 @@ class TarefaPage extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: GlassCard(
-                          backgroundColor: AppColors.infoColors.backgroundColor,
                           child: Center(
-                            child: Text("$index"),
+                            child: Text(
+                              "$index",
+                              style: TextStyle(
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onPrimaryContainer,
+                              ),
+                            ),
                           ),
                         ),
                       ),

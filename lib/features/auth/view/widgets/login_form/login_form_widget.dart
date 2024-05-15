@@ -70,7 +70,7 @@ class FormBody extends StatelessWidget {
     final TextEditingController emailController = TextEditingController();
     return GlassCard(
       height: 296,
-      backgroundColor: AppColors.infoColors.backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.onPrimary,
       child: Form(
         key: formKey,
         child: Padding(
@@ -90,6 +90,7 @@ class FormBody extends StatelessWidget {
                 formContext: formContext,
                 emailController,
                 passwordController,
+                formKey,
               ),
             ],
           ),
@@ -138,7 +139,6 @@ class _ButtonRowPassword extends StatelessWidget {
               context.push(NamedRoutes.createAccount.routePath);
             },
             buttonLabel: 'Criar Conta',
-            colors: AppColors.infoColors,
           ),
         ),
         const SizedBox(
@@ -150,7 +150,6 @@ class _ButtonRowPassword extends StatelessWidget {
               context.push(NamedRoutes.forgotPassword.routePath);
             },
             buttonLabel: 'Esqueceu a senha?',
-            colors: AppColors.infoColors,
             textSize: 12,
           ),
         ),
@@ -184,57 +183,64 @@ class _EmailField extends StatelessWidget {
 }
 
 class LoginButton extends ConsumerWidget {
-  const LoginButton(this.emailController, this.passwordController,
+  const LoginButton(this.emailController, this.passwordController, this.formKey,
       {super.key, required this.formContext});
 
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final BuildContext formContext;
+  final GlobalKey<FormState> formKey;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final loginState = ref.watch(loginAsyncNotifierProvider);
     return loginState.when(
       data: (data) => LoginButtonWithAction(
+        formKey,
         formContext: formContext,
         passwordController: passwordController,
         emailController: emailController,
       ),
       error: (_, __) => LoginButtonWithAction(
+        formKey,
         formContext: formContext,
         passwordController: passwordController,
         emailController: emailController,
       ),
-      loading: () => const GlassTextLoadingButton(colors: AppColors.infoColors),
+      loading: () => const GlassTextLoadingButton(),
     );
   }
 }
 
 class LoginButtonWithAction extends ConsumerWidget {
   const LoginButtonWithAction(
-      {super.key,
-      required this.formContext,
-      required this.emailController,
-      required this.passwordController});
+    this.formKey, {
+    super.key,
+    required this.formContext,
+    required this.emailController,
+    required this.passwordController,
+  });
 
   final TextEditingController passwordController;
   final TextEditingController emailController;
   final BuildContext formContext;
+  final GlobalKey<FormState> formKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GlassTextButton(
       onPressed: () async {
-        ref.read(loginAsyncNotifierProvider.notifier).login(
-              DadosLogin(
-                nomeUsuario: "",
-                email: emailController.text,
-                senha: passwordController.text,
-              ),
-              formContext,
-            );
+        if (formKey.currentState!.validate()) {
+          ref.read(loginAsyncNotifierProvider.notifier).login(
+                DadosLogin(
+                  nomeUsuario: "",
+                  email: emailController.text,
+                  senha: passwordController.text,
+                ),
+                formContext,
+              );
+        }
       },
       buttonLabel: 'Entrar',
-      colors: AppColors.infoColors,
       textSize: 24,
     );
   }
@@ -250,7 +256,7 @@ class AppLogo extends StatelessWidget {
     return SizedBox(
       height: 80,
       child: GlassCard(
-        backgroundColor: AppColors.infoColors.textColor,
+        backgroundColor: Theme.of(context).colorScheme.primary,
         child: const Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
