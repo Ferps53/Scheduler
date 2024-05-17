@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:scheduler/core/styles/app_colors.dart';
 import 'package:scheduler/features/auth/auth.dart';
 
 class BackgroundGradientScaffold extends StatelessWidget {
