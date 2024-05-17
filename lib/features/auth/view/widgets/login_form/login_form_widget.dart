@@ -70,7 +70,7 @@ class FormBody extends StatelessWidget {
     final TextEditingController emailController = TextEditingController();
     return GlassCard(
       height: 296,
-      backgroundColor: Theme.of(context).colorScheme.onPrimary,
+      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       child: Form(
         key: formKey,
         child: Padding(
