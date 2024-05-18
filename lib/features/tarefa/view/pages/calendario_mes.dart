@@ -56,7 +56,7 @@ class _GridDias extends StatelessWidget {
         itemBuilder: (context, index) {
           index++;
           return index == 1
-              ? SizedBox(
+              ? const SizedBox(
                   width: 10,
                   height: 10,
                 )
