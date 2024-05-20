@@ -24,12 +24,12 @@ class MainWidget extends ConsumerWidget {
         fontFamily: 'Ubuntu',
         textTheme: Theme.of(context).textTheme.apply(
               fontFamily: 'Ubuntu',
-              bodyColor: Theme.of(context).colorScheme.onSurface,
-              displayColor: Theme.of(context).colorScheme.onSurface,
+              bodyColor: context.colorScheme.onSurface,
+              displayColor: context.colorScheme.onPrimary,
             ),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-          brightness: Brightness.light,
+          seedColor: Colors.cyan,
+          brightness: Brightness.dark,
         ),
         useMaterial3: true,
       ),

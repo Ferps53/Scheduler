@@ -30,11 +30,8 @@ class LoginAsyncNotifier extends AutoDisposeAsyncNotifier<StatusLogin> {
       }
     } else {
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            content: const Text("Falha no login"),
-          ),
+        context.showSnackBar(
+          "Falha no Login",
         );
       }
     }

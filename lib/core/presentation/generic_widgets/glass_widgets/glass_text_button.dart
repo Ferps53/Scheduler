@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheduler/core/core.dart';
 
 class GlassTextButton extends StatelessWidget {
   final VoidCallback? onPressed;
@@ -31,10 +32,8 @@ class GlassTextButton extends StatelessWidget {
       focusNode: focusNode,
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        backgroundColor: Theme.of(context)
-            .colorScheme
-            .primaryContainer
-            .withOpacity(transparency),
+        backgroundColor:
+            context.colorScheme.primaryContainer.withOpacity(transparency),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
           side: BorderSide(
@@ -45,7 +44,7 @@ class GlassTextButton extends StatelessWidget {
       child: Text(
         buttonLabel,
         style: TextStyle(
-          color: Theme.of(context).colorScheme.onPrimaryContainer,
+          color: context.colorScheme.onPrimaryContainer,
           fontSize: textSize,
         ),
       ),

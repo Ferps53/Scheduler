@@ -1,11 +1,16 @@
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
 
 class LoginRepoImpl implements LoginRepo {
   final JwtDatasource _jwtDatasource;
+  final StatusUsuarioProvider _statusUsuarioProvider;
 
-  LoginRepoImpl({required JwtDatasource jwtDatasource})
-      : _jwtDatasource = jwtDatasource;
+  LoginRepoImpl({
+    required JwtDatasource jwtDatasource,
+    required statusUsuarioProvider,
+  })  : _jwtDatasource = jwtDatasource,
+        _statusUsuarioProvider = statusUsuarioProvider;
 
   @override
   StatusLogin autoLogin() {
@@ -16,11 +21,13 @@ class LoginRepoImpl implements LoginRepo {
   @override
   void deslogar() {
     _jwtDatasource.removeJwt();
+    _statusUsuarioProvider.statusUsuario = StatusLogin.deslogado;
   }
 
   @override
   Future<StatusLogin> login(DadosLogin dadosLogin) async {
     final JwtModel jwtModel = await _jwtDatasource.fetchJwt(dadosLogin);
+    _jwtDatasource.saveJwt(jwtModel, 'token');
     return _jwtToStatus(jwtModel);
   }
 

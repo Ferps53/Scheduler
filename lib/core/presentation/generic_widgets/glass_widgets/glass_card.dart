@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:scheduler/core/core.dart';
 
 class GlassCard extends StatelessWidget {
   final Widget child;
@@ -25,7 +26,7 @@ class GlassCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final backgroundColorWidget =
-        backgroundColor ?? Theme.of(context).colorScheme.primaryContainer;
+        backgroundColor ?? context.colorScheme.primaryContainer;
 
     final borderRadius = isDialog
         ? const BorderRadius.only(

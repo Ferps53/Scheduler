@@ -12,30 +12,59 @@ class CalendarioMes extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 14),
       child: Center(
         child: SizedBox(
-          height: 332,
-          child: GlassCard(
-            child: Column(
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  color: Theme.of(context).colorScheme.primary,
-                  child: const Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+          height: 364,
+          width: 364,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.arrow_back),
+                  ),
+                  Text(
+                    "Julho - 2024",
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: context.colorScheme.onSurface,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.arrow_forward),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: GlassCard(
+                  startGradient: 0.5,
+                  endGradient: 0.2,
+                  child: Column(
                     children: [
-                      _DiaCalendario(dia: "D"),
-                      _DiaCalendario(dia: "S"),
-                      _DiaCalendario(dia: "T"),
-                      _DiaCalendario(dia: "Q"),
-                      _DiaCalendario(dia: "Q"),
-                      _DiaCalendario(dia: "S"),
-                      _DiaCalendario(dia: "S"),
+                      Container(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        color: context.colorScheme.primary,
+                        child: const Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            _DiaCalendario(dia: "D"),
+                            _DiaCalendario(dia: "S"),
+                            _DiaCalendario(dia: "T"),
+                            _DiaCalendario(dia: "Q"),
+                            _DiaCalendario(dia: "Q"),
+                            _DiaCalendario(dia: "S"),
+                            _DiaCalendario(dia: "S"),
+                          ],
+                        ),
+                      ),
+                      const _GridDias(),
                     ],
                   ),
                 ),
-                const _GridDias(),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
@@ -55,32 +84,25 @@ class _GridDias extends StatelessWidget {
         itemCount: 31,
         itemBuilder: (context, index) {
           index++;
-          return index == 1
-              ? const SizedBox(
-                  width: 10,
-                  height: 10,
-                )
-              : GridTile(
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Badge(
-                      child: GlassCard(
-                        startGradient: 0.5,
-                        endGradient: 0.3,
-                        child: Center(
-                          child: Text(
-                            "$index",
-                            style: TextStyle(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onPrimaryContainer,
-                            ),
-                          ),
-                        ),
+          return GridTile(
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: Badge(
+                child: GlassCard(
+                  startGradient: 0.8,
+                  endGradient: 0.3,
+                  child: Center(
+                    child: Text(
+                      "$index",
+                      style: TextStyle(
+                        color: context.colorScheme.onPrimaryContainer,
                       ),
                     ),
                   ),
-                );
+                ),
+              ),
+            ),
+          );
         },
       ),
     );
@@ -97,8 +119,7 @@ class _DiaCalendario extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       dia,
-      style: TextStyle(
-          color: Theme.of(context).colorScheme.onPrimary, fontSize: 18),
+      style: TextStyle(color: context.colorScheme.onPrimary, fontSize: 18),
     );
   }
 }

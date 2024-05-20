@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheduler/core/core.dart';
 
 class LoginTextField extends StatefulWidget {
   final IconData icon;
@@ -48,7 +49,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
       child: Column(
         children: [
           TextFormField(
-            cursorColor: Theme.of(context).colorScheme.primary,
+            cursorColor: context.colorScheme.primary,
             validator: widget.validator,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             controller: widget.controller,
@@ -56,36 +57,31 @@ class _LoginTextFieldState extends State<LoginTextField> {
             decoration: InputDecoration(
               label: Text(widget.label),
               border: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.onPrimary),
+                borderSide: BorderSide(color: context.colorScheme.onPrimary),
                 borderRadius: BorderRadius.circular(16),
               ),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(
-                    color:
-                        Theme.of(context).colorScheme.primary.withOpacity(.5)),
+                  color: context.colorScheme.primary.withOpacity(.5),
+                ),
                 borderRadius: BorderRadius.circular(16),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.primary),
+                borderSide: BorderSide(color: context.colorScheme.primary),
                 borderRadius: BorderRadius.circular(16),
               ),
               errorBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.error),
+                borderSide: BorderSide(color: context.colorScheme.error),
                 borderRadius: BorderRadius.circular(16),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderSide:
-                    BorderSide(color: Theme.of(context).colorScheme.error),
+                borderSide: BorderSide(color: context.colorScheme.error),
                 borderRadius: BorderRadius.circular(16),
               ),
-              labelStyle:
-                  TextStyle(color: Theme.of(context).colorScheme.primary),
+              labelStyle: TextStyle(color: context.colorScheme.primary),
               prefixIcon: Icon(
                 widget.icon,
-                color: Theme.of(context).colorScheme.primary,
+                color: context.colorScheme.primary,
               ),
               suffixIcon: widget.isSecret
                   ? IconButton(
@@ -94,7 +90,7 @@ class _LoginTextFieldState extends State<LoginTextField> {
                       },
                       icon: Icon(
                         isHidden ? Icons.visibility : Icons.visibility_off,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: context.colorScheme.primary,
                       ),
                     )
                   : null,

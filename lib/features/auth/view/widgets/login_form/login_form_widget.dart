@@ -70,7 +70,7 @@ class FormBody extends StatelessWidget {
     final TextEditingController emailController = TextEditingController();
     return GlassCard(
       height: 296,
-      backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      backgroundColor: context.colorScheme.primaryContainer,
       child: Form(
         key: formKey,
         child: Padding(
@@ -256,7 +256,7 @@ class AppLogo extends StatelessWidget {
     return SizedBox(
       height: 80,
       child: GlassCard(
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: context.colorScheme.primary,
         child: const Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,

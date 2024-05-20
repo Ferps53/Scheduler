@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/tarefa/view/pages/calendario_mes.dart';
 
 class TarefaPage extends StatelessWidget {
@@ -6,14 +7,11 @@ class TarefaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        title: const Text('Tarefas'),
+    return const Scaffold(
+      appBar: SchedulerAppbar(
+        title: 'Tarefas',
       ),
-      body: const CalendarioMes(),
+      body: CalendarioMes(),
     );
   }
 }
-

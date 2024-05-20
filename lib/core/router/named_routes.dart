@@ -1,8 +1,9 @@
 enum NamedRoutes {
   home(routeName: "home", routePath: "/home"),
-  login(routeName: 'login', routePath: '/'),
-  forgotPassword(routeName: 'forgotPassword', routePath: '/forgot-password'),
-  createAccount(routeName: 'createAccount', routePath: '/create-account'),
+  login(routeName: 'login', routePath: '/start'),
+  forgotPassword(
+      routeName: 'forgotPassword', routePath: '/start/forgot-password'),
+  createAccount(routeName: 'createAccount', routePath: '/start/create-account'),
   tarefas(routeName: 'tarefas', routePath: '/tarefas');
 
   final String routeName;

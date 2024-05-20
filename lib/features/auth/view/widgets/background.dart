@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scheduler/core/core.dart';
 
 class Background extends StatelessWidget {
   const Background({
@@ -14,14 +15,14 @@ class Background extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: Theme.of(context).brightness == Brightness.light
+          colors: context.brightness == Brightness.light
               ? [
-                  Theme.of(context).colorScheme.inversePrimary,
-                  Theme.of(context).colorScheme.primary,
+                  context.colorScheme.inversePrimary,
+                  context.colorScheme.primary,
                 ]
               : [
-                  Theme.of(context).colorScheme.primary,
-                  Theme.of(context).colorScheme.inversePrimary
+                  context.colorScheme.primary,
+                  context.colorScheme.inversePrimary
                 ],
         ),
       ),

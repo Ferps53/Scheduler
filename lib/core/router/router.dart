@@ -8,12 +8,13 @@ import 'package:scheduler/features/tarefa/view/pages/tarefa_page.dart';
 import 'named_routes.dart';
 
 export 'named_routes.dart';
+export 'name_routes_notifier.dart';
 
 final goRouterProvider = Provider(
   (ref) {
     final statusUsuarioNotifier = ref.read(statusUsuarioProvider);
     return GoRouter(
-      initialLocation: "/",
+      initialLocation: "/start",
       refreshListenable: statusUsuarioNotifier,
       redirect: (ctx, state) async {
         final loginRepo = await ref.read(loginRepoProvider);
@@ -31,6 +32,10 @@ final goRouterProvider = Provider(
             case StatusLogin.logado:
               return NamedRoutes.tarefas.routePath;
           }
+        }
+        if (!state.fullPath!.contains("start") &&
+            statusUsuarioNotifier.statusUsuario == StatusLogin.deslogado) {
+          return NamedRoutes.login.routePath;
         }
         return null;
       },

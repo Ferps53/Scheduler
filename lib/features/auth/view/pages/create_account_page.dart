@@ -25,7 +25,7 @@ class _FormCreateAccount extends StatelessWidget {
           horizontal: 14,
         ),
         child: GlassCard(
-          backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+          backgroundColor: context.colorScheme.primaryContainer,
           height: 432,
           child: const _ContentForm(),
         ),
@@ -52,7 +52,7 @@ class _ContentForm extends StatelessWidget {
             Text(
               "Criação de Conta",
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: context.colorScheme.onPrimary,
                 fontSize: 24,
               ),
             ),

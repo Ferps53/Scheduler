@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scheduler/features/auth/auth.dart';
+import 'package:scheduler/core/core.dart';
 
 class BackgroundGradientScaffold extends StatelessWidget {
   const BackgroundGradientScaffold(
@@ -12,7 +13,7 @@ class BackgroundGradientScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: Theme.of(context).colorScheme.primary));
+        systemNavigationBarColor: context.colorScheme.primary));
     return Stack(
       children: [
         const Background(),
@@ -20,7 +21,7 @@ class BackgroundGradientScaffold extends StatelessWidget {
           backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary,
+            foregroundColor: context.colorScheme.onPrimary,
             title: Text(
               appBarLabel,
               style: const TextStyle(fontSize: 24),
