@@ -26,7 +26,7 @@ class TarefaDatasourceImpl implements TarefaDatasource {
 
     List<TarefaModel> listTarefas = [];
     if (response.data != null) {
-      for (var tarefa in response.data!) {
+      for (final tarefa in response.data!) {
         listTarefas.add(TarefaModel.fromJson(tarefa));
       }
     }
