@@ -84,25 +84,28 @@ class _GridDias extends StatelessWidget {
         itemCount: 31,
         itemBuilder: (context, index) {
           index++;
-          return GridTile(
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Badge(
-                child: GlassCard(
-                  startGradient: 0.8,
-                  endGradient: 0.3,
-                  child: Center(
-                    child: Text(
-                      "$index",
-                      style: TextStyle(
-                        color: context.colorScheme.onPrimaryContainer,
+          return index == 5
+              ? const SizedBox()
+              : GridTile(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Badge(
+                      isLabelVisible: false,
+                      child: GlassCard(
+                        startGradient: 0.8,
+                        endGradient: 0.3,
+                        child: Center(
+                          child: Text(
+                            "$index",
+                            style: TextStyle(
+                              color: context.colorScheme.onPrimaryContainer,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ),
-            ),
-          );
+                );
         },
       ),
     );

@@ -28,8 +28,8 @@ class MainWidget extends ConsumerWidget {
               displayColor: context.colorScheme.onPrimary,
             ),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.cyan,
-          brightness: Brightness.dark,
+          seedColor: Colors.blue,
+          brightness: Brightness.light,
         ),
         useMaterial3: true,
       ),
