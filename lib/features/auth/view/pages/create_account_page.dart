@@ -50,7 +50,7 @@ class _ContentForm extends StatelessWidget {
               height: 4,
             ),
             Text(
-              "Criação de Conta",
+              'Criação de Conta',
               style: TextStyle(
                 color: context.colorScheme.onPrimary,
                 fontSize: 24,

@@ -5,9 +5,9 @@ abstract class TarefaDatasource {
 
   Future<List<TarefaModel>> getTarefas();
 
-  Future<TarefaModel> updateTarefa(int id);
+  Future<TarefaModel> updateTarefa(TarefaModel tarefaModel);
 
   Future<void> deleteTarefa(int id);
 
-  Future<TarefaModel> toggleConcluded(int id);
+  Future<TarefaModel> toggleConcluded(int id, bool? concludedStatus);
 }

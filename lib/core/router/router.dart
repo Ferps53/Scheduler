@@ -14,7 +14,7 @@ final goRouterProvider = Provider(
   (ref) {
     final statusUsuarioNotifier = ref.read(statusUsuarioProvider);
     return GoRouter(
-      initialLocation: "/start",
+      initialLocation: '/start',
       refreshListenable: statusUsuarioNotifier,
       redirect: (ctx, state) async {
         final loginRepo = await ref.read(loginRepoProvider);
@@ -33,7 +33,7 @@ final goRouterProvider = Provider(
               return NamedRoutes.tarefas.routePath;
           }
         }
-        if (!state.fullPath!.contains("start") &&
+        if (!state.fullPath!.contains('start') &&
             statusUsuarioNotifier.statusUsuario == StatusLogin.deslogado) {
           return NamedRoutes.login.routePath;
         }

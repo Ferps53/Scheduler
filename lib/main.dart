@@ -17,7 +17,7 @@ class MainWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(goRouterProvider);
     return MaterialApp.router(
-      title: "Scheduler",
+      title: 'Scheduler',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         visualDensity: VisualDensity.compact,
@@ -28,8 +28,8 @@ class MainWidget extends ConsumerWidget {
               displayColor: context.colorScheme.onPrimary,
             ),
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-          brightness: Brightness.light,
+          seedColor: Colors.cyan,
+          brightness: Brightness.dark,
         ),
         useMaterial3: true,
       ),

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:scheduler/features/tarefa/data/datasources/datasource.dart';
+import 'package:scheduler/features/tarefa/data/model/tarefa_concluded_dto.dart';
 import 'package:scheduler/features/tarefa/data/model/tarefa_model.dart';
 
 class TarefaDatasourceImpl implements TarefaDatasource {
@@ -33,14 +34,25 @@ class TarefaDatasourceImpl implements TarefaDatasource {
   }
 
   @override
-  Future<TarefaModel> toggleConcluded(int id) {
-    // TODO: implement toggleConcluded
-    throw UnimplementedError();
+  Future<TarefaModel> toggleConcluded(int id, bool? concludedStatus) async {
+    final TarefaConcludedDTO tarefaConcludedDTO = TarefaConcludedDTO(
+      concludedStatus: concludedStatus,
+      concludedDate: DateTime.now().toIso8601String(),
+    );
+    final response = await _dio.put(
+      '/tarefa/$id/atualizarStatus',
+      data: tarefaConcludedDTO.toJson(),
+    );
+
+    return TarefaModel.fromJson(response.data);
   }
 
   @override
-  Future<TarefaModel> updateTarefa(int id) {
-    // TODO: implement updateTarefa
-    throw UnimplementedError();
+  Future<TarefaModel> updateTarefa(TarefaModel tarefa) async {
+    final response = await _dio.put(
+      '/tarefa',
+      data: tarefa.toJson(),
+    );
+    return TarefaModel.fromJson(response.data);
   }
 }

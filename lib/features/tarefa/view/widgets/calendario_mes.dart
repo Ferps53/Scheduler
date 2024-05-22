@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler/core/core.dart';
+import 'package:scheduler/features/tarefa/view/widgets/widgets.dart';
 
 class CalendarioMes extends StatelessWidget {
   const CalendarioMes({
@@ -24,7 +25,7 @@ class CalendarioMes extends StatelessWidget {
                     icon: const Icon(Icons.arrow_back),
                   ),
                   Text(
-                    "Julho - 2024",
+                    'Julho - 2024',
                     style: TextStyle(
                       fontSize: 24,
                       color: context.colorScheme.onSurface,
@@ -49,13 +50,13 @@ class CalendarioMes extends StatelessWidget {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            _DiaCalendario(dia: "D"),
-                            _DiaCalendario(dia: "S"),
-                            _DiaCalendario(dia: "T"),
-                            _DiaCalendario(dia: "Q"),
-                            _DiaCalendario(dia: "Q"),
-                            _DiaCalendario(dia: "S"),
-                            _DiaCalendario(dia: "S"),
+                            _DiaCalendario(dia: 'D'),
+                            _DiaCalendario(dia: 'S'),
+                            _DiaCalendario(dia: 'T'),
+                            _DiaCalendario(dia: 'Q'),
+                            _DiaCalendario(dia: 'Q'),
+                            _DiaCalendario(dia: 'S'),
+                            _DiaCalendario(dia: 'S'),
                           ],
                         ),
                       ),
@@ -81,31 +82,13 @@ class _GridDias extends StatelessWidget {
       child: GridView.builder(
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 7),
-        itemCount: 31,
+        itemCount: 45,
         itemBuilder: (context, index) {
           index++;
-          return index == 5
-              ? const SizedBox()
-              : GridTile(
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Badge(
-                      isLabelVisible: false,
-                      child: GlassCard(
-                        startGradient: 0.8,
-                        endGradient: 0.3,
-                        child: Center(
-                          child: Text(
-                            "$index",
-                            style: TextStyle(
-                              color: context.colorScheme.onPrimaryContainer,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                );
+          return CalendarDay(
+            tasksQuantity: 0,
+            dayNumber: index,
+          );
         },
       ),
     );
