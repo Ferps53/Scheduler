@@ -1,10 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:scheduler/features/task/task.dart';
 
-class TaskDatasourceImpl implements TaskDatasource {
+class TaskApiDatasource implements TaskDatasource {
   final Dio _dio;
 
-  TaskDatasourceImpl(this._dio);
+  TaskApiDatasource(this._dio);
+
+  @override
+  Future<TaskModel> createTask(TaskModel taskModel) async {
+    final response = await _dio.post(
+      '/tarefa',
+      data: taskModel.toJson(),
+    );
+    return TaskModel.fromJson(response.data);
+  }
 
   @override
   Future<void> deleteTask(int id) async {

@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
 
-final dioProvider = Provider((ref) async {
-  final Store store = await ref.read(storeProvider);
+final dioProvider = Provider((ref) {
+  final Store store = ref.read(storeProvider);
   final Dio dio = Dio(BaseOptions(baseUrl: Environments.backendRoot));
   dio.interceptors.add(DioInterceptor(store));
   return dio;
@@ -16,9 +16,10 @@ class DioInterceptor extends Interceptor {
   DioInterceptor(this._store);
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  void onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     options.headers.addAll({'Content-Type': 'application/json'});
-    final JwtModel? jwtModel = JwtDatasourceImpl(
+    final JwtModel? jwtModel = await JwtDatasourceImpl(
       store: _store,
       dio: Dio(),
     ).getJwtFromLocalStorage();

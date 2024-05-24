@@ -5,7 +5,7 @@ abstract class JwtDatasource {
 
   Future<void> saveJwt(JwtModel jwt, String key);
 
-  JwtModel? getJwtFromLocalStorage();
+  Future<JwtModel?> getJwtFromLocalStorage();
 
   void removeJwt();
 }

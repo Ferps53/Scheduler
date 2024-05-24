@@ -20,8 +20,8 @@ class FakeJwtDatasource implements JwtDatasource {
   }
 
   @override
-  JwtModel? getJwtFromLocalStorage() {
-    final jsonStored = _store.getMap('token');
+  Future<JwtModel?> getJwtFromLocalStorage() async {
+    final jsonStored = await _store.getMap('token');
     if (jsonStored != null) {
       return JwtModel.fromJson(jsonStored);
     } else {
@@ -60,8 +60,8 @@ class JwtDatasourceImpl implements JwtDatasource {
   }
 
   @override
-  JwtModel? getJwtFromLocalStorage() {
-    final jsonStored = _store.getMap('token');
+  Future<JwtModel?> getJwtFromLocalStorage() async {
+    final jsonStored = await _store.getMap('token');
     if (jsonStored != null) {
       final jwt = JwtModel.fromJson(jsonStored);
       return jwt;

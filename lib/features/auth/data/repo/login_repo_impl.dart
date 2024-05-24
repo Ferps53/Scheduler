@@ -13,8 +13,8 @@ class LoginRepoImpl implements LoginRepo {
         _statusUsuarioProvider = statusUsuarioProvider;
 
   @override
-  StatusLogin autoLogin() {
-    JwtModel? jwtModel = _jwtDatasource.getJwtFromLocalStorage();
+  Future<StatusLogin> autoLogin() async {
+    JwtModel? jwtModel = await _jwtDatasource.getJwtFromLocalStorage();
     return _jwtToStatus(jwtModel);
   }
 

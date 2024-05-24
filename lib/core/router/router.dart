@@ -17,7 +17,7 @@ final goRouterProvider = Provider(
       refreshListenable: statusUsuarioNotifier,
       redirect: (ctx, state) async {
         final loginRepo = await ref.read(loginRepoProvider);
-        final statusLogin = loginRepo.autoLogin();
+        final statusLogin = await loginRepo.autoLogin();
 
         if (statusUsuarioNotifier.statusUsuario != statusLogin) {
           statusUsuarioNotifier.statusUsuario = statusLogin;

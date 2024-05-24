@@ -2,16 +2,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
 
-final jwtDatasourceProvider = Provider((ref) async {
+final jwtDatasourceProvider = Provider((ref) {
   final dio = ref.read(dioProvider);
   final store = ref.read(storeProvider);
-  return JwtDatasourceImpl(store: await store, dio: await dio);
+  return JwtDatasourceImpl(store: store, dio: dio);
 });
 
 final loginRepoProvider = Provider(
-  (ref) async {
-    final JwtDatasourceImpl jwtDatasource =
-        await ref.read(jwtDatasourceProvider);
+  (ref) {
+    final JwtDatasourceImpl jwtDatasource = ref.read(jwtDatasourceProvider);
     final StatusUsuarioProvider statusUsuario = ref.read(statusUsuarioProvider);
     return LoginRepoImpl(
       jwtDatasource: jwtDatasource,

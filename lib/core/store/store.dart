@@ -4,38 +4,38 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final storeProvider = Provider(
-  (ref) async {
-    SharedPreferences.setPrefix("todoList");
-    return Store(prefs: await SharedPreferences.getInstance());
+  (ref) {
+    SharedPreferences.setPrefix('todoList');
+    return Store();
   },
 );
 
 class Store {
-  final SharedPreferences _prefs;
-
-  Store({required SharedPreferences prefs}) : _prefs = prefs;
-
-  Future<bool> saveString(String key, String value) {
-    return _prefs.setString(key, value);
+  final _prefs = SharedPreferences.getInstance();
+  Future<bool> saveString(String key, String value) async {
+    final prefs = await _prefs;
+    return prefs.setString(key, value);
   }
 
   Future<bool> saveMap(String key, Map<String, dynamic> map) {
     return saveString(key, jsonEncode(map));
   }
 
-  String getSavedString(String key) {
-    return _prefs.getString(key) ?? '';
+  Future<String> getSavedString(String key) async {
+    final prefs = await _prefs;
+    return prefs.getString(key) ?? '';
   }
 
-  Map<String, dynamic>? getMap(String key) {
+  Future<Map<String, dynamic>?> getMap(String key) async {
     try {
-      return jsonDecode(getSavedString(key));
+      return jsonDecode(await getSavedString(key));
     } catch (_) {
       return null;
     }
   }
 
   Future<bool> remove(String key) async {
-    return await _prefs.remove(key);
+    final prefs = await _prefs;
+    return prefs.remove(key);
   }
 }
