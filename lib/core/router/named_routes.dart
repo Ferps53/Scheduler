@@ -1,5 +1,5 @@
 enum NamedRoutes {
-  home(routeName: "home", routePath: "/home"),
+  home(routeName: 'home', routePath: '/home'),
   login(routeName: 'login', routePath: '/start'),
   forgotPassword(
       routeName: 'forgotPassword', routePath: '/start/forgot-password'),
