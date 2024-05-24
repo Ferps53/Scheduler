@@ -38,11 +38,11 @@ class TaskLocalDatasource implements TaskDatasource {
   @override
   Future<List<TaskModel>> getTasks() async {
     final Set<String> keySet = await _store.getAllKeys();
-    final Set<String> taskKeys = {};
+    final Set<String> taskKeySet = {};
     final List<TaskModel> taskList = [];
     keySet
         .where((String key) => key.contains('user:$_getCurrentUserId()'))
-        .map((key) => taskKeys.add(key));
+        .map((key) => taskKeySet.add(key));
 
     for (final key in keySet) {
       final json = await _store.getMap(key);
