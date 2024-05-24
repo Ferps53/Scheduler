@@ -26,7 +26,7 @@ class Store {
     return prefs.getString(key) ?? '';
   }
 
-  Future<Map<String, dynamic>?> getMap(String key) async {
+  Future<Map<String, Object?>?> getMap(String key) async {
     try {
       return jsonDecode(await getSavedString(key));
     } catch (_) {
@@ -37,5 +37,10 @@ class Store {
   Future<bool> remove(String key) async {
     final prefs = await _prefs;
     return prefs.remove(key);
+  }
+
+  Future<Set<String>> getAllKeys() async {
+    final prefs = await _prefs;
+    return prefs.getKeys();
   }
 }

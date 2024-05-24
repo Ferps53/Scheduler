@@ -8,4 +8,6 @@ abstract class JwtDatasource {
   Future<JwtModel?> getJwtFromLocalStorage();
 
   void removeJwt();
+
+  Future<String> getCurrentUserId();
 }

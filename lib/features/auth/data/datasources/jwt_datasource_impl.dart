@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
 
@@ -37,6 +38,12 @@ class FakeJwtDatasource implements JwtDatasource {
   @override
   Future<void> saveJwt(JwtModel jwt, String key) async {
     _store.saveMap(key, jwt.toJson());
+  }
+
+  @override
+  Future<String> getCurrentUserId() {
+    // TODO: implement getCurrentUserId
+    throw UnimplementedError();
   }
 }
 
@@ -78,5 +85,14 @@ class JwtDatasourceImpl implements JwtDatasource {
   @override
   Future<void> saveJwt(JwtModel jwt, String key) async {
     await _store.saveMap(key, jwt.toJson());
+  }
+
+  @override
+  Future<String> getCurrentUserId() async {
+    final json = await _store.getMap('token');
+    final jwtModel = JwtModel.fromJson(json!);
+    final payloadMap = JwtDecoder.decode(jwtModel.access_token);
+
+    return payloadMap['sub'] as String;
   }
 }
