@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:scheduler/core/router/named_routes.dart';
 import 'package:scheduler/core/styles/styles.dart';
 import 'package:scheduler/features/auth/view/providers/provider.dart';
 
@@ -33,16 +31,13 @@ class SchedulerAppbar extends ConsumerWidget implements PreferredSizeWidget {
                   color: context.colorScheme.error,
                 ),
                 title: Text(
-                  "Sair do app",
+                  'Sair do app',
                   style: TextStyle(
                     color: context.colorScheme.onSurface,
                   ),
                 ),
                 onTap: () async {
-                  final loginRepo = await ref.read(loginRepoProvider);
-                  final routerNotifier = 
-                  loginRepo.deslogar();
-                  
+                  await ref.read(loginRepoProvider).deslogar();
                 },
               ),
             ),

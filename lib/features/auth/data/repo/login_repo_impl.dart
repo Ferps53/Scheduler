@@ -19,8 +19,8 @@ class LoginRepoImpl implements LoginRepo {
   }
 
   @override
-  void deslogar() {
-    _jwtDatasource.removeJwt();
+  Future<void> deslogar() async {
+    await _jwtDatasource.removeJwt();
     _statusUsuarioProvider.statusUsuario = StatusLogin.deslogado;
   }
 
