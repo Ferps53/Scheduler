@@ -1,13 +1,13 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'tarefa_model.dart';
+part of 'task_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$TarefaModelImpl _$$TarefaModelImplFromJson(Map<String, dynamic> json) =>
-    _$TarefaModelImpl(
+_$TaskModelImpl _$$TaskModelImplFromJson(Map<String, dynamic> json) =>
+    _$TaskModelImpl(
       id: (json['id'] as num).toInt(),
       titulo: json['titulo'] as String,
       idUsusario: json['idUsusario'] as String,
@@ -20,7 +20,7 @@ _$TarefaModelImpl _$$TarefaModelImplFromJson(Map<String, dynamic> json) =>
       dataConclusao: json['dataConclusao'] as String?,
     );
 
-Map<String, dynamic> _$$TarefaModelImplToJson(_$TarefaModelImpl instance) =>
+Map<String, dynamic> _$$TaskModelImplToJson(_$TaskModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'titulo': instance.titulo,

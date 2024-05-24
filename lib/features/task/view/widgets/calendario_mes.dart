@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:scheduler/core/core.dart';
-import 'package:scheduler/features/tarefa/view/widgets/widgets.dart';
+
+import 'widgets.dart';
 
 class CalendarioMes extends StatelessWidget {
   const CalendarioMes({

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'tarefa_model.dart';
+part of 'task_model.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-TarefaModel _$TarefaModelFromJson(Map<String, dynamic> json) {
-  return _TarefaModel.fromJson(json);
+TaskModel _$TaskModelFromJson(Map<String, dynamic> json) {
+  return _TaskModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$TarefaModel {
+mixin _$TaskModel {
   int get id => throw _privateConstructorUsedError;
   String get titulo => throw _privateConstructorUsedError;
   String get idUsusario => throw _privateConstructorUsedError;
@@ -33,15 +33,14 @@ mixin _$TarefaModel {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TarefaModelCopyWith<TarefaModel> get copyWith =>
+  $TaskModelCopyWith<TaskModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TarefaModelCopyWith<$Res> {
-  factory $TarefaModelCopyWith(
-          TarefaModel value, $Res Function(TarefaModel) then) =
-      _$TarefaModelCopyWithImpl<$Res, TarefaModel>;
+abstract class $TaskModelCopyWith<$Res> {
+  factory $TaskModelCopyWith(TaskModel value, $Res Function(TaskModel) then) =
+      _$TaskModelCopyWithImpl<$Res, TaskModel>;
   @useResult
   $Res call(
       {int id,
@@ -57,9 +56,9 @@ abstract class $TarefaModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TarefaModelCopyWithImpl<$Res, $Val extends TarefaModel>
-    implements $TarefaModelCopyWith<$Res> {
-  _$TarefaModelCopyWithImpl(this._value, this._then);
+class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
+    implements $TaskModelCopyWith<$Res> {
+  _$TaskModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -126,11 +125,11 @@ class _$TarefaModelCopyWithImpl<$Res, $Val extends TarefaModel>
 }
 
 /// @nodoc
-abstract class _$$TarefaModelImplCopyWith<$Res>
-    implements $TarefaModelCopyWith<$Res> {
-  factory _$$TarefaModelImplCopyWith(
-          _$TarefaModelImpl value, $Res Function(_$TarefaModelImpl) then) =
-      __$$TarefaModelImplCopyWithImpl<$Res>;
+abstract class _$$TaskModelImplCopyWith<$Res>
+    implements $TaskModelCopyWith<$Res> {
+  factory _$$TaskModelImplCopyWith(
+          _$TaskModelImpl value, $Res Function(_$TaskModelImpl) then) =
+      __$$TaskModelImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -147,11 +146,11 @@ abstract class _$$TarefaModelImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TarefaModelImplCopyWithImpl<$Res>
-    extends _$TarefaModelCopyWithImpl<$Res, _$TarefaModelImpl>
-    implements _$$TarefaModelImplCopyWith<$Res> {
-  __$$TarefaModelImplCopyWithImpl(
-      _$TarefaModelImpl _value, $Res Function(_$TarefaModelImpl) _then)
+class __$$TaskModelImplCopyWithImpl<$Res>
+    extends _$TaskModelCopyWithImpl<$Res, _$TaskModelImpl>
+    implements _$$TaskModelImplCopyWith<$Res> {
+  __$$TaskModelImplCopyWithImpl(
+      _$TaskModelImpl _value, $Res Function(_$TaskModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -168,7 +167,7 @@ class __$$TarefaModelImplCopyWithImpl<$Res>
     Object? dataExpiracao = freezed,
     Object? dataConclusao = freezed,
   }) {
-    return _then(_$TarefaModelImpl(
+    return _then(_$TaskModelImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -215,8 +214,8 @@ class __$$TarefaModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TarefaModelImpl implements _TarefaModel {
-  _$TarefaModelImpl(
+class _$TaskModelImpl implements _TaskModel {
+  _$TaskModelImpl(
       {required this.id,
       required this.titulo,
       required this.idUsusario,
@@ -228,8 +227,8 @@ class _$TarefaModelImpl implements _TarefaModel {
       required this.dataExpiracao,
       required this.dataConclusao});
 
-  factory _$TarefaModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TarefaModelImplFromJson(json);
+  factory _$TaskModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TaskModelImplFromJson(json);
 
   @override
   final int id;
@@ -254,14 +253,14 @@ class _$TarefaModelImpl implements _TarefaModel {
 
   @override
   String toString() {
-    return 'TarefaModel(id: $id, titulo: $titulo, idUsusario: $idUsusario, descricao: $descricao, fgConcluida: $fgConcluida, fgLixeira: $fgLixeira, dataEnvioLixeira: $dataEnvioLixeira, dataCriacao: $dataCriacao, dataExpiracao: $dataExpiracao, dataConclusao: $dataConclusao)';
+    return 'TaskModel(id: $id, titulo: $titulo, idUsusario: $idUsusario, descricao: $descricao, fgConcluida: $fgConcluida, fgLixeira: $fgLixeira, dataEnvioLixeira: $dataEnvioLixeira, dataCriacao: $dataCriacao, dataExpiracao: $dataExpiracao, dataConclusao: $dataConclusao)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TarefaModelImpl &&
+            other is _$TaskModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.titulo, titulo) || other.titulo == titulo) &&
             (identical(other.idUsusario, idUsusario) ||
@@ -300,19 +299,19 @@ class _$TarefaModelImpl implements _TarefaModel {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TarefaModelImplCopyWith<_$TarefaModelImpl> get copyWith =>
-      __$$TarefaModelImplCopyWithImpl<_$TarefaModelImpl>(this, _$identity);
+  _$$TaskModelImplCopyWith<_$TaskModelImpl> get copyWith =>
+      __$$TaskModelImplCopyWithImpl<_$TaskModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TarefaModelImplToJson(
+    return _$$TaskModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _TarefaModel implements TarefaModel {
-  factory _TarefaModel(
+abstract class _TaskModel implements TaskModel {
+  factory _TaskModel(
       {required final int id,
       required final String titulo,
       required final String idUsusario,
@@ -322,10 +321,10 @@ abstract class _TarefaModel implements TarefaModel {
       required final String? dataEnvioLixeira,
       required final String? dataCriacao,
       required final String? dataExpiracao,
-      required final String? dataConclusao}) = _$TarefaModelImpl;
+      required final String? dataConclusao}) = _$TaskModelImpl;
 
-  factory _TarefaModel.fromJson(Map<String, dynamic> json) =
-      _$TarefaModelImpl.fromJson;
+  factory _TaskModel.fromJson(Map<String, dynamic> json) =
+      _$TaskModelImpl.fromJson;
 
   @override
   int get id;
@@ -349,6 +348,6 @@ abstract class _TarefaModel implements TarefaModel {
   String? get dataConclusao;
   @override
   @JsonKey(ignore: true)
-  _$$TarefaModelImplCopyWith<_$TarefaModelImpl> get copyWith =>
+  _$$TaskModelImplCopyWith<_$TaskModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

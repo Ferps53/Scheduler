@@ -9,14 +9,14 @@ class FakeJwtDatasource implements JwtDatasource {
 
   @override
   Future<JwtModel> fetchJwt(DadosLogin dadosLogin) {
-    if (dadosLogin.email == "felipebrostolinribeiro@gmail.com" &&
-        dadosLogin.senha == "123456") {
+    if (dadosLogin.email == 'felipebrostolinribeiro@gmail.com' &&
+        dadosLogin.senha == '123456') {
       return Future.delayed(
         const Duration(milliseconds: 200),
-        () => JwtModel(access_token: "aa", refresh_token: "a"),
+        () => JwtModel(access_token: 'aa', refresh_token: 'a'),
       );
     }
-    throw Exception("Rapaiz");
+    throw Exception('Rapaiz');
   }
 
   @override
@@ -52,7 +52,7 @@ class JwtDatasourceImpl implements JwtDatasource {
   Future<JwtModel> fetchJwt(DadosLogin dadosLogin) async {
     try {
       final response =
-          await _dio.post("/auth/login", data: dadosLogin.toJson());
+          await _dio.post('/auth/login', data: dadosLogin.toJson());
       return JwtModel.fromJson(response.data);
     } catch (e) {
       rethrow;

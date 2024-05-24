@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'tarefa_concluded_dto.dart';
+part of 'task_concluded_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -14,34 +14,34 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-TarefaConcludedDTO _$TarefaConcludedDTOFromJson(Map<String, dynamic> json) {
-  return _TarefaConcludedDTO.fromJson(json);
+TaskConcludedDTO _$TaskConcludedDTOFromJson(Map<String, dynamic> json) {
+  return _TaskConcludedDTO.fromJson(json);
 }
 
 /// @nodoc
-mixin _$TarefaConcludedDTO {
+mixin _$TaskConcludedDTO {
   String get concludedDate => throw _privateConstructorUsedError;
   bool? get concludedStatus => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TarefaConcludedDTOCopyWith<TarefaConcludedDTO> get copyWith =>
+  $TaskConcludedDTOCopyWith<TaskConcludedDTO> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TarefaConcludedDTOCopyWith<$Res> {
-  factory $TarefaConcludedDTOCopyWith(
-          TarefaConcludedDTO value, $Res Function(TarefaConcludedDTO) then) =
-      _$TarefaConcludedDTOCopyWithImpl<$Res, TarefaConcludedDTO>;
+abstract class $TaskConcludedDTOCopyWith<$Res> {
+  factory $TaskConcludedDTOCopyWith(
+          TaskConcludedDTO value, $Res Function(TaskConcludedDTO) then) =
+      _$TaskConcludedDTOCopyWithImpl<$Res, TaskConcludedDTO>;
   @useResult
   $Res call({String concludedDate, bool? concludedStatus});
 }
 
 /// @nodoc
-class _$TarefaConcludedDTOCopyWithImpl<$Res, $Val extends TarefaConcludedDTO>
-    implements $TarefaConcludedDTOCopyWith<$Res> {
-  _$TarefaConcludedDTOCopyWithImpl(this._value, this._then);
+class _$TaskConcludedDTOCopyWithImpl<$Res, $Val extends TaskConcludedDTO>
+    implements $TaskConcludedDTOCopyWith<$Res> {
+  _$TaskConcludedDTOCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -68,22 +68,22 @@ class _$TarefaConcludedDTOCopyWithImpl<$Res, $Val extends TarefaConcludedDTO>
 }
 
 /// @nodoc
-abstract class _$$TarefaConcludedDTOImplCopyWith<$Res>
-    implements $TarefaConcludedDTOCopyWith<$Res> {
-  factory _$$TarefaConcludedDTOImplCopyWith(_$TarefaConcludedDTOImpl value,
-          $Res Function(_$TarefaConcludedDTOImpl) then) =
-      __$$TarefaConcludedDTOImplCopyWithImpl<$Res>;
+abstract class _$$TaskConcludedDTOImplCopyWith<$Res>
+    implements $TaskConcludedDTOCopyWith<$Res> {
+  factory _$$TaskConcludedDTOImplCopyWith(_$TaskConcludedDTOImpl value,
+          $Res Function(_$TaskConcludedDTOImpl) then) =
+      __$$TaskConcludedDTOImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call({String concludedDate, bool? concludedStatus});
 }
 
 /// @nodoc
-class __$$TarefaConcludedDTOImplCopyWithImpl<$Res>
-    extends _$TarefaConcludedDTOCopyWithImpl<$Res, _$TarefaConcludedDTOImpl>
-    implements _$$TarefaConcludedDTOImplCopyWith<$Res> {
-  __$$TarefaConcludedDTOImplCopyWithImpl(_$TarefaConcludedDTOImpl _value,
-      $Res Function(_$TarefaConcludedDTOImpl) _then)
+class __$$TaskConcludedDTOImplCopyWithImpl<$Res>
+    extends _$TaskConcludedDTOCopyWithImpl<$Res, _$TaskConcludedDTOImpl>
+    implements _$$TaskConcludedDTOImplCopyWith<$Res> {
+  __$$TaskConcludedDTOImplCopyWithImpl(_$TaskConcludedDTOImpl _value,
+      $Res Function(_$TaskConcludedDTOImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -92,7 +92,7 @@ class __$$TarefaConcludedDTOImplCopyWithImpl<$Res>
     Object? concludedDate = null,
     Object? concludedStatus = freezed,
   }) {
-    return _then(_$TarefaConcludedDTOImpl(
+    return _then(_$TaskConcludedDTOImpl(
       concludedDate: null == concludedDate
           ? _value.concludedDate
           : concludedDate // ignore: cast_nullable_to_non_nullable
@@ -107,12 +107,12 @@ class __$$TarefaConcludedDTOImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TarefaConcludedDTOImpl implements _TarefaConcludedDTO {
-  _$TarefaConcludedDTOImpl(
+class _$TaskConcludedDTOImpl implements _TaskConcludedDTO {
+  _$TaskConcludedDTOImpl(
       {required this.concludedDate, required this.concludedStatus});
 
-  factory _$TarefaConcludedDTOImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TarefaConcludedDTOImplFromJson(json);
+  factory _$TaskConcludedDTOImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TaskConcludedDTOImplFromJson(json);
 
   @override
   final String concludedDate;
@@ -121,14 +121,14 @@ class _$TarefaConcludedDTOImpl implements _TarefaConcludedDTO {
 
   @override
   String toString() {
-    return 'TarefaConcludedDTO(concludedDate: $concludedDate, concludedStatus: $concludedStatus)';
+    return 'TaskConcludedDTO(concludedDate: $concludedDate, concludedStatus: $concludedStatus)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$TarefaConcludedDTOImpl &&
+            other is _$TaskConcludedDTOImpl &&
             (identical(other.concludedDate, concludedDate) ||
                 other.concludedDate == concludedDate) &&
             (identical(other.concludedStatus, concludedStatus) ||
@@ -142,25 +142,25 @@ class _$TarefaConcludedDTOImpl implements _TarefaConcludedDTO {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TarefaConcludedDTOImplCopyWith<_$TarefaConcludedDTOImpl> get copyWith =>
-      __$$TarefaConcludedDTOImplCopyWithImpl<_$TarefaConcludedDTOImpl>(
+  _$$TaskConcludedDTOImplCopyWith<_$TaskConcludedDTOImpl> get copyWith =>
+      __$$TaskConcludedDTOImplCopyWithImpl<_$TaskConcludedDTOImpl>(
           this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TarefaConcludedDTOImplToJson(
+    return _$$TaskConcludedDTOImplToJson(
       this,
     );
   }
 }
 
-abstract class _TarefaConcludedDTO implements TarefaConcludedDTO {
-  factory _TarefaConcludedDTO(
+abstract class _TaskConcludedDTO implements TaskConcludedDTO {
+  factory _TaskConcludedDTO(
       {required final String concludedDate,
-      required final bool? concludedStatus}) = _$TarefaConcludedDTOImpl;
+      required final bool? concludedStatus}) = _$TaskConcludedDTOImpl;
 
-  factory _TarefaConcludedDTO.fromJson(Map<String, dynamic> json) =
-      _$TarefaConcludedDTOImpl.fromJson;
+  factory _TaskConcludedDTO.fromJson(Map<String, dynamic> json) =
+      _$TaskConcludedDTOImpl.fromJson;
 
   @override
   String get concludedDate;
@@ -168,6 +168,6 @@ abstract class _TarefaConcludedDTO implements TarefaConcludedDTO {
   bool? get concludedStatus;
   @override
   @JsonKey(ignore: true)
-  _$$TarefaConcludedDTOImplCopyWith<_$TarefaConcludedDTOImpl> get copyWith =>
+  _$$TaskConcludedDTOImplCopyWith<_$TaskConcludedDTOImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

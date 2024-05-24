@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'tarefa_model.g.dart';
-part 'tarefa_model.freezed.dart';
+part 'task_model.g.dart';
+part 'task_model.freezed.dart';
 
 @freezed
-class TarefaModel with _$TarefaModel {
-  factory TarefaModel({
+class TaskModel with _$TaskModel {
+  factory TaskModel({
     required int id,
     required String titulo,
     required String idUsusario,
@@ -16,8 +16,8 @@ class TarefaModel with _$TarefaModel {
     required String? dataCriacao,
     required String? dataExpiracao,
     required String? dataConclusao,
-  }) = _TarefaModel;
+  }) = _TaskModel;
 
-  factory TarefaModel.fromJson(Map<String, Object?> json) =>
-      _$TarefaModelFromJson(json);
+  factory TaskModel.fromJson(Map<String, Object?> json) =>
+      _$TaskModelFromJson(json);
 }
