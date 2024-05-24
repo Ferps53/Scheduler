@@ -8,7 +8,7 @@ class ForgotPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BackgroundGradientScaffold(
-      appBarLabel: "Recuperar Senha",
+      appBarLabel: 'Recuperar Senha',
       child: Center(
         child: GlassCard(
           backgroundColor: Colors.white,

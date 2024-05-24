@@ -14,13 +14,13 @@ final loginAsyncNotifierProvider =
 class LoginAsyncNotifier extends AutoDisposeAsyncNotifier<StatusLogin> {
   @override
   Future<StatusLogin> build() async {
-    final loginRepo = await ref.read(loginRepoProvider);
+    final loginRepo = ref.read(loginRepoProvider);
     return loginRepo.autoLogin();
   }
 
   void login(DadosLogin dadosLogin, BuildContext context) async {
     state = const AsyncLoading();
-    final loginRepo = await ref.read(loginRepoProvider);
+    final loginRepo = ref.read(loginRepoProvider);
     state = await AsyncValue.guard(
       () async => await loginRepo.login(dadosLogin),
     );
@@ -31,7 +31,7 @@ class LoginAsyncNotifier extends AutoDisposeAsyncNotifier<StatusLogin> {
     } else {
       if (context.mounted) {
         context.showSnackBar(
-          "Falha no Login",
+          'Falha no Login',
         );
       }
     }

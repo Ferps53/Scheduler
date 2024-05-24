@@ -3,5 +3,5 @@ class Environments {
 
   //TODO: Adicionar o backendRoot do Server
   static String backendRoot =
-      "https://scheduler-backend-production-805d.up.railway.app";
+      'https://scheduler-backend-production-805d.up.railway.app';
 }

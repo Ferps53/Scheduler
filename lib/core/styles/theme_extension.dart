@@ -22,7 +22,7 @@ extension BuildContextExtension on BuildContext {
             const Spacer(),
             GlassTextButton(
               onPressed: ScaffoldMessenger.of(this).hideCurrentSnackBar,
-              buttonLabel: "Dispensar",
+              buttonLabel: 'Dispensar',
             ),
           ],
         ),
