@@ -20,9 +20,9 @@ TaskModel _$TaskModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$TaskModel {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   String get titulo => throw _privateConstructorUsedError;
-  String get idUsusario => throw _privateConstructorUsedError;
+  String? get idUsusario => throw _privateConstructorUsedError;
   String get descricao => throw _privateConstructorUsedError;
   bool? get fgConcluida => throw _privateConstructorUsedError;
   bool? get fgLixeira => throw _privateConstructorUsedError;
@@ -43,9 +43,9 @@ abstract class $TaskModelCopyWith<$Res> {
       _$TaskModelCopyWithImpl<$Res, TaskModel>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       String titulo,
-      String idUsusario,
+      String? idUsusario,
       String descricao,
       bool? fgConcluida,
       bool? fgLixeira,
@@ -68,9 +68,9 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? titulo = null,
-    Object? idUsusario = null,
+    Object? idUsusario = freezed,
     Object? descricao = null,
     Object? fgConcluida = freezed,
     Object? fgLixeira = freezed,
@@ -80,18 +80,18 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
     Object? dataConclusao = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       titulo: null == titulo
           ? _value.titulo
           : titulo // ignore: cast_nullable_to_non_nullable
               as String,
-      idUsusario: null == idUsusario
+      idUsusario: freezed == idUsusario
           ? _value.idUsusario
           : idUsusario // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       descricao: null == descricao
           ? _value.descricao
           : descricao // ignore: cast_nullable_to_non_nullable
@@ -133,9 +133,9 @@ abstract class _$$TaskModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       String titulo,
-      String idUsusario,
+      String? idUsusario,
       String descricao,
       bool? fgConcluida,
       bool? fgLixeira,
@@ -156,9 +156,9 @@ class __$$TaskModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? titulo = null,
-    Object? idUsusario = null,
+    Object? idUsusario = freezed,
     Object? descricao = null,
     Object? fgConcluida = freezed,
     Object? fgLixeira = freezed,
@@ -168,18 +168,18 @@ class __$$TaskModelImplCopyWithImpl<$Res>
     Object? dataConclusao = freezed,
   }) {
     return _then(_$TaskModelImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       titulo: null == titulo
           ? _value.titulo
           : titulo // ignore: cast_nullable_to_non_nullable
               as String,
-      idUsusario: null == idUsusario
+      idUsusario: freezed == idUsusario
           ? _value.idUsusario
           : idUsusario // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       descricao: null == descricao
           ? _value.descricao
           : descricao // ignore: cast_nullable_to_non_nullable
@@ -231,11 +231,11 @@ class _$TaskModelImpl implements _TaskModel {
       _$$TaskModelImplFromJson(json);
 
   @override
-  final int id;
+  final int? id;
   @override
   final String titulo;
   @override
-  final String idUsusario;
+  final String? idUsusario;
   @override
   final String descricao;
   @override
@@ -312,9 +312,9 @@ class _$TaskModelImpl implements _TaskModel {
 
 abstract class _TaskModel implements TaskModel {
   factory _TaskModel(
-      {required final int id,
+      {required final int? id,
       required final String titulo,
-      required final String idUsusario,
+      required final String? idUsusario,
       required final String descricao,
       required final bool? fgConcluida,
       required final bool? fgLixeira,
@@ -327,11 +327,11 @@ abstract class _TaskModel implements TaskModel {
       _$TaskModelImpl.fromJson;
 
   @override
-  int get id;
+  int? get id;
   @override
   String get titulo;
   @override
-  String get idUsusario;
+  String? get idUsusario;
   @override
   String get descricao;
   @override

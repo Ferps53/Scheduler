@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/features.dart';
 
@@ -88,4 +90,19 @@ class TaskLocalDatasource implements TaskDatasource {
   String _generateKeyTaskWithId(
           {required int idTask, required String idUser}) =>
       'taskModel:$idTask -+- user: $idUser';
+
+  Future<int> getLastId() async {
+    final Set<String> keySet = await _store.getAllKeys();
+    final Set<String> taskKeySet = {};
+    final List<int> idList = [];
+    keySet
+        .where((String key) =>
+            key.contains('user:$_getCurrentUserId()') &&
+            key.contains('taskModel:'))
+        .map((key) => taskKeySet.add(key));
+    for (final key in taskKeySet) {
+      idList.add(int.parse(key.split('-+-')[0].replaceAll('taskModel:', '')));
+    }
+    return idList.reduce(max);
+  }
 }

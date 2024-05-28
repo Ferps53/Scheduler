@@ -16,7 +16,7 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$TaskEntity {
-  int get id => throw _privateConstructorUsedError;
+  int? get id => throw _privateConstructorUsedError;
   String get titulo => throw _privateConstructorUsedError;
   String get descricao => throw _privateConstructorUsedError;
   bool? get fgConcluida => throw _privateConstructorUsedError;
@@ -38,7 +38,7 @@ abstract class $TaskEntityCopyWith<$Res> {
       _$TaskEntityCopyWithImpl<$Res, TaskEntity>;
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       String titulo,
       String descricao,
       bool? fgConcluida,
@@ -62,7 +62,7 @@ class _$TaskEntityCopyWithImpl<$Res, $Val extends TaskEntity>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? titulo = null,
     Object? descricao = null,
     Object? fgConcluida = freezed,
@@ -73,10 +73,10 @@ class _$TaskEntityCopyWithImpl<$Res, $Val extends TaskEntity>
     Object? dataConclusao = freezed,
   }) {
     return _then(_value.copyWith(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       titulo: null == titulo
           ? _value.titulo
           : titulo // ignore: cast_nullable_to_non_nullable
@@ -122,7 +122,7 @@ abstract class _$$TaskEntityImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
+      {int? id,
       String titulo,
       String descricao,
       bool? fgConcluida,
@@ -144,7 +144,7 @@ class __$$TaskEntityImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
+    Object? id = freezed,
     Object? titulo = null,
     Object? descricao = null,
     Object? fgConcluida = freezed,
@@ -155,10 +155,10 @@ class __$$TaskEntityImplCopyWithImpl<$Res>
     Object? dataConclusao = freezed,
   }) {
     return _then(_$TaskEntityImpl(
-      id: null == id
+      id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       titulo: null == titulo
           ? _value.titulo
           : titulo // ignore: cast_nullable_to_non_nullable
@@ -210,7 +210,7 @@ class _$TaskEntityImpl implements _TaskEntity {
       required this.dataConclusao});
 
   @override
-  final int id;
+  final int? id;
   @override
   final String titulo;
   @override
@@ -278,7 +278,7 @@ class _$TaskEntityImpl implements _TaskEntity {
 
 abstract class _TaskEntity implements TaskEntity {
   factory _TaskEntity(
-      {required final int id,
+      {required final int? id,
       required final String titulo,
       required final String descricao,
       required final bool? fgConcluida,
@@ -289,7 +289,7 @@ abstract class _TaskEntity implements TaskEntity {
       required final DateTime? dataConclusao}) = _$TaskEntityImpl;
 
   @override
-  int get id;
+  int? get id;
   @override
   String get titulo;
   @override

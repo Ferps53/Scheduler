@@ -8,9 +8,9 @@ part of 'task_model.dart';
 
 _$TaskModelImpl _$$TaskModelImplFromJson(Map<String, dynamic> json) =>
     _$TaskModelImpl(
-      id: (json['id'] as num).toInt(),
+      id: (json['id'] as num?)?.toInt(),
       titulo: json['titulo'] as String,
-      idUsusario: json['idUsusario'] as String,
+      idUsusario: json['idUsusario'] as String?,
       descricao: json['descricao'] as String,
       fgConcluida: json['fgConcluida'] as bool?,
       fgLixeira: json['fgLixeira'] as bool?,
