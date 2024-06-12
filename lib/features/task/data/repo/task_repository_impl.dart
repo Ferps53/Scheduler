@@ -17,7 +17,7 @@ class TaskRepositoryImpl implements TaskRepository {
 
   @override
   Future<TaskEntity> createTask(TaskEntity task) async {
-    if (await hasInternetConnection()) {
+    if (await _hasInternetConnection()) {
       final TaskModel taskModel = await taskApiDatasource
           .createTask(TaskModel.fromEntity(taskEntity: task));
       await taskLocalDatasource.createTask(taskModel);
@@ -30,24 +30,44 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<void> deleteTask(int id) {
-    // TODO: implement deleteTask
-    throw UnimplementedError();
+  Future<void> deleteTask(int id) async {
+    if (await _hasInternetConnection()) {
+      await taskApiDatasource.deleteTask(id);
+      await taskLocalDatasource.deleteTask(id);
+    } else {
+      await taskLocalDatasource.deleteTask(id);
+    }
   }
 
   @override
-  Future<TaskEntity> getTask(int id) {
-    // TODO: implement getTask
-    throw UnimplementedError();
+  Future<TaskEntity> getTask(int id) async {
+    final TaskModel taskModel;
+    if (await _hasInternetConnection()) {
+      taskModel = await taskApiDatasource.getTaskById(id);
+      return TaskEntity.fromModel(taskModel: taskModel);
+    }
+    taskModel = await taskLocalDatasource.getTaskById(id);
+    return TaskEntity.fromModel(taskModel: taskModel);
   }
 
   @override
-  Future<List<TaskEntity>> getTaskList() {
-    // TODO: implement getTaskList
-    throw UnimplementedError();
+  Future<List<TaskEntity>> getTaskList() async {
+    final List<TaskModel> models;
+    final List<TaskEntity> entities = [];
+    if (await _hasInternetConnection()) {
+      models = await taskApiDatasource.getTasks();
+    } else {
+      models = await taskLocalDatasource.getTasks();
+    }
+
+    for (final model in models) {
+      entities.add(TaskEntity.fromModel(taskModel: model));
+    }
+
+    return entities;
   }
 
-  Future<bool> hasInternetConnection() async =>
+  Future<bool> _hasInternetConnection() async =>
       await InternetConnection().hasInternetAccess;
 
   @override

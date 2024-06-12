@@ -22,6 +22,36 @@ class TaskModel with _$TaskModel {
   factory TaskModel.fromJson(Map<String, Object?> json) =>
       _$TaskModelFromJson(json);
 
+  Map<String, Object?> toDatabaseMap() {
+    return {
+      'id': id,
+      'titulo': titulo,
+      'idUsuario': idUsusario,
+      'descricao': descricao,
+      'fgConcluida': fgConcluida == true ? 1 : 0,
+      'fgLixeira': fgLixeira == true ? 1 : 0,
+      'dataEnvioLixeira': dataEnvioLixeira,
+      'dataCriacao': dataCriacao,
+      'dataExpiracao': dataExpiracao,
+      'dataConclusao': dataConclusao,
+    };
+  }
+
+  factory TaskModel.fromDatabase(Map<String, Object?> databaseMap) {
+    return TaskModel(
+      id: databaseMap['id'] as int?,
+      titulo: databaseMap['titulo'] as String,
+      idUsusario: ['idUsusario'] as String,
+      descricao: ['descricao'] as String,
+      fgConcluida: ['fgConcluida'] as int == 1 ? true : false,
+      fgLixeira: ['fgLixeira'] as int == 1 ? true : false,
+      dataEnvioLixeira: ['dataEnvioLixeira'] as String,
+      dataCriacao: ['dataCriacao'] as String,
+      dataExpiracao: ['dataExpiracao'] as String,
+      dataConclusao: ['dataConclusao'] as String,
+    );
+  }
+
   factory TaskModel.fromEntity({
     required TaskEntity taskEntity,
     int? id,
