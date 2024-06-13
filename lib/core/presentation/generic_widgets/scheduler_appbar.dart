@@ -23,8 +23,16 @@ class SchedulerAppbar extends ConsumerWidget implements PreferredSizeWidget {
       ),
       actions: [
         PopupMenuButton(
+          onSelected: (index) async {
+            switch (index) {
+              case 1:
+                await ref.read(loginRepoProvider).deslogar();
+                break;
+            }
+          },
           itemBuilder: (context) => [
             PopupMenuItem(
+              value: 1,
               child: ListTile(
                 leading: Icon(
                   Icons.exit_to_app,
@@ -36,9 +44,6 @@ class SchedulerAppbar extends ConsumerWidget implements PreferredSizeWidget {
                     color: context.colorScheme.onSurface,
                   ),
                 ),
-                onTap: () async {
-                  await ref.read(loginRepoProvider).deslogar();
-                },
               ),
             ),
           ],
