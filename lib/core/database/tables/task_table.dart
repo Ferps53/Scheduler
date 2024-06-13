@@ -15,7 +15,7 @@ class TaskTable implements TableStrategy {
             dataCriacao TEXT,
             dataEnvioLixeira TEXT,
             dataExpiracao TEXT,
-            dataDataConclusao TEXT,
+            dataConclusao TEXT
         );
     ''');
   }
