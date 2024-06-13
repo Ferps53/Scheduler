@@ -5,6 +5,6 @@ abstract class TaskRepository {
   Future<void> deleteTask(int id);
   Future<TaskEntity> getTask(int id);
   Future<List<TaskEntity>> getTaskList();
-  Future<TaskEntity> updateTask(int id);
+  Future<TaskEntity> updateTask(TaskEntity taskEntity);
   Future<TaskEntity> toggleConcluded(int id, bool? statusConcluded);
 }
