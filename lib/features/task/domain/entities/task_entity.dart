@@ -25,10 +25,10 @@ class TaskEntity with _$TaskEntity {
       descricao: taskModel.descricao,
       fgConcluida: taskModel.fgConcluida,
       fgLixeira: taskModel.fgLixeira,
-      dataEnvioLixeira: DateTime.tryParse(taskModel.dataEnvioLixeira!),
-      dataCriacao: DateTime.tryParse(taskModel.dataCriacao!),
-      dataExpiracao: DateTime.tryParse(taskModel.dataExpiracao!),
-      dataConclusao: DateTime.tryParse(taskModel.dataConclusao!),
+      dataEnvioLixeira: DateTime.tryParse(taskModel.dataEnvioLixeira ?? ''),
+      dataCriacao: DateTime.tryParse(taskModel.dataCriacao ?? ''),
+      dataExpiracao: DateTime.tryParse(taskModel.dataExpiracao ?? ''),
+      dataConclusao: DateTime.tryParse(taskModel.dataConclusao ?? ''),
     );
   }
 }

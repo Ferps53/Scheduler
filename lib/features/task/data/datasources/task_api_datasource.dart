@@ -22,14 +22,14 @@ class TaskApiDatasource implements TaskDatasource {
 
   @override
   Future<TaskModel> getTaskById(int id) async {
-    final response = await _dio.get<Map<String, Object?>>('/tarefa/$id');
+    final response = await _dio.get('/tarefa/$id');
 
     return TaskModel.fromJson(response.data!);
   }
 
   @override
   Future<List<TaskModel>> getTasks() async {
-    final response = await _dio.get<List<Map<String, Object?>>>('/tarefa');
+    final response = await _dio.get('/tarefa');
 
     List<TaskModel> listTasks = [];
     if (response.data != null) {

@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:scheduler/features/task/domain/entities/entities.dart';
+import 'package:scheduler/features/task/view/widgets/create_task_dialog.dart';
 
 class TarefaCard extends StatelessWidget {
-  const TarefaCard({super.key});
+  const TarefaCard({super.key, required this.task});
+  final TaskEntity task;
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Card(
+        child: ListTile(
+          onLongPress: () async {
+            await showDialog(
+                context: context,
+                builder: (context) => const TaskFullscreenDialog());
+          },
+          title: Text(task.titulo),
+          subtitle: Text('${task.descricao} - ${task.dataCriacao.toString()}'),
+        ),
+      ),
+    );
   }
 }

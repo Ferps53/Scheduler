@@ -1,16 +1,19 @@
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:scheduler/core/core.dart';
 import '../data.dart';
 
 class TaskLocalDatasource implements TaskDatasource {
   final AppDatabase _appDb;
+  final Store _store;
 
-  TaskLocalDatasource(this._appDb);
+  TaskLocalDatasource(this._appDb, this._store);
 
   static const tableName = 'tasks';
 
   @override
   Future<TaskModel> createTask(TaskModel taskModel) async {
     final db = await _appDb.database;
+    taskModel = taskModel.copyWith(idUsusario: await _getCurrentUser());
 
     int id = await db.insert(tableName, taskModel.toDatabaseMap());
     final dbMap = await db.query(
@@ -89,5 +92,12 @@ class TaskLocalDatasource implements TaskDatasource {
       whereArgs: [taskModel.id],
     );
     return map.map((databaseMap) => TaskModel.fromDatabase(databaseMap)).first;
+  }
+
+  Future<String> _getCurrentUser() async {
+    final jwtString = await _store.getSavedString('token');
+    final jwt = JwtDecoder.decode(jwtString);
+
+    return jwt['sub'] as String;
   }
 }

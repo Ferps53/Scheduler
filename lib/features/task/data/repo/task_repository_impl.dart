@@ -67,14 +67,12 @@ class TaskRepositoryImpl implements TaskRepository {
     return entities;
   }
 
-  Future<bool> _hasInternetConnection() async =>
-      await InternetConnection().hasInternetAccess;
-
   @override
   Future<TaskEntity> toggleConcluded(int id, bool? statusConcluded) async {
     final TaskModel taskModel;
     if (await _hasInternetConnection()) {
       taskModel = await taskApiDatasource.toggleConcluded(id, statusConcluded);
+      await taskLocalDatasource.toggleConcluded(id, statusConcluded);
     } else {
       taskModel =
           await taskLocalDatasource.toggleConcluded(id, statusConcluded);
@@ -88,10 +86,17 @@ class TaskRepositoryImpl implements TaskRepository {
     if (await _hasInternetConnection()) {
       taskModel = await taskApiDatasource
           .updateTask(TaskModel.fromEntity(taskEntity: taskEntity));
+      await taskLocalDatasource
+          .updateTask(TaskModel.fromEntity(taskEntity: taskEntity));
     } else {
       taskModel = await taskLocalDatasource
           .updateTask(TaskModel.fromEntity(taskEntity: taskEntity));
     }
     return TaskEntity.fromModel(taskModel: taskModel);
   }
+
+  //--
+
+  Future<bool> _hasInternetConnection() async =>
+      await InternetConnection().hasInternetAccess;
 }

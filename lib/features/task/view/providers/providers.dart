@@ -5,15 +5,18 @@ import 'package:scheduler/features/task/data/datasources/task_local_datasource.d
 import 'package:scheduler/features/task/data/repo/task_repository_impl.dart';
 import 'package:scheduler/features/task/domain/repo/task_repository.dart';
 
-final Provider taskLocalDatasourceProvider = Provider<TaskLocalDatasource>(
+final Provider<TaskLocalDatasource> taskLocalDatasourceProvider =
+    Provider<TaskLocalDatasource>(
   (ref) => TaskLocalDatasource(
     ref.read(
       databaseProvider,
     ),
+    ref.read(storeProvider),
   ),
 );
 
-final Provider taskApiDatasourceProvider = Provider<TaskApiDatasource>(
+final Provider<TaskApiDatasource> taskApiDatasourceProvider =
+    Provider<TaskApiDatasource>(
   (ref) => TaskApiDatasource(
     ref.read(
       dioProvider,
@@ -21,9 +24,12 @@ final Provider taskApiDatasourceProvider = Provider<TaskApiDatasource>(
   ),
 );
 
-final Provider taskRepository = Provider<TaskRepository>((ref) {
-  final taskApiDatasource = ref.read(taskApiDatasourceProvider);
-  final taskLocalDatasource = ref.read(taskLocalDatasourceProvider);
+final Provider<TaskRepository> taskRepositoryProvider =
+    Provider<TaskRepository>((ref) {
+  final TaskApiDatasource taskApiDatasource =
+      ref.read(taskApiDatasourceProvider);
+  final TaskLocalDatasource taskLocalDatasource =
+      ref.read(taskLocalDatasourceProvider);
   return TaskRepositoryImpl(
     taskApiDatasource: taskApiDatasource,
     taskLocalDatasource: taskLocalDatasource,
