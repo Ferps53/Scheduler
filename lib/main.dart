@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scheduler/core/core.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     const ProviderScope(
       child: MainWidget(),
@@ -29,7 +31,7 @@ class MainWidget extends ConsumerWidget {
             ),
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.cyan,
-          brightness: Brightness.dark,
+          brightness: Brightness.light,
         ),
         useMaterial3: true,
       ),
