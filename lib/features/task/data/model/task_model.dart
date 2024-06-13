@@ -41,14 +41,14 @@ class TaskModel with _$TaskModel {
     return TaskModel(
       id: databaseMap['id'] as int?,
       titulo: databaseMap['titulo'] as String,
-      idUsusario: ['idUsusario'] as String,
-      descricao: ['descricao'] as String,
-      fgConcluida: ['fgConcluida'] as int == 1 ? true : false,
-      fgLixeira: ['fgLixeira'] as int == 1 ? true : false,
-      dataEnvioLixeira: ['dataEnvioLixeira'] as String,
-      dataCriacao: ['dataCriacao'] as String,
-      dataExpiracao: ['dataExpiracao'] as String,
-      dataConclusao: ['dataConclusao'] as String,
+      idUsusario: databaseMap['idUsusario'] as String,
+      descricao: databaseMap['descricao'] as String,
+      fgConcluida: databaseMap['fgConcluida'] as int == 1 ? true : false,
+      fgLixeira: databaseMap['fgLixeira'] as int == 1 ? true : false,
+      dataEnvioLixeira: databaseMap['dataEnvioLixeira'] as String,
+      dataCriacao: databaseMap['dataCriacao'] as String,
+      dataExpiracao: databaseMap['dataExpiracao'] as String,
+      dataConclusao: databaseMap['dataConclusao'] as String,
     );
   }
 
