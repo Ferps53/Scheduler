@@ -91,7 +91,6 @@ class JwtDatasourceImpl implements JwtDatasource {
     final jsonStored = _store.getMap(key);
     if (jsonStored.isNotEmpty) {
       final jwt = JwtModel.fromJson(_store.getMap(key));
-      print(jwt);
       return jwt;
     } else {
       return null;
