@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:scheduler/features/auth/auth.dart';
 import 'package:scheduler/core/core.dart';
 
@@ -12,8 +11,6 @@ class BackgroundGradientScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        systemNavigationBarColor: context.colorScheme.primary));
     return Stack(
       children: [
         const Background(),
