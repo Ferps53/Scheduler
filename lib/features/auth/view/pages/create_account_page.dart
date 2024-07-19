@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
 import 'package:scheduler/features/auth/data/model/user_model.dart';
-import 'package:scheduler/features/auth/view/providers/sign_in_provider.dart';
+import 'package:scheduler/features/auth/view/providers/sign_in_notifier.dart';
 
 class CreateAccountPage extends StatelessWidget {
   const CreateAccountPage({super.key});
