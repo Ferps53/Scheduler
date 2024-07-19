@@ -2,6 +2,8 @@ import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
+import 'package:scheduler/features/auth/data/model/user_model.dart';
+import 'package:scheduler/features/auth/data/model/user_sign_in_model.dart';
 
 class JwtDatasourceImpl implements JwtDatasource {
   final Store _store;
@@ -21,7 +23,6 @@ class JwtDatasourceImpl implements JwtDatasource {
 
       return JwtModel.fromJson(response.data);
     } catch (e) {
-      print(e);
       rethrow;
     }
   }
@@ -54,5 +55,16 @@ class JwtDatasourceImpl implements JwtDatasource {
     final payloadMap = JwtDecoder.decode(jwtModel.access_token);
 
     return payloadMap['sub'] as String;
+  }
+
+  @override
+  Future<UserModel> signInUser(UserSignInModel userSignIn) async {
+    final response = await _dio.get('auth/sign-in', queryParameters: {
+      'username': userSignIn.username,
+      'email': userSignIn.email,
+      'password': userSignIn.password,
+    });
+
+    return UserModel.fromJson(response.data);
   }
 }
