@@ -19,8 +19,6 @@ class JwtDatasourceImpl implements JwtDatasource {
         'password': dadosLogin.senha,
       });
 
-      print(response.statusCode);
-
       return JwtModel.fromJson(response.data);
     } catch (e) {
       print(e);
