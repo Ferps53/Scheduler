@@ -3,7 +3,7 @@ import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
 
 final jwtDatasourceProvider = Provider((ref) {
-  final dio = ref.read(dioProvider);
+  final dio = ref.read(dioAuthProvider);
   final store = ref.read(storeProvider);
   return JwtDatasourceImpl(store: store, dio: dio);
 });

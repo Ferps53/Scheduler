@@ -11,7 +11,7 @@ _$JwtModelImpl _$$JwtModelImplFromJson(Map<String, dynamic> json) =>
       access_token: json['access_token'] as String,
       refresh_token: json['refresh_token'] as String,
       type: json['type'] as String,
-      expiresIn: (json['expiresIn'] as num).toInt(),
+      expires_in: (json['expires_in'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$JwtModelImplToJson(_$JwtModelImpl instance) =>
@@ -19,5 +19,5 @@ Map<String, dynamic> _$$JwtModelImplToJson(_$JwtModelImpl instance) =>
       'access_token': instance.access_token,
       'refresh_token': instance.refresh_token,
       'type': instance.type,
-      'expiresIn': instance.expiresIn,
+      'expires_in': instance.expires_in,
     };

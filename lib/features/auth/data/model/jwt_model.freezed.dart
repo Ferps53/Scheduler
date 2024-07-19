@@ -23,7 +23,7 @@ mixin _$JwtModel {
   String get access_token => throw _privateConstructorUsedError;
   String get refresh_token => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
-  int get expiresIn => throw _privateConstructorUsedError;
+  int get expires_in => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -37,7 +37,7 @@ abstract class $JwtModelCopyWith<$Res> {
       _$JwtModelCopyWithImpl<$Res, JwtModel>;
   @useResult
   $Res call(
-      {String access_token, String refresh_token, String type, int expiresIn});
+      {String access_token, String refresh_token, String type, int expires_in});
 }
 
 /// @nodoc
@@ -56,7 +56,7 @@ class _$JwtModelCopyWithImpl<$Res, $Val extends JwtModel>
     Object? access_token = null,
     Object? refresh_token = null,
     Object? type = null,
-    Object? expiresIn = null,
+    Object? expires_in = null,
   }) {
     return _then(_value.copyWith(
       access_token: null == access_token
@@ -71,9 +71,9 @@ class _$JwtModelCopyWithImpl<$Res, $Val extends JwtModel>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      expiresIn: null == expiresIn
-          ? _value.expiresIn
-          : expiresIn // ignore: cast_nullable_to_non_nullable
+      expires_in: null == expires_in
+          ? _value.expires_in
+          : expires_in // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
   }
@@ -88,7 +88,7 @@ abstract class _$$JwtModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String access_token, String refresh_token, String type, int expiresIn});
+      {String access_token, String refresh_token, String type, int expires_in});
 }
 
 /// @nodoc
@@ -105,7 +105,7 @@ class __$$JwtModelImplCopyWithImpl<$Res>
     Object? access_token = null,
     Object? refresh_token = null,
     Object? type = null,
-    Object? expiresIn = null,
+    Object? expires_in = null,
   }) {
     return _then(_$JwtModelImpl(
       access_token: null == access_token
@@ -120,9 +120,9 @@ class __$$JwtModelImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      expiresIn: null == expiresIn
-          ? _value.expiresIn
-          : expiresIn // ignore: cast_nullable_to_non_nullable
+      expires_in: null == expires_in
+          ? _value.expires_in
+          : expires_in // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -135,7 +135,7 @@ class _$JwtModelImpl implements _JwtModel {
       {required this.access_token,
       required this.refresh_token,
       required this.type,
-      required this.expiresIn});
+      required this.expires_in});
 
   factory _$JwtModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$JwtModelImplFromJson(json);
@@ -147,11 +147,11 @@ class _$JwtModelImpl implements _JwtModel {
   @override
   final String type;
   @override
-  final int expiresIn;
+  final int expires_in;
 
   @override
   String toString() {
-    return 'JwtModel(access_token: $access_token, refresh_token: $refresh_token, type: $type, expiresIn: $expiresIn)';
+    return 'JwtModel(access_token: $access_token, refresh_token: $refresh_token, type: $type, expires_in: $expires_in)';
   }
 
   @override
@@ -164,14 +164,14 @@ class _$JwtModelImpl implements _JwtModel {
             (identical(other.refresh_token, refresh_token) ||
                 other.refresh_token == refresh_token) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.expiresIn, expiresIn) ||
-                other.expiresIn == expiresIn));
+            (identical(other.expires_in, expires_in) ||
+                other.expires_in == expires_in));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, access_token, refresh_token, type, expiresIn);
+      Object.hash(runtimeType, access_token, refresh_token, type, expires_in);
 
   @JsonKey(ignore: true)
   @override
@@ -192,7 +192,7 @@ abstract class _JwtModel implements JwtModel {
       {required final String access_token,
       required final String refresh_token,
       required final String type,
-      required final int expiresIn}) = _$JwtModelImpl;
+      required final int expires_in}) = _$JwtModelImpl;
 
   factory _JwtModel.fromJson(Map<String, dynamic> json) =
       _$JwtModelImpl.fromJson;
@@ -204,7 +204,7 @@ abstract class _JwtModel implements JwtModel {
   @override
   String get type;
   @override
-  int get expiresIn;
+  int get expires_in;
   @override
   @JsonKey(ignore: true)
   _$$JwtModelImplCopyWith<_$JwtModelImpl> get copyWith =>

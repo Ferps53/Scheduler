@@ -9,7 +9,7 @@ class JwtModel with _$JwtModel {
     required String access_token,
     required String refresh_token,
     required String type,
-    required int expiresIn,
+    required int expires_in,
   }) = _JwtModel;
 
   factory JwtModel.fromJson(Map<String, Object?> json) =>

@@ -14,12 +14,16 @@ class JwtDatasourceImpl implements JwtDatasource {
   @override
   Future<JwtModel> fetchJwt(DadosLogin dadosLogin) async {
     try {
-      final response = await _dio.post('/auth/login', queryParameters: {
-        'usernameOrEmail': dadosLogin.nomeUsuario,
+      final response = await _dio.get('auth/login', queryParameters: {
+        'usernameOrEmail': dadosLogin.email,
         'password': dadosLogin.senha,
       });
+
+      print(response.statusCode);
+
       return JwtModel.fromJson(response.data);
     } catch (e) {
+      print(e);
       rethrow;
     }
   }
