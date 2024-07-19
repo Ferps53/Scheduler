@@ -6,6 +6,7 @@ part 'task_model.freezed.dart';
 
 @freezed
 class TaskModel with _$TaskModel {
+  const TaskModel._();
   factory TaskModel({
     required int? id,
     required String titulo,
