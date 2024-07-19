@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +13,26 @@ final dioProvider = Provider((ref) {
   dio.interceptors.add(RetryInterceptor(dio: dio));
   return dio;
 });
+
+final dioAuthProvider = Provider((ref) {
+  final dio = Dio(BaseOptions(baseUrl: Environments.backendRoot));
+  dio.interceptors.add(DioAuthInterceptor());
+  return dio;
+});
+
+final String _encodedBasic =
+    'Basic ${base64Encode(utf8.encode('${Environments.basicUsername}:${Environments.basicPassword}'))}';
+
+class DioAuthInterceptor extends Interceptor {
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    options.headers.addAll({
+      'Content-Type': 'application/json',
+      'Authorization': _encodedBasic,
+    });
+    return super.onRequest(options, handler);
+  }
+}
 
 class DioInterceptor extends Interceptor {
   final Store _store;

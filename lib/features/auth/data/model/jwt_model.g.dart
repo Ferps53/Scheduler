@@ -9,11 +9,15 @@ part of 'jwt_model.dart';
 _$JwtModelImpl _$$JwtModelImplFromJson(Map<String, dynamic> json) =>
     _$JwtModelImpl(
       access_token: json['access_token'] as String,
-      refresh_token: json['refresh_token'] as String?,
+      refresh_token: json['refresh_token'] as String,
+      type: json['type'] as String,
+      expiresIn: (json['expiresIn'] as num).toInt(),
     );
 
 Map<String, dynamic> _$$JwtModelImplToJson(_$JwtModelImpl instance) =>
     <String, dynamic>{
       'access_token': instance.access_token,
       'refresh_token': instance.refresh_token,
+      'type': instance.type,
+      'expiresIn': instance.expiresIn,
     };

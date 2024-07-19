@@ -308,22 +308,6 @@ class _$TaskModelImpl implements _TaskModel {
       this,
     );
   }
-
-  @override
-  Map<String, Object?> toDatabaseMap() {
-    return {
-      'id': id,
-      'titulo': titulo,
-      'idUsuario': idUsusario,
-      'descricao': descricao,
-      'fgConcluida': fgConcluida == true ? 1 : 0,
-      'fgLixeira': fgLixeira == true ? 1 : 0,
-      'dataEnvioLixeira': dataEnvioLixeira,
-      'dataCriacao': dataCriacao,
-      'dataExpiracao': dataExpiracao,
-      'dataConclusao': dataConclusao,
-    };
-  }
 }
 
 abstract class _TaskModel implements TaskModel {
