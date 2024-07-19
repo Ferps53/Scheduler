@@ -59,11 +59,15 @@ class JwtDatasourceImpl implements JwtDatasource {
 
   @override
   Future<UserModel> signInUser(UserSignInModel userSignIn) async {
+    print(userSignIn);
+
     final response = await _dio.get('auth/sign-in', queryParameters: {
       'username': userSignIn.username,
       'email': userSignIn.email,
       'password': userSignIn.password,
     });
+
+    print(response.data);
 
     return UserModel.fromJson(response.data);
   }
