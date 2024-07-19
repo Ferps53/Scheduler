@@ -6,7 +6,7 @@ import 'package:scheduler/features/auth/auth.dart';
 
 import '../../data/model/user_model.dart';
 
-class SiginInNotifier extends AsyncNotifier<UserModel?> {
+class SiginInNotifier extends AutoDisposeAsyncNotifier<UserModel?> {
   @override
   FutureOr<UserModel?> build() {
     return null;
@@ -19,6 +19,7 @@ class SiginInNotifier extends AsyncNotifier<UserModel?> {
   }
 }
 
-final signInProvider = AsyncNotifierProvider<SiginInNotifier, UserModel?>(() {
+final signInProvider =
+    AsyncNotifierProvider.autoDispose<SiginInNotifier, UserModel?>(() {
   return SiginInNotifier();
 });
