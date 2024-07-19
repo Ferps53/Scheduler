@@ -1,6 +1,8 @@
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
+import 'package:scheduler/features/auth/data/model/user_model.dart';
+import 'package:scheduler/features/auth/data/model/user_sign_in_model.dart';
 
 class LoginRepoImpl implements LoginRepo {
   final JwtDatasource _jwtDatasource;
@@ -40,5 +42,11 @@ class LoginRepoImpl implements LoginRepo {
       }
     }
     return StatusLogin.deslogado;
+  }
+
+  @override
+  Future<UserModel> signIn(DadosLogin dadosLogin) async {
+    final userSignIn = UserSignInModel.fromLoginData(dadosLogin);
+    return await _jwtDatasource.signInUser(userSignIn);
   }
 }

@@ -113,9 +113,10 @@ class __$$UserSignInModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$UserSignInModelImpl implements _UserSignInModel {
+class _$UserSignInModelImpl extends _UserSignInModel {
   _$UserSignInModelImpl(
-      {required this.username, required this.email, required this.password});
+      {required this.username, required this.email, required this.password})
+      : super._();
 
   @override
   final String username;
@@ -152,11 +153,12 @@ class _$UserSignInModelImpl implements _UserSignInModel {
           this, _$identity);
 }
 
-abstract class _UserSignInModel implements UserSignInModel {
+abstract class _UserSignInModel extends UserSignInModel {
   factory _UserSignInModel(
       {required final String username,
       required final String email,
       required final String password}) = _$UserSignInModelImpl;
+  _UserSignInModel._() : super._();
 
   @override
   String get username;
