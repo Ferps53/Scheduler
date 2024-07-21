@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:scheduler/features/auth/auth.dart';
 import 'package:scheduler/core/core.dart';
 

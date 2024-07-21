@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
@@ -184,26 +184,41 @@ class SaveButtonState extends ConsumerState<SaveButton> {
   @override
   Widget build(BuildContext context) {
     final signInState = ref.watch(signInProvider);
+
+    ref.listen(signInProvider, (previous, next) {
+      if (next.hasError && !next.isLoading) {
+        showDialog(
+            context: context,
+            builder: (_) {
+              final error = next.error as Map<String, Object?>;
+              final String message = error['message'] as String;
+
+              return ErrorDialog(
+                message: message,
+                title: 'Ocorreu um erro',
+              );
+            });
+      }
+    });
+
     return switch (signInState) {
-      AsyncData<UserModel?>(:final value) => GlassTextButton(
-          onPressed: value != null
-              ? null
-              : () {
-                  if (widget.formKey.currentState!.validate()) {
-                    ref.read(signInProvider.notifier).signIn(
-                          DadosLogin(
-                            email: widget.email.text,
-                            nomeUsuario: widget.username.text,
-                            senha: widget.password.text,
-                          ),
-                          widget.formKey.currentContext!,
-                        );
-                  }
-                },
+      AsyncLoading() => const GlassTextLoadingButton(),
+      _ => GlassTextButton(
+          onPressed: () {
+            if (widget.formKey.currentState!.validate()) {
+              ref.read(signInProvider.notifier).signIn(
+                    DadosLogin(
+                      email: widget.email.text,
+                      nomeUsuario: widget.username.text,
+                      senha: widget.password.text,
+                    ),
+                    widget.formKey.currentContext!,
+                  );
+            }
+          },
           buttonLabel: 'Criar Conta',
+          textSize: 24,
         ),
-      AsyncError(:final error) => Text('Error: $error'),
-      _ => const GlassTextLoadingButton(),
     };
   }
 }

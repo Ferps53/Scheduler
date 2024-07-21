@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/material.dart';
 import 'package:scheduler/core/core.dart';
 
 class GlassCard extends StatelessWidget {
@@ -64,7 +63,7 @@ class GlassCard extends StatelessWidget {
                   ),
                 ),
               ),
-              Center(child: child),
+              child,
             ],
           ),
         ),

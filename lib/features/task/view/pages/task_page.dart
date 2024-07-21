@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/task/domain/entities/task_entity.dart';

@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/task/data/datasources/task_api_datasource.dart';
 import 'package:scheduler/features/task/data/datasources/task_local_datasource.dart';

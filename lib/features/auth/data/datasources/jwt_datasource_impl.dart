@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
@@ -59,15 +58,11 @@ class JwtDatasourceImpl implements JwtDatasource {
 
   @override
   Future<UserModel> signInUser(UserSignInModel userSignIn) async {
-    print(userSignIn);
-
     final response = await _dio.get('auth/sign-in', queryParameters: {
       'username': userSignIn.username,
       'email': userSignIn.email,
       'password': userSignIn.password,
     });
-
-    print(response.data);
 
     return UserModel.fromJson(response.data);
   }

@@ -47,7 +47,6 @@ class LoginRepoImpl implements LoginRepo {
   @override
   Future<UserModel> signIn(DadosLogin dadosLogin) async {
     final userSignIn = UserSignInModel.fromLoginData(dadosLogin);
-    print(userSignIn);
     return await _jwtDatasource.signInUser(userSignIn);
   }
 }
