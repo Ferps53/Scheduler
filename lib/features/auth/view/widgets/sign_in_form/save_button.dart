@@ -34,6 +34,9 @@ class SaveButton extends ConsumerWidget {
               );
             });
       }
+      if (next.hasValue && !next.isLoading) {
+        context.goNamed(NamedRoutes.confirmEmail.routeName);
+      }
     });
 
     return switch (signInState) {

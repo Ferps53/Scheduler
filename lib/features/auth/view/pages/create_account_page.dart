@@ -1,6 +1,5 @@
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
-import 'package:scheduler/features/auth/view/providers/sign_in_notifier.dart';
 
 class CreateAccountPage extends StatelessWidget {
   const CreateAccountPage({super.key});
