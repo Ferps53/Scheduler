@@ -4,11 +4,12 @@ import 'package:scheduler/features/auth/auth.dart';
 import 'package:scheduler/features/auth/data/model/user_model.dart';
 import 'package:scheduler/features/auth/data/model/user_sign_in_model.dart';
 
-class JwtDatasourceImpl implements JwtDatasource {
+
+class AuthDatasourceImpl implements AuthDatasource {
   final Store _store;
   final Dio _dio;
 
-  JwtDatasourceImpl({required Store store, required Dio dio})
+  AuthDatasourceImpl({required Store store, required Dio dio})
       : _store = store,
         _dio = dio;
 

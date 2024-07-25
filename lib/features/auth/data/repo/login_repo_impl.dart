@@ -4,32 +4,33 @@ import 'package:scheduler/features/auth/auth.dart';
 import 'package:scheduler/features/auth/data/model/user_model.dart';
 import 'package:scheduler/features/auth/data/model/user_sign_in_model.dart';
 
+
 class LoginRepoImpl implements LoginRepo {
-  final JwtDatasource _jwtDatasource;
+  final AuthDatasource _authDatasource;
   final StatusUsuarioProvider _statusUsuarioProvider;
 
   LoginRepoImpl({
-    required JwtDatasource jwtDatasource,
+    required AuthDatasource jwtDatasource,
     required statusUsuarioProvider,
-  })  : _jwtDatasource = jwtDatasource,
+  })  : _authDatasource = jwtDatasource,
         _statusUsuarioProvider = statusUsuarioProvider;
 
   @override
   Future<StatusLogin> autoLogin() async {
-    JwtModel? jwtModel = await _jwtDatasource.getJwtFromLocalStorage();
+    JwtModel? jwtModel = await _authDatasource.getJwtFromLocalStorage();
     return _jwtToStatus(jwtModel);
   }
 
   @override
   Future<void> deslogar() async {
-    await _jwtDatasource.removeJwt();
+    await _authDatasource.removeJwt();
     _statusUsuarioProvider.statusUsuario = StatusLogin.deslogado;
   }
 
   @override
   Future<StatusLogin> login(DadosLogin dadosLogin) async {
-    final JwtModel jwtModel = await _jwtDatasource.fetchJwt(dadosLogin);
-    _jwtDatasource.saveJwt(jwtModel, 'token');
+    final JwtModel jwtModel = await _authDatasource.fetchJwt(dadosLogin);
+    _authDatasource.saveJwt(jwtModel, 'token');
     return _jwtToStatus(jwtModel);
   }
 
@@ -47,6 +48,6 @@ class LoginRepoImpl implements LoginRepo {
   @override
   Future<UserModel> signIn(DadosLogin dadosLogin) async {
     final userSignIn = UserSignInModel.fromLoginData(dadosLogin);
-    return await _jwtDatasource.signInUser(userSignIn);
+    return await _authDatasource.signInUser(userSignIn);
   }
 }

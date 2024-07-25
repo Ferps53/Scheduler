@@ -3,7 +3,7 @@ import 'package:scheduler/features/auth/data/model/user_model.dart';
 
 import '../model/user_sign_in_model.dart';
 
-abstract class JwtDatasource {
+abstract class AuthDatasource {
   Future<UserModel> signInUser(UserSignInModel userSignIn);
 
   Future<JwtModel> fetchJwt(DadosLogin dadosLogin);

@@ -1,18 +1,18 @@
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
 
-final jwtDatasourceProvider = Provider((ref) {
+final authDatasourceProvider = Provider((ref) {
   final dio = ref.read(dioAuthProvider);
   final store = ref.read(storeProvider);
-  return JwtDatasourceImpl(store: store, dio: dio);
+  return AuthDatasourceImpl(store: store, dio: dio);
 });
 
 final loginRepoProvider = Provider(
   (ref) {
-    final JwtDatasourceImpl jwtDatasource = ref.read(jwtDatasourceProvider);
+    final AuthDatasourceImpl authDatasource = ref.read(authDatasourceProvider);
     final StatusUsuarioProvider statusUsuario = ref.read(statusUsuarioProvider);
     return LoginRepoImpl(
-      jwtDatasource: jwtDatasource,
+      jwtDatasource: authDatasource,
       statusUsuarioProvider: statusUsuario,
     );
   },

@@ -41,7 +41,7 @@ class DioInterceptor extends Interceptor {
   void onRequest(
       RequestOptions options, RequestInterceptorHandler handler) async {
     options.headers.addAll({'Content-Type': 'application/json'});
-    final JwtModel? jwtModel = await JwtDatasourceImpl(
+    final JwtModel? jwtModel = await AuthDatasourceImpl(
       store: _store,
       dio: Dio(),
     ).getJwtFromLocalStorage();
