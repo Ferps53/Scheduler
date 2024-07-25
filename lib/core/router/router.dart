@@ -1,10 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-import 'package:scheduler/core/router/name_routes_notifier.dart';
 import 'package:scheduler/features/features.dart';
-
-import 'named_routes.dart';
+import '../core.dart';
 
 export 'named_routes.dart';
 export 'name_routes_notifier.dart';
@@ -67,6 +62,28 @@ final goRouterProvider = Provider(
               position: animation.drive(
                 Tween<Offset>(
                   begin: const Offset(-1, 0),
+                  end: Offset.zero,
+                ).chain(
+                  CurveTween(
+                    curve: Curves.easeInOut,
+                  ),
+                ),
+              ),
+              child: child,
+            ),
+          ),
+        ),
+        GoRoute(
+          path: NamedRoutes.confirmEmail.routePath,
+          name: NamedRoutes.confirmEmail.routeName,
+          pageBuilder: (context, state) => CustomTransitionPage(
+            child: const ConfirmEmailPage(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    SlideTransition(
+              position: animation.drive(
+                Tween<Offset>(
+                  begin: const Offset(0, 1),
                   end: Offset.zero,
                 ).chain(
                   CurveTween(
