@@ -2,7 +2,7 @@ import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
 import 'package:scheduler/features/auth/view/providers/sign_in_notifier.dart';
 
-class SaveButton extends ConsumerWidget {
+class SaveButton extends ConsumerStatefulWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController username;
   final TextEditingController email;
@@ -17,7 +17,12 @@ class SaveButton extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _SaveButtonState();
+}
+
+class _SaveButtonState extends ConsumerState<SaveButton> {
+  @override
+  Widget build(BuildContext context) {
     final signInState = ref.watch(signInProvider);
 
     ref.listen(signInProvider, (previous, next) {
@@ -25,17 +30,23 @@ class SaveButton extends ConsumerWidget {
         showDialog(
             context: context,
             builder: (_) {
-              final error = next.error as Map<String, Object?>;
-              final String message = error['message'] as String;
+              try {
+                Map<String, Object?> error;
+                error = next.error as Map<String, Object?>;
+                final String message = error['message'] as String;
 
-              return ErrorDialog(
-                message: message,
-                title: 'Ocorreu um erro',
-              );
+                return ErrorDialog(
+                  message: message,
+                  title: 'Ocorreu um erro',
+                );
+              } catch (e) {
+                return ErrorDialog(
+                    title: 'Ocorreu um erro', message: e.toString());
+              }
             });
-      }
-      if (next.hasValue && !next.isLoading) {
-        context.goNamed(NamedRoutes.confirmEmail.routeName);
+      } else if (next.hasValue && next.value != null && !next.isLoading) {
+        context.goNamed(NamedRoutes.confirmEmail.routeName,
+            extra: widget.email.text);
       }
     });
 
@@ -43,14 +54,14 @@ class SaveButton extends ConsumerWidget {
       AsyncLoading() => const GlassTextLoadingButton(),
       _ => GlassTextButton(
           onPressed: () {
-            if (formKey.currentState!.validate()) {
+            if (widget.formKey.currentState!.validate()) {
               ref.read(signInProvider.notifier).signIn(
                     DadosLogin(
-                      email: email.text,
-                      nomeUsuario: username.text,
-                      senha: password.text,
+                      email: widget.email.text,
+                      nomeUsuario: widget.username.text,
+                      senha: widget.password.text,
                     ),
-                    formKey.currentContext!,
+                    widget.formKey.currentContext!,
                   );
             }
           },

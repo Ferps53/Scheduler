@@ -3,27 +3,13 @@ import 'package:scheduler/core/core.dart';
 import '../../view.dart';
 import 'save_button.dart';
 
-class ContentForm extends StatefulWidget {
+class ContentForm extends StatelessWidget {
   ContentForm({super.key});
+
   final passwordController = TextEditingController();
   final verifyPasswordController = TextEditingController();
   final emailController = TextEditingController();
   final usernameController = TextEditingController();
-
-  @override
-  State<ContentForm> createState() => _ContentFormState();
-}
-
-class _ContentFormState extends State<ContentForm> {
-  @override
-  void dispose() {
-    widget.verifyPasswordController.dispose();
-    widget.passwordController.dispose();
-    widget.emailController.dispose();
-    widget.usernameController.dispose();
-
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +46,7 @@ class _ContentFormState extends State<ContentForm> {
                 }
                 return null;
               },
-              controller: widget.usernameController,
+              controller: usernameController,
             ),
             LoginTextField(
               icon: Icons.email,
@@ -75,7 +61,7 @@ class _ContentFormState extends State<ContentForm> {
                 }
                 return null;
               },
-              controller: widget.emailController,
+              controller: emailController,
             ),
             LoginTextField(
               icon: Icons.lock,
@@ -90,7 +76,7 @@ class _ContentFormState extends State<ContentForm> {
                 }
                 return null;
               },
-              controller: widget.passwordController,
+              controller: passwordController,
             ),
             LoginTextField(
               icon: Icons.lock,
@@ -103,19 +89,19 @@ class _ContentFormState extends State<ContentForm> {
                 if (value.length < 8) {
                   return 'Digite uma senha maior que 8 caractéres';
                 }
-                if (value != widget.passwordController.text) {
+                if (value != passwordController.text) {
                   return 'Senhas não coincidem';
                 }
 
                 return null;
               },
-              controller: widget.verifyPasswordController,
+              controller: verifyPasswordController,
             ),
             const Spacer(),
             SaveButton(
-              widget.usernameController,
-              widget.emailController,
-              widget.passwordController,
+              usernameController,
+              emailController,
+              passwordController,
               formKey,
             ),
             const SizedBox(

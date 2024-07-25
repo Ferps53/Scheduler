@@ -4,7 +4,6 @@ import 'package:scheduler/features/auth/auth.dart';
 import 'package:scheduler/features/auth/data/model/user_model.dart';
 import 'package:scheduler/features/auth/data/model/user_sign_in_model.dart';
 
-
 class LoginRepoImpl implements LoginRepo {
   final AuthDatasource _authDatasource;
   final StatusUsuarioProvider _statusUsuarioProvider;
@@ -49,5 +48,10 @@ class LoginRepoImpl implements LoginRepo {
   Future<UserModel> signIn(DadosLogin dadosLogin) async {
     final userSignIn = UserSignInModel.fromLoginData(dadosLogin);
     return await _authDatasource.signInUser(userSignIn);
+  }
+
+  @override
+  Future<void> confirmEmail(String code, String email) async {
+    await _authDatasource.confirmEmail(email, code);
   }
 }

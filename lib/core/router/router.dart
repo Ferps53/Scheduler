@@ -76,24 +76,26 @@ final goRouterProvider = Provider(
         GoRoute(
           path: NamedRoutes.confirmEmail.routePath,
           name: NamedRoutes.confirmEmail.routeName,
-          pageBuilder: (context, state) => CustomTransitionPage(
-            child: const ConfirmEmailPage(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) =>
-                    SlideTransition(
-              position: animation.drive(
-                Tween<Offset>(
-                  begin: const Offset(0, 1),
-                  end: Offset.zero,
-                ).chain(
-                  CurveTween(
-                    curve: Curves.easeInOut,
+          pageBuilder: (context, state) {
+            return CustomTransitionPage(
+              child: ConfirmEmailPage(email: state.extra as String?),
+              transitionsBuilder:
+                  (context, animation, secondaryAnimation, child) =>
+                      SlideTransition(
+                position: animation.drive(
+                  Tween<Offset>(
+                    begin: const Offset(0, 1),
+                    end: Offset.zero,
+                  ).chain(
+                    CurveTween(
+                      curve: Curves.easeInOut,
+                    ),
                   ),
                 ),
+                child: child,
               ),
-              child: child,
-            ),
-          ),
+            );
+          },
         ),
         GoRoute(
           path: NamedRoutes.forgotPassword.routePath,

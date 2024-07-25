@@ -73,7 +73,7 @@ class AuthDatasourceImpl implements AuthDatasource {
   @override
   Future<void> confirmEmail(String email, String code) async {
     await _dio.get(
-      'auth/confirm_email',
+      'auth/confirm-email',
       queryParameters: {'confirmation_code': code, 'email': email},
     );
   }

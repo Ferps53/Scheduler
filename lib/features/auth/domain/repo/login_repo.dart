@@ -10,4 +10,6 @@ abstract class LoginRepo {
   void deslogar();
 
   Future<UserModel> signIn(DadosLogin dadosLogin);
+
+  Future<void> confirmEmail(String code, String email);
 }
