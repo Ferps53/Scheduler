@@ -4,7 +4,6 @@ import 'package:scheduler/features/auth/auth.dart';
 import 'package:scheduler/features/auth/data/model/user_model.dart';
 import 'package:scheduler/features/auth/data/model/user_sign_in_model.dart';
 
-
 class AuthDatasourceImpl implements AuthDatasource {
   final Store _store;
   final Dio _dio;
@@ -59,12 +58,23 @@ class AuthDatasourceImpl implements AuthDatasource {
 
   @override
   Future<UserModel> signInUser(UserSignInModel userSignIn) async {
-    final response = await _dio.get('auth/sign-in', queryParameters: {
-      'username': userSignIn.username,
-      'email': userSignIn.email,
-      'password': userSignIn.password,
-    });
+    final response = await _dio.get(
+      'auth/sign-in',
+      queryParameters: {
+        'username': userSignIn.username,
+        'email': userSignIn.email,
+        'password': userSignIn.password,
+      },
+    );
 
     return UserModel.fromJson(response.data);
+  }
+
+  @override
+  Future<void> confirmEmail(String email, String code) async {
+    await _dio.get(
+      'auth/confirm_email',
+      queryParameters: {'confirmation_code': code, 'email': email},
+    );
   }
 }

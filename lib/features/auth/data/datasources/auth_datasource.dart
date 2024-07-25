@@ -6,6 +6,8 @@ import '../model/user_sign_in_model.dart';
 abstract class AuthDatasource {
   Future<UserModel> signInUser(UserSignInModel userSignIn);
 
+  Future<void> confirmEmail(String email, String code);
+
   Future<JwtModel> fetchJwt(DadosLogin dadosLogin);
 
   Future<void> saveJwt(JwtModel jwt, String key);
