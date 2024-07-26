@@ -13,6 +13,7 @@ class TarefaPage extends ConsumerWidget {
     final taskList = ref.watch(taskProvider);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        tooltip: 'Adicionar nova tarefa',
         onPressed: () {
           ref.read(taskProvider.notifier).createTask(
                 TaskEntity(
@@ -38,15 +39,20 @@ class TarefaPage extends ConsumerWidget {
       ),
       body: taskList.when(
         data: (data) {
-          return ListView.builder(
-              itemCount: data.length,
-              itemBuilder: (context, index) {
-                return TarefaCard(task: data[index]).animate().move(
-                      duration: 200.ms,
-                      begin: const Offset(100, 100),
-                      end: const Offset(0, 0),
-                    );
-              });
+          return data.isEmpty
+              ? const Center(
+                  child: Text('Sem tarefas por aqui'),
+                )
+              : ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (context, index) {
+                    return TarefaCard(task: data[index]).animate().move(
+                          duration: 200.ms,
+                          begin: const Offset(100, 100),
+                          end: const Offset(0, 0),
+                        );
+                  },
+                );
         },
         error: (error, __) {
           return Text(error.toString());
@@ -54,12 +60,16 @@ class TarefaPage extends ConsumerWidget {
         loading: () {
           return Center(
             child: GlassCard(
-                width: 100,
-                height: 100,
+              width: 100,
+              height: 100,
+              child: Transform.scale(
+                scale: 0.8,
                 child: LoadingAnimationWidget.inkDrop(
                   color: context.colorScheme.primary,
                   size: 80,
-                )),
+                ),
+              ),
+            ),
           );
         },
       ),
