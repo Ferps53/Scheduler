@@ -8,6 +8,8 @@ abstract class AuthDatasource {
 
   Future<void> confirmEmail(String email, String code);
 
+  Future<void> resendEmail(String email);
+
   Future<JwtModel> fetchJwt(DadosLogin dadosLogin);
 
   Future<void> saveJwt(JwtModel jwt, String key);

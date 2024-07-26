@@ -9,6 +9,7 @@ class LoginTextField extends StatefulWidget {
   final TextEditingController controller;
   final String? Function(String?)? validator;
   final Widget? glassTextButton;
+  final bool diposeController;
 
   const LoginTextField({
     super.key,
@@ -20,6 +21,7 @@ class LoginTextField extends StatefulWidget {
     this.padding = 8,
     this.validator,
     this.glassTextButton,
+    this.diposeController = true,
   });
 
   @override
@@ -37,7 +39,9 @@ class _LoginTextFieldState extends State<LoginTextField> {
 
   @override
   void dispose() {
-    widget.controller.dispose();
+    if (widget.diposeController) {
+      widget.controller.dispose();
+    }
     super.dispose();
   }
 

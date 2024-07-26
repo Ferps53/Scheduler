@@ -12,4 +12,6 @@ abstract class LoginRepo {
   Future<UserModel> signIn(DadosLogin dadosLogin);
 
   Future<void> confirmEmail(String code, String email);
+
+  Future<void> resendEmail(String email);
 }

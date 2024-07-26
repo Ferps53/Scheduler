@@ -1,4 +1,3 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
 import 'package:scheduler/features/auth/view/providers/confirmation_email_provider.dart';
@@ -49,7 +48,7 @@ class _ConfirmEmailFormState extends ConsumerState<ConfirmEmailForm> {
 
     if (widget.email != null) {
       _emailController.text = widget.email!;
-      Future(() => ref.read(confirmatioEmailState.notifier).add());
+      Future(() => ref.read(confirmationEmailState.notifier).add());
     }
   }
 
@@ -62,7 +61,7 @@ class _ConfirmEmailFormState extends ConsumerState<ConfirmEmailForm> {
 
   @override
   Widget build(BuildContext context) {
-    final int step = ref.watch(confirmatioEmailState);
+    final int step = ref.watch(confirmationEmailState);
     return Form(
       key: _formKey,
       child: GlassCard(
@@ -73,7 +72,8 @@ class _ConfirmEmailFormState extends ConsumerState<ConfirmEmailForm> {
               ? _EmailStep(emailController: _emailController)
               : _CodeStep(
                   codeController: _codeController,
-                  emailController: _emailController),
+                  emailController: _emailController,
+                ),
         ),
       ),
     );
@@ -111,6 +111,7 @@ class _CodeStep extends ConsumerWidget {
           label: 'Código',
           isSecret: false,
           controller: _codeController,
+          diposeController: false,
         ),
         _SaveButton(
             codeController: _codeController, emailController: _emailController),
@@ -132,6 +133,7 @@ class _SaveButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final confirmationState = ref.watch(confirmationEmailProvider);
+    final retryCount = ref.watch(emailConfirmationRetryCountProvider);
 
     ref.listen(confirmationEmailProvider, (previous, next) {
       if (next.hasError && !next.isLoading) {
@@ -139,15 +141,24 @@ class _SaveButton extends ConsumerWidget {
             context: context,
             builder: (_) {
               try {
+                Future(() => ref
+                    .read(emailConfirmationRetryCountProvider.notifier)
+                    .add());
                 Map<String, Object?> error;
                 error = next.error as Map<String, Object?>;
                 final String message = error['message'] as String;
+                final int statusCode = error['code'] as int;
 
+                if (statusCode == 404 && retryCount >= 3) {
+                  Future(() =>
+                      ref.read(confirmationEmailState.notifier).substract());
+                }
                 return ErrorDialog(
                   message: message,
                   title: 'Ocorreu um erro',
                 );
               } catch (e) {
+                print(e);
                 return ErrorDialog(
                     title: 'Ocorreu um erro', message: e.toString());
               }
@@ -200,11 +211,12 @@ class _EmailStep extends ConsumerWidget {
           label: 'Email',
           isSecret: false,
           controller: _emailController,
+          diposeController: false,
         ),
         GlassTextButton(
           onPressed: () {
             if (_formKey.currentState!.validate()) {
-              ref.read(confirmatioEmailState.notifier).add();
+              ref.read(confirmationEmailState.notifier).add();
             }
           },
           buttonLabel: 'Enviar Email',

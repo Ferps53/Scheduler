@@ -54,4 +54,9 @@ class LoginRepoImpl implements LoginRepo {
   Future<void> confirmEmail(String code, String email) async {
     await _authDatasource.confirmEmail(email, code);
   }
+
+  @override
+  Future<void> resendEmail(String email) async {
+    await _authDatasource.resendEmail(email);
+  }
 }

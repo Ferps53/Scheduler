@@ -77,4 +77,14 @@ class AuthDatasourceImpl implements AuthDatasource {
       queryParameters: {'confirmation_code': code, 'email': email},
     );
   }
+
+  @override
+  Future<void> resendEmail(String email) async {
+    await _dio.get(
+      'auth/resend-confirmation-email',
+      queryParameters: {
+        'email': email,
+      },
+    );
+  }
 }
