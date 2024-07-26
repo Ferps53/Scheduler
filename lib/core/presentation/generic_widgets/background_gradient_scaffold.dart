@@ -1,5 +1,5 @@
-import 'package:scheduler/features/auth/auth.dart';
 import 'package:scheduler/core/core.dart';
+import 'package:scheduler/features/auth/auth.dart';
 
 class BackgroundGradientScaffold extends StatelessWidget {
   const BackgroundGradientScaffold(

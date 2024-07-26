@@ -15,6 +15,7 @@ class ErrorDialog extends StatelessWidget {
     return Dialog(
       backgroundColor: Colors.transparent,
       child: GlassCard(
+        isFrosted: true,
         height: 200,
         child: Padding(
           padding: const EdgeInsets.all(8.0),

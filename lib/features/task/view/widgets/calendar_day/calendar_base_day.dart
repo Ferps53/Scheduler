@@ -17,8 +17,6 @@ class CalendarDay extends StatelessWidget {
         child: Badge(
           isLabelVisible: false,
           child: GlassCard(
-            startGradient: 0.8,
-            endGradient: 0.3,
             child: Center(
               child: Text(
                 '$dayNumber',

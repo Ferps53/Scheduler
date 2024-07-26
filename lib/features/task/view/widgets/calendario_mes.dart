@@ -39,8 +39,6 @@ class CalendarioMes extends StatelessWidget {
               ),
               Expanded(
                 child: GlassCard(
-                  startGradient: 0.5,
-                  endGradient: 0.2,
                   child: Column(
                     children: [
                       Container(
