@@ -1,7 +1,6 @@
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scheduler/core/core.dart';
-import 'package:scheduler/features/task/domain/entities/task_entity.dart';
 import 'package:scheduler/features/task/task.dart';
 import 'package:scheduler/features/task/view/providers/task_provider.dart';
 
@@ -13,22 +12,28 @@ class TarefaPage extends ConsumerWidget {
     final taskList = ref.watch(taskProvider);
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        tooltip: 'Adicionar nova tarefa',
-        onPressed: () {
-          ref.read(taskProvider.notifier).createTask(
-                TaskEntity(
-                  title: 'Teste',
-                  description: 'Testoso',
-                  isConcluded: false,
-                  isInTrashBin: false,
-                  createdAt: DateTime.now(),
-                  expiresIn: DateTime.now().add(
-                    const Duration(
-                      days: 7,
-                    ),
+        tooltip: 'Adicionar uma nova tarefa',
+        onPressed: () async {
+          await showDialog(
+            context: context,
+            builder: (context) {
+              return Dialog.fullscreen(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      const Spacer(),
+                      GlassTextButton(
+                        onPressed: context.pop,
+                        buttonLabel: 'Sair',
+                      ),
+                    ],
                   ),
                 ),
               );
+            },
+          );
         },
         child: const Icon(
           Icons.add,

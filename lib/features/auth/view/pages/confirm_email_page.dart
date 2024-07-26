@@ -14,6 +14,7 @@ class ConfirmEmailPage extends StatelessWidget {
     return PopScope(
       canPop: false,
       child: BackgroundGradientScaffold(
+        hideBackArrow: true,
         appBarLabel: 'Confirmação de email',
         child: Center(
           child: Padding(
@@ -67,7 +68,7 @@ class _ConfirmEmailFormState extends ConsumerState<ConfirmEmailForm> {
       child: GlassCard(
         height: 240,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 32),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
           child: step == 0
               ? _EmailStep(emailController: _emailController)
               : _CodeStep(
@@ -158,7 +159,6 @@ class _SaveButton extends ConsumerWidget {
                   title: 'Ocorreu um erro',
                 );
               } catch (e) {
-                print(e);
                 return ErrorDialog(
                     title: 'Ocorreu um erro', message: e.toString());
               }
@@ -180,6 +180,7 @@ class _SaveButton extends ConsumerWidget {
             }
           },
           buttonLabel: 'Enviar Código',
+          textSize: 24,
         ),
     };
   }
@@ -195,6 +196,8 @@ class _EmailStep extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
           'Confirme seu email',
@@ -214,12 +217,17 @@ class _EmailStep extends ConsumerWidget {
           diposeController: false,
         ),
         GlassTextButton(
-          onPressed: () {
+          onPressed: () async {
             if (_formKey.currentState!.validate()) {
+              await ref
+                  .read(loginRepoProvider)
+                  .resendEmail(_emailController.text);
+
               ref.read(confirmationEmailState.notifier).add();
             }
           },
           buttonLabel: 'Enviar Email',
+          textSize: 24,
         )
       ],
     );

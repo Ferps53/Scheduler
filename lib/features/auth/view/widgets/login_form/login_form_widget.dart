@@ -133,7 +133,7 @@ class _ButtonRowPassword extends StatelessWidget {
         Expanded(
           child: GlassTextButton.moreTransparent(
             onPressed: () {
-              context.push(NamedRoutes.createAccount.routePath);
+              context.pushNamed(NamedRoutes.createAccount.routeName);
             },
             buttonLabel: 'Criar Conta',
           ),
@@ -144,7 +144,7 @@ class _ButtonRowPassword extends StatelessWidget {
         Expanded(
           child: GlassTextButton.moreTransparent(
             onPressed: () {
-              context.push(NamedRoutes.forgotPassword.routePath);
+              context.pushNamed(NamedRoutes.forgotPassword.routeName);
             },
             buttonLabel: 'Esqueceu a senha?',
             textSize: 12,
