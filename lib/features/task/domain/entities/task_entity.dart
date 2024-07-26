@@ -2,7 +2,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../task.dart';
 
-part 'task_entity.freezed.dart';
+part '../../../../generated/features/task/domain/entities/task_entity.freezed.dart';
 
 @freezed
 class TaskEntity with _$TaskEntity {

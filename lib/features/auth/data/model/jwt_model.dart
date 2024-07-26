@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'jwt_model.g.dart';
-part 'jwt_model.freezed.dart';
+part '../../../../generated/features/auth/data/model/jwt_model.g.dart';
+part '../../../../generated/features/auth/data/model/jwt_model.freezed.dart';
 
 @freezed
 class JwtModel with _$JwtModel {

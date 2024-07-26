@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:scheduler/features/auth/auth.dart';
 
-part 'user_sign_in_model.freezed.dart';
+part '../../../../generated/features/auth/data/model/user_sign_in_model.freezed.dart';
 
 @freezed
 class UserSignInModel with _$UserSignInModel {

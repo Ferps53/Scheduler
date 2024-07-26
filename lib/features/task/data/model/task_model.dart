@@ -1,8 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:scheduler/features/task/domain/entities/task_entity.dart';
 
-part 'task_model.g.dart';
-part 'task_model.freezed.dart';
+part '../../../../generated/features/task/data/model/task_model.g.dart';
+part '../../../../generated/features/task/data/model/task_model.freezed.dart';
 
 @freezed
 class TaskModel with _$TaskModel {
