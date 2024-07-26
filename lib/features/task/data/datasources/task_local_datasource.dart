@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:scheduler/core/core.dart';
 import '../data.dart';
@@ -13,7 +15,7 @@ class TaskLocalDatasource implements TaskDatasource {
   @override
   Future<TaskModel> createTask(TaskModel taskModel) async {
     final db = await _appDb.database;
-    taskModel = taskModel.copyWith(idUsusario: await _getCurrentUser());
+    taskModel = taskModel.copyWith(userId: await _getCurrentUser());
 
     int id = await db.insert(tableName, taskModel.toDatabaseMap());
     final dbMap = await db.query(
@@ -59,12 +61,12 @@ class TaskLocalDatasource implements TaskDatasource {
   }
 
   @override
-  Future<TaskModel> toggleConcluded(int id, bool? concludedStatus) async {
+  Future<TaskModel> toggleConcluded(int id) async {
     final db = await _appDb.database;
 
     await db.rawQuery(
-      'UPDATE $tableName SET fgConcluida = ? where id = ?',
-      [concludedStatus ??= false, id],
+      'UPDATE $tableName SET isConcluded = !isConcluded where id = ?',
+      [id],
     );
 
     final map = await db.query(
@@ -94,10 +96,12 @@ class TaskLocalDatasource implements TaskDatasource {
     return map.map((databaseMap) => TaskModel.fromDatabase(databaseMap)).first;
   }
 
-  Future<String> _getCurrentUser() async {
+  Future<int> _getCurrentUser() async {
     final jwtString = await _store.getSavedString('token');
-    final jwt = JwtDecoder.decode(jwtString);
 
-    return jwt['sub'] as String;
+    final accessToken = jsonDecode(jwtString)['access_token'] as String;
+    final jwt = JwtDecoder.decode(accessToken);
+
+    return int.parse(jwt['sub'] as String);
   }
 }

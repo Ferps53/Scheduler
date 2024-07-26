@@ -16,15 +16,16 @@ class TarefaPage extends ConsumerWidget {
         onPressed: () {
           ref.read(taskProvider.notifier).createTask(
                 TaskEntity(
-                  id: null,
-                  titulo: 'Teste',
-                  descricao: 'Testoso',
-                  fgConcluida: false,
-                  fgLixeira: null,
-                  dataEnvioLixeira: null,
-                  dataCriacao: DateTime.now(),
-                  dataExpiracao: null,
-                  dataConclusao: null,
+                  title: 'Teste',
+                  description: 'Testoso',
+                  isConcluded: false,
+                  isInTrashBin: false,
+                  createdAt: DateTime.now(),
+                  expiresIn: DateTime.now().add(
+                    const Duration(
+                      days: 7,
+                    ),
+                  ),
                 ),
               );
         },

@@ -17,8 +17,8 @@ class TarefaCard extends StatelessWidget {
                 context: context,
                 builder: (context) => const TaskFullscreenDialog());
           },
-          title: Text(task.titulo),
-          subtitle: Text('${task.descricao} - ${task.dataCriacao.toString()}'),
+          title: Text(task.title),
+          subtitle: Text('${task.description} - ${task.createdAt.toString()}'),
         ),
       ),
     );

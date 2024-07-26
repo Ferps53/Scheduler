@@ -36,8 +36,8 @@ class TaskProvider extends AutoDisposeAsyncNotifier<List<TaskEntity>> {
     await fetchTasks();
   }
 
-  Future<void> toggleStatus(int id, bool? statusConcluded) async {
-    await ref.read(taskRepositoryProvider).toggleConcluded(id, statusConcluded);
+  Future<void> toggleStatus(int id) async {
+    await ref.read(taskRepositoryProvider).toggleConcluded(id);
     await fetchTasks();
   }
 

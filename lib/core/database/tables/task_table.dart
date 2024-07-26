@@ -7,15 +7,15 @@ class TaskTable implements TableStrategy {
     batch.execute('''
         CREATE TABLE IF NOT EXISTS tasks (
             id INTEGER PRIMARY KEY,
-            titulo TEXT NOT NULL,
-            idUsuario TEXT NOT NULL,
-            descricao TEXT NOT NULL,
-            fgConcluida INTEGER,
-            fgLixeira INTEGER,
-            dataCriacao TEXT,
-            dataEnvioLixeira TEXT,
-            dataExpiracao TEXT,
-            dataConclusao TEXT
+            title TEXT NOT NULL,
+            userId INTEGER NOT NULL,
+            description TEXT NOT NULL,
+            isConcluded INTEGER,
+            isInTrashBin INTEGER,
+            createdAt TEXT,
+            sentToTrashBinAt TEXT,
+            expiresIn TEXT,
+            concludedAt TEXT
         );
     ''');
   }

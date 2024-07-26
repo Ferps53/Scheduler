@@ -9,7 +9,7 @@ abstract class TaskDatasource {
 
   Future<List<TaskModel>> getTasks();
 
-  Future<TaskModel> toggleConcluded(int id, bool? concludedStatus);
+  Future<TaskModel> toggleConcluded(int id);
 
   Future<TaskModel> updateTask(TaskModel tarefaModel);
 }

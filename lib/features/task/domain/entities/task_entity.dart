@@ -7,28 +7,24 @@ part '../../../../generated/features/task/domain/entities/task_entity.freezed.da
 @freezed
 class TaskEntity with _$TaskEntity {
   factory TaskEntity({
-    required int? id,
-    required String titulo,
-    required String descricao,
-    required bool? fgConcluida,
-    required bool? fgLixeira,
-    required DateTime? dataEnvioLixeira,
-    required DateTime? dataCriacao,
-    required DateTime? dataExpiracao,
-    required DateTime? dataConclusao,
+    int? id,
+    required String title,
+    required String description,
+    required bool? isConcluded,
+    required bool? isInTrashBin,
+    required DateTime? createdAt,
+    required DateTime? expiresIn,
   }) = _TaskEntity;
 
   factory TaskEntity.fromModel({required TaskModel taskModel}) {
     return TaskEntity(
       id: taskModel.id,
-      titulo: taskModel.titulo,
-      descricao: taskModel.descricao,
-      fgConcluida: taskModel.fgConcluida,
-      fgLixeira: taskModel.fgLixeira,
-      dataEnvioLixeira: DateTime.tryParse(taskModel.dataEnvioLixeira ?? ''),
-      dataCriacao: DateTime.tryParse(taskModel.dataCriacao ?? ''),
-      dataExpiracao: DateTime.tryParse(taskModel.dataExpiracao ?? ''),
-      dataConclusao: DateTime.tryParse(taskModel.dataConclusao ?? ''),
+      title: taskModel.title,
+      description: taskModel.description,
+      isConcluded: taskModel.isConcluded,
+      isInTrashBin: taskModel.isInTrashBin,
+      createdAt: DateTime.tryParse(taskModel.createdAt ?? ''),
+      expiresIn: DateTime.tryParse(taskModel.expiresIn ?? ''),
     );
   }
 }

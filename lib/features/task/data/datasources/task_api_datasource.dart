@@ -6,10 +6,12 @@ class TaskApiDatasource implements TaskDatasource {
 
   TaskApiDatasource(this._dio);
 
+  static const String basePath = '/task';
+
   @override
   Future<TaskModel> createTask(TaskModel taskModel) async {
     final response = await _dio.post(
-      '/tarefa',
+      basePath,
       data: taskModel.toJson(),
     );
     return TaskModel.fromJson(response.data);
@@ -17,19 +19,19 @@ class TaskApiDatasource implements TaskDatasource {
 
   @override
   Future<void> deleteTask(int id) async {
-    await _dio.delete('/tarefa/$id');
+    await _dio.delete('$basePath/$id');
   }
 
   @override
   Future<TaskModel> getTaskById(int id) async {
-    final response = await _dio.get('/tarefa/$id');
+    final response = await _dio.get('$basePath/$id');
 
     return TaskModel.fromJson(response.data!);
   }
 
   @override
   Future<List<TaskModel>> getTasks() async {
-    final response = await _dio.get('/tarefa');
+    final response = await _dio.get(basePath);
 
     List<TaskModel> listTasks = [];
     if (response.data != null) {
@@ -41,14 +43,9 @@ class TaskApiDatasource implements TaskDatasource {
   }
 
   @override
-  Future<TaskModel> toggleConcluded(int id, bool? concludedStatus) async {
-    final TaskConcludedDTO tarefaConcludedDTO = TaskConcludedDTO(
-      concludedStatus: concludedStatus,
-      concludedDate: DateTime.now().toIso8601String(),
-    );
+  Future<TaskModel> toggleConcluded(int id) async {
     final response = await _dio.put(
-      '/tarefa/$id/atualizarStatus',
-      data: tarefaConcludedDTO.toJson(),
+      '$basePath/mark-as-concluded/$id',
     );
 
     return TaskModel.fromJson(response.data);
@@ -56,8 +53,8 @@ class TaskApiDatasource implements TaskDatasource {
 
   @override
   Future<TaskModel> updateTask(TaskModel tarefa) async {
-    final response = await _dio.put(
-      '/tarefa',
+    final response = await _dio.patch(
+      basePath,
       data: tarefa.toJson(),
     );
     return TaskModel.fromJson(response.data);
