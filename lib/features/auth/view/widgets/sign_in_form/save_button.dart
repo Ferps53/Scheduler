@@ -45,7 +45,7 @@ class _SaveButtonState extends ConsumerState<SaveButton> {
               }
             });
       } else if (next.hasValue && next.value != null && !next.isLoading) {
-        context.goNamed(NamedRoutes.confirmEmail.routePath,
+        context.goNamed(NamedRoutes.confirmEmail.routeName,
             extra: widget.email.text);
       }
     });
