@@ -134,6 +134,9 @@ class _TaskFormState extends State<_TaskForm> {
                     label: 'Hora Expiração',
                     controller: _hourExpirationController,
                     readOnly: true,
+                    onTap: () {
+                      showTimePicker(context: context, initialTime: time);
+                    },
                     diposeController: false,
                   ),
                 )
