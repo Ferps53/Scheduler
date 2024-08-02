@@ -104,7 +104,7 @@ class _PasswordField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoginTextField(
+    return CustomTextField(
       glassTextButton: const _ButtonRowPassword(),
       icon: Icons.lock,
       label: 'Senha',
@@ -161,7 +161,7 @@ class _EmailField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoginTextField(
+    return CustomTextField(
       icon: Icons.email,
       label: 'Email',
       isSecret: false,

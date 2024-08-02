@@ -20,7 +20,7 @@ class MainWidget extends ConsumerWidget {
       title: 'Scheduler',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        visualDensity: VisualDensity.compact,
+        visualDensity: VisualDensity.comfortable,
         fontFamily: 'Ubuntu',
         textTheme: Theme.of(context).textTheme.apply(
               fontFamily: 'Ubuntu',

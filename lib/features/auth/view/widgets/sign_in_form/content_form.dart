@@ -33,7 +33,7 @@ class ContentForm extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            LoginTextField(
+            CustomTextField(
               icon: Icons.person,
               label: 'Nome do Usuário',
               isSecret: false,
@@ -48,7 +48,7 @@ class ContentForm extends StatelessWidget {
               },
               controller: usernameController,
             ),
-            LoginTextField(
+            CustomTextField(
               icon: Icons.email,
               label: 'Email',
               isSecret: false,
@@ -63,7 +63,7 @@ class ContentForm extends StatelessWidget {
               },
               controller: emailController,
             ),
-            LoginTextField(
+            CustomTextField(
               icon: Icons.lock,
               label: 'Senha',
               isSecret: true,
@@ -78,7 +78,7 @@ class ContentForm extends StatelessWidget {
               },
               controller: passwordController,
             ),
-            LoginTextField(
+            CustomTextField(
               icon: Icons.lock,
               label: 'Digite a Senha Novamente',
               isSecret: true,

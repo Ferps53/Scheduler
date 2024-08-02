@@ -1,6 +1,6 @@
 import 'package:scheduler/core/core.dart';
 
-class LoginTextField extends StatefulWidget {
+class CustomTextField extends StatefulWidget {
   final IconData icon;
   final String label;
   final bool isSecret;
@@ -10,25 +10,29 @@ class LoginTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final Widget? glassTextButton;
   final bool diposeController;
+  final bool readOnly;
+  final VoidCallback? onTap;
 
-  const LoginTextField({
+  const CustomTextField({
     super.key,
     required this.icon,
     required this.label,
-    required this.isSecret,
     required this.controller,
+    this.isSecret = false,
     this.isDense = false,
     this.padding = 8,
     this.validator,
     this.glassTextButton,
     this.diposeController = true,
+    this.readOnly = false,
+    this.onTap,
   });
 
   @override
-  State<LoginTextField> createState() => _LoginTextFieldState();
+  State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
-class _LoginTextFieldState extends State<LoginTextField> {
+class _CustomTextFieldState extends State<CustomTextField> {
   bool isHidden = false;
 
   @override
@@ -52,6 +56,8 @@ class _LoginTextFieldState extends State<LoginTextField> {
       child: Column(
         children: [
           TextFormField(
+            onTap: widget.onTap,
+            readOnly: widget.readOnly,
             cursorColor: context.colorScheme.primary,
             validator: widget.validator,
             autovalidateMode: AutovalidateMode.onUserInteraction,

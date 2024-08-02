@@ -107,7 +107,7 @@ class _CodeStep extends ConsumerWidget {
             color: Colors.white,
           ),
         ),
-        LoginTextField(
+        CustomTextField(
           icon: Icons.lock,
           label: 'Código',
           isSecret: false,
@@ -209,7 +209,7 @@ class _EmailStep extends ConsumerWidget {
             color: Colors.white,
           ),
         ),
-        LoginTextField(
+        CustomTextField(
           icon: Icons.email,
           label: 'Email',
           isSecret: false,

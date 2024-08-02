@@ -3,6 +3,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/task/task.dart';
 import 'package:scheduler/features/task/view/providers/task_provider.dart';
+import 'package:scheduler/features/task/view/widgets/create_task_dialog.dart';
 
 class TarefaPage extends ConsumerWidget {
   const TarefaPage({super.key});
@@ -14,24 +15,12 @@ class TarefaPage extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
         tooltip: 'Adicionar uma nova tarefa',
         onPressed: () async {
-          await showDialog(
+          await showModalBottomSheet(
+            isScrollControlled: true,
             context: context,
+            barrierColor: Colors.transparent,
             builder: (context) {
-              return Dialog.fullscreen(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      const Spacer(),
-                      GlassTextButton(
-                        onPressed: context.pop,
-                        buttonLabel: 'Sair',
-                      ),
-                    ],
-                  ),
-                ),
-              );
+              return const TaskFullscreenDialog();
             },
           );
         },
