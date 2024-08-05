@@ -11,7 +11,7 @@ class TaskLocalDatasource implements TaskDatasource {
 
   TaskLocalDatasource(this._appDb, this._store);
 
-  static const tableName = 'tasks';
+  static const _tableName = 'tasks';
 
   @override
   Future<TaskModel> createTask(NewTaskModel newTaskModel) async {
@@ -19,9 +19,9 @@ class TaskLocalDatasource implements TaskDatasource {
     final db = await _appDb.database;
     taskModel = taskModel.copyWith(userId: await _getCurrentUser());
 
-    int id = await db.insert(tableName, taskModel.toDatabaseMap());
+    int id = await db.insert(_tableName, taskModel.toDatabaseMap());
     final dbMap = await db.query(
-      tableName,
+      _tableName,
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -33,7 +33,7 @@ class TaskLocalDatasource implements TaskDatasource {
     final db = await _appDb.database;
 
     await db.delete(
-      tableName,
+      _tableName,
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -44,7 +44,7 @@ class TaskLocalDatasource implements TaskDatasource {
     final db = await _appDb.database;
 
     final map = await db.query(
-      tableName,
+      _tableName,
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -56,7 +56,7 @@ class TaskLocalDatasource implements TaskDatasource {
     final db = await _appDb.database;
 
     final map = await db.query(
-      '$tableName Order by expiresIn ASC',
+      '$_tableName Order by expiresIn ASC',
     );
 
     return map
@@ -69,12 +69,12 @@ class TaskLocalDatasource implements TaskDatasource {
     final db = await _appDb.database;
 
     await db.rawQuery(
-      'UPDATE $tableName SET isConcluded = NOT isConcluded where id = ?',
+      'UPDATE $_tableName SET isConcluded = NOT isConcluded where id = ?',
       [id],
     );
 
     final map = await db.query(
-      tableName,
+      _tableName,
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -86,7 +86,7 @@ class TaskLocalDatasource implements TaskDatasource {
   Future<TaskModel> updateTask(NewTaskModel taskModel) async {
     final db = await _appDb.database;
     await db.rawQuery(
-      'Update $tableName set title = ?, description = ?, expiresIn = ? where id = ?',
+      'Update $_tableName set title = ?, description = ?, expiresIn = ? where id = ?',
       [
         taskModel.title,
         taskModel.description,
@@ -96,9 +96,9 @@ class TaskLocalDatasource implements TaskDatasource {
     );
 
     final map = await db.query(
-      tableName,
+      _tableName,
       where: 'id = ?',
-      whereArgs: [taskModel.id],
+      whereArgs: [taskModel.id!],
     );
     return map.map((databaseMap) => TaskModel.fromDatabase(databaseMap)).first;
   }

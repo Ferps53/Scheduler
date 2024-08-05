@@ -45,7 +45,7 @@ class TarefaCard extends ConsumerWidget {
             },
             title: Text('Cód: ${task.id} - ${task.title}'),
             subtitle:
-                Text('${task.description} - ${task.createdAt.toString()}'),
+                Text('${task.description} - ${task.expiresIn.toString()}'),
             trailing: Checkbox(
               value: task.isConcluded,
               onChanged: (value) async {

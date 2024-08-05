@@ -21,6 +21,8 @@ class TaskRepositoryImpl implements TaskRepository {
     if (await _hasInternetConnection()) {
       final TaskModel taskModel =
           await taskApiDatasource.createTask(newTaskModel);
+      newTaskModel = newTaskModel.copyWith(id: taskModel.id);
+
       await taskLocalDatasource.createTask(newTaskModel);
       return TaskEntity.fromModel(taskModel: taskModel);
     } else {
@@ -63,7 +65,7 @@ class TaskRepositoryImpl implements TaskRepository {
     for (final model in models) {
       entities.add(TaskEntity.fromModel(taskModel: model));
     }
-    entities.sort((a, b) => a.expiresIn!.compareTo(b.expiresIn!));
+
     return entities;
   }
 

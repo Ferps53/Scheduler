@@ -55,9 +55,6 @@ class TaskApiDatasource implements TaskDatasource {
 
   @override
   Future<TaskModel> updateTask(NewTaskModel tarefa) async {
-    final json = tarefa.toJson();
-    json.remove('id');
-
     final response = await _dio.patch(
       '$basePath/${tarefa.id!}',
       data: tarefa.toJson(),

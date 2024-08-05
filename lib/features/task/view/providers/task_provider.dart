@@ -30,8 +30,9 @@ class TaskProvider extends AutoDisposeAsyncNotifier<List<TaskEntity>> {
   }
 
   Future<void> createTask(NewTaskModel newTaskModel) async {
+    state = const AsyncLoading();
     await ref.read(taskRepositoryProvider).createTask(newTaskModel);
-    await refreshTasks();
+    state = await AsyncValue.guard(() => _initTasks());
   }
 
   Future<void> updateTask(NewTaskModel taskEntity) async {

@@ -73,6 +73,7 @@ class TaskModel with _$TaskModel {
 
   factory TaskModel.fromNewTask({required NewTaskModel newTaskModel}) {
     return TaskModel(
+      id: newTaskModel.id,
       title: newTaskModel.title,
       description: newTaskModel.description,
       expiresIn: newTaskModel.expiresIn,

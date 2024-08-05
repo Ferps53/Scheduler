@@ -238,11 +238,10 @@ class _SaveButton extends ConsumerWidget {
               );
               if (_taskEntity == null) {
                 await ref.read(taskProvider.notifier).createTask(newTaskModel);
-                if (context.mounted) context.pop();
               } else {
                 await ref.read(taskProvider.notifier).updateTask(newTaskModel);
-                if (context.mounted) context.pop();
               }
+              if (context.mounted) context.pop();
             }
           },
           buttonLabel: 'Salvar',
