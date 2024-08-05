@@ -4,33 +4,54 @@ import 'package:scheduler/features/task/view/providers/task_provider.dart';
 import 'package:scheduler/features/task/view/widgets/create_task_dialog.dart';
 
 class TarefaCard extends ConsumerWidget {
-  const TarefaCard({super.key, required this.task});
+  TarefaCard({super.key, required this.task});
   final TaskEntity task;
+  final _key = GlobalKey();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Card(
-        child: ListTile(
-          onLongPress: () async {
-            await showModalBottomSheet(
-              isScrollControlled: true,
-              context: context,
-              barrierColor: Colors.transparent,
-              backgroundColor: Colors.transparent,
-              builder: (context) => CreateTaskBottomModal(
-                task: task,
-              ),
-            );
-          },
-          title: Text('Cód: ${task.id} - ${task.title}'),
-          subtitle: Text('${task.description} - ${task.createdAt.toString()}'),
-          trailing: Checkbox(
-            value: task.isConcluded,
-            onChanged: (value) async {
-              await ref.read(taskProvider.notifier).toggleStatus(task.id!);
+    return Dismissible(
+      onDismissed: (_) => ref.read(taskProvider.notifier).deleteTask(task.id!),
+      background: Container(
+        color: context.colorScheme.error,
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Icon(
+              size: 32,
+              Icons.delete,
+              color: context.colorScheme.onError,
+            ),
+          ),
+        ),
+      ),
+      key: _key,
+      direction: DismissDirection.endToStart,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Card(
+          child: ListTile(
+            onLongPress: () async {
+              await showModalBottomSheet(
+                isScrollControlled: true,
+                context: context,
+                barrierColor: Colors.transparent,
+                backgroundColor: Colors.transparent,
+                builder: (context) => CreateTaskBottomModal(
+                  task: task,
+                ),
+              );
             },
+            title: Text('Cód: ${task.id} - ${task.title}'),
+            subtitle:
+                Text('${task.description} - ${task.createdAt.toString()}'),
+            trailing: Checkbox(
+              value: task.isConcluded,
+              onChanged: (value) async {
+                await ref.read(taskProvider.notifier).toggleStatus(task.id!);
+              },
+            ),
           ),
         ),
       ),
