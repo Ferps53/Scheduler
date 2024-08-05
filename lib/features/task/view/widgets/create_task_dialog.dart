@@ -139,6 +139,7 @@ class _TaskFormState extends State<_TaskForm> {
                     diposeController: false,
                     onTap: () async {
                       final newDate = await showDatePicker(
+                        locale: const Locale('pt', 'BR'),
                         context: context,
                         firstDate: DateTime.now(),
                         lastDate: DateTime(2100),
@@ -161,7 +162,14 @@ class _TaskFormState extends State<_TaskForm> {
                     readOnly: true,
                     onTap: () async {
                       final time = await showTimePicker(
-                          context: context, initialTime: _time);
+                        context: context,
+                        initialTime: _time,
+                        builder: (context, child) => Localizations.override(
+                          context: context,
+                          locale: const Locale('pt', 'BR'),
+                          child: child!,
+                        ),
+                      );
 
                       if (time != null) {
                         _time = time;
