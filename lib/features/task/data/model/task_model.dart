@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:scheduler/features/task/data/model/new_task_model.dart';
 import 'package:scheduler/features/task/domain/entities/task_entity.dart';
 
 part '../../../../generated/features/task/data/model/task_model.g.dart';
@@ -8,9 +9,9 @@ part '../../../../generated/features/task/data/model/task_model.freezed.dart';
 class TaskModel with _$TaskModel {
   const TaskModel._();
   factory TaskModel({
-    required int? id,
+    int? id,
     required String title,
-    required int? userId,
+    int? userId,
     required String description,
     required bool? isConcluded,
     required bool? isInTrashBin,
@@ -67,6 +68,17 @@ class TaskModel with _$TaskModel {
       isInTrashBin: taskEntity.isInTrashBin,
       createdAt: taskEntity.createdAt?.toIso8601String(),
       expiresIn: taskEntity.expiresIn?.toIso8601String(),
+    );
+  }
+
+  factory TaskModel.fromNewTask({required NewTaskModel newTaskModel}) {
+    return TaskModel(
+      title: newTaskModel.title,
+      description: newTaskModel.description,
+      expiresIn: newTaskModel.expiresIn.toIso8601String(),
+      createdAt: DateTime.now().toIso8601String(),
+      isInTrashBin: false,
+      isConcluded: false,
     );
   }
 }

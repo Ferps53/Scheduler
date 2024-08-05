@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:scheduler/core/core.dart';
+import 'package:scheduler/features/task/data/model/new_task_model.dart';
 import '../data.dart';
 
 class TaskLocalDatasource implements TaskDatasource {
@@ -13,7 +14,8 @@ class TaskLocalDatasource implements TaskDatasource {
   static const tableName = 'tasks';
 
   @override
-  Future<TaskModel> createTask(TaskModel taskModel) async {
+  Future<TaskModel> createTask(NewTaskModel newTaskModel) async {
+    TaskModel taskModel = TaskModel.fromNewTask(newTaskModel: newTaskModel);
     final db = await _appDb.database;
     taskModel = taskModel.copyWith(userId: await _getCurrentUser());
 
@@ -65,7 +67,7 @@ class TaskLocalDatasource implements TaskDatasource {
     final db = await _appDb.database;
 
     await db.rawQuery(
-      'UPDATE $tableName SET isConcluded = !isConcluded where id = ?',
+      'UPDATE $tableName SET isConcluded = NOT isConcluded where id = ?',
       [id],
     );
 

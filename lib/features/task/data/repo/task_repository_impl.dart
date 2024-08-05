@@ -1,6 +1,7 @@
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:scheduler/features/task/data/datasources/task_api_datasource.dart';
 import 'package:scheduler/features/task/data/datasources/task_local_datasource.dart';
+import 'package:scheduler/features/task/data/model/new_task_model.dart';
 import 'package:scheduler/features/task/domain/entities/task_entity.dart';
 import 'package:scheduler/features/task/domain/repo/task_repository.dart';
 
@@ -16,15 +17,14 @@ class TaskRepositoryImpl implements TaskRepository {
   });
 
   @override
-  Future<TaskEntity> createTask(TaskEntity task) async {
+  Future<TaskEntity> createTask(NewTaskModel newTaskModel) async {
     if (await _hasInternetConnection()) {
-      final TaskModel taskModel = await taskApiDatasource
-          .createTask(TaskModel.fromEntity(taskEntity: task));
-      await taskLocalDatasource.createTask(taskModel);
+      final TaskModel taskModel =
+          await taskApiDatasource.createTask(newTaskModel);
+      await taskLocalDatasource.createTask(newTaskModel);
       return TaskEntity.fromModel(taskModel: taskModel);
     } else {
-      final taskModel = await taskLocalDatasource
-          .createTask(TaskModel.fromEntity(taskEntity: task));
+      final taskModel = await taskLocalDatasource.createTask(newTaskModel);
       return TaskEntity.fromModel(taskModel: taskModel);
     }
   }

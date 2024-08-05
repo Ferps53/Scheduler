@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:scheduler/features/task/task.dart';
 
+import '../model/new_task_model.dart';
+
 class TaskApiDatasource implements TaskDatasource {
   final Dio _dio;
 
@@ -9,7 +11,7 @@ class TaskApiDatasource implements TaskDatasource {
   static const String basePath = '/task';
 
   @override
-  Future<TaskModel> createTask(TaskModel taskModel) async {
+  Future<TaskModel> createTask(NewTaskModel taskModel) async {
     final response = await _dio.post(
       basePath,
       data: taskModel.toJson(),

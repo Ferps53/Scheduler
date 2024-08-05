@@ -1,7 +1,9 @@
 import 'package:scheduler/features/task/task.dart';
 
+import '../model/new_task_model.dart';
+
 abstract class TaskDatasource {
-  Future<TaskModel> createTask(TaskModel taskModel);
+  Future<TaskModel> createTask(NewTaskModel taskModel);
 
   Future<void> deleteTask(int id);
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:scheduler/features/task/data/model/new_task_model.dart';
 import 'package:scheduler/features/task/domain/entities/entities.dart';
 import 'package:scheduler/features/task/view/providers/providers.dart';
 
@@ -9,13 +10,15 @@ final taskProvider =
         () => TaskProvider());
 
 class TaskProvider extends AutoDisposeAsyncNotifier<List<TaskEntity>> {
+  List<TaskEntity> taskList = [];
+
   @override
   Future<List<TaskEntity>> build() async {
-    return await _initTasks();
+    taskList = await _initTasks();
+    return taskList;
   }
 
-  Future<void> fetchTasks() async {
-    state = const AsyncLoading();
+  Future<void> refreshTasks() async {
     state = await AsyncValue.guard(
       () => ref.read(taskRepositoryProvider).getTaskList(),
     );
@@ -23,22 +26,22 @@ class TaskProvider extends AutoDisposeAsyncNotifier<List<TaskEntity>> {
 
   Future<void> deleteTask(int id) async {
     await ref.read(taskRepositoryProvider).deleteTask(id);
-    await fetchTasks();
+    await refreshTasks();
   }
 
-  Future<void> createTask(TaskEntity taskEntity) async {
-    await ref.read(taskRepositoryProvider).createTask(taskEntity);
-    await fetchTasks();
+  Future<void> createTask(NewTaskModel newTaskModel) async {
+    await ref.read(taskRepositoryProvider).createTask(newTaskModel);
+    await refreshTasks();
   }
 
   Future<void> updateTask(TaskEntity taskEntity) async {
     await ref.read(taskRepositoryProvider).updateTask(taskEntity);
-    await fetchTasks();
+    await refreshTasks();
   }
 
   Future<void> toggleStatus(int id) async {
     await ref.read(taskRepositoryProvider).toggleConcluded(id);
-    await fetchTasks();
+    return await refreshTasks();
   }
 
   Future<List<TaskEntity>> _initTasks() async {

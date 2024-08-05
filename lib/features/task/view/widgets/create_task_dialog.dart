@@ -1,11 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:scheduler/core/core.dart';
 import 'package:scheduler/features/auth/auth.dart';
+import 'package:scheduler/features/task/data/model/new_task_model.dart';
 import 'package:scheduler/features/task/domain/entities/entities.dart';
+import 'package:scheduler/features/task/view/providers/task_provider.dart';
 
-class TaskFullscreenDialog extends StatelessWidget {
-  const TaskFullscreenDialog({super.key, this.task});
+class CreateTaskBottomModal extends StatelessWidget {
+  const CreateTaskBottomModal({super.key, this.task});
   final TaskEntity? task;
   @override
   Widget build(BuildContext context) {
@@ -22,11 +23,14 @@ class TaskFullscreenDialog extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Spacer(),
+                  const Spacer(
+                    flex: 2,
+                  ),
                   Text(
-                    'Nova Tarefa',
+                    task != null ? 'Editar Tarefa' : 'Nova Tarefa',
                     style: context.titleLarge,
                   ),
+                  const Spacer(),
                   Expanded(
                     child: IconButton(
                       onPressed: context.pop,
@@ -59,29 +63,31 @@ class _TaskFormState extends State<_TaskForm> {
   final _dateExpirationController = TextEditingController();
   final _hourExpirationController = TextEditingController();
   final DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
-  DateTime date = DateTime.now();
-  TimeOfDay time = TimeOfDay.fromDateTime(DateTime.now());
+  DateTime _date = DateTime.now();
+  TimeOfDay _time = TimeOfDay.fromDateTime(DateTime.now());
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
 
     if (widget.task != null && widget.task!.expiresIn != null) {
-      date = widget.task!.expiresIn!;
-      time = TimeOfDay.fromDateTime(widget.task!.expiresIn!);
+      _date = widget.task!.expiresIn!;
+      _time = TimeOfDay.fromDateTime(widget.task!.expiresIn!);
 
       _titleController.text = widget.task!.title;
       _descriptionController.text = widget.task!.description;
     }
 
-    _dateExpirationController.text = _dateFormat.format(date);
+    _dateExpirationController.text = _dateFormat.format(_date);
     _hourExpirationController.text =
-        '${time.hour.toString().padLeft(2, '0')}:${time.minute.toString().padLeft(2, '0')}';
+        '${_time.hour.toString().padLeft(2, '0')}:${_time.minute.toString().padLeft(2, '0')}';
   }
 
   @override
   Widget build(BuildContext context) {
     return Form(
+      key: _formKey,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
         child: Column(
@@ -92,7 +98,10 @@ class _TaskFormState extends State<_TaskForm> {
               label: 'Título',
               controller: _titleController,
               validator: (value) {
-                return 'a';
+                if (value != null && value.trim().isEmpty) {
+                  return 'Escreva um título para sua tarefa';
+                }
+                return null;
               },
               diposeController: false,
             ),
@@ -101,6 +110,12 @@ class _TaskFormState extends State<_TaskForm> {
               label: 'Descrição',
               controller: _descriptionController,
               diposeController: false,
+              validator: (value) {
+                if (value != null && value.trim().isEmpty) {
+                  return 'Escreva um título para sua tarefa';
+                }
+                return null;
+              },
             ),
             Row(
               mainAxisSize: MainAxisSize.min,
@@ -135,21 +150,62 @@ class _TaskFormState extends State<_TaskForm> {
                     controller: _hourExpirationController,
                     readOnly: true,
                     onTap: () {
-                      showTimePicker(context: context, initialTime: time);
+                      showTimePicker(context: context, initialTime: _time);
                     },
                     diposeController: false,
                   ),
                 )
               ],
             ),
-            GlassTextButton(
-              onPressed: () {},
-              buttonLabel: 'Salvar',
-              textSize: 24,
+            _SaveButton(
+              formKey: _formKey,
+              titleController: _titleController,
+              descriptionController: _descriptionController,
+              date: _date,
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+class _SaveButton extends ConsumerWidget {
+  const _SaveButton({
+    required GlobalKey<FormState> formKey,
+    required TextEditingController titleController,
+    required TextEditingController descriptionController,
+    required DateTime date,
+  })  : _formKey = formKey,
+        _titleController = titleController,
+        _descriptionController = descriptionController,
+        _date = date;
+
+  final GlobalKey<FormState> _formKey;
+  final TextEditingController _titleController;
+  final TextEditingController _descriptionController;
+  final DateTime _date;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final task = ref.watch(taskProvider);
+    return switch (task) {
+      AsyncLoading() => const GlassTextLoadingButton(),
+      _ => GlassTextButton(
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              final newTaskModel = NewTaskModel(
+                title: _titleController.text,
+                description: _descriptionController.text,
+                expiresIn: _date,
+              );
+              await ref.read(taskProvider.notifier).createTask(newTaskModel);
+              if (context.mounted) context.pop();
+            }
+          },
+          buttonLabel: 'Salvar',
+          textSize: 24,
+        ),
+    };
   }
 }

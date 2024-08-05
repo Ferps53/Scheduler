@@ -20,7 +20,7 @@ class TarefaPage extends ConsumerWidget {
             context: context,
             barrierColor: Colors.transparent,
             builder: (context) {
-              return const TaskFullscreenDialog();
+              return const CreateTaskBottomModal();
             },
           );
         },
@@ -42,8 +42,9 @@ class TarefaPage extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     return TarefaCard(task: data[index]).animate().move(
                           duration: 200.ms,
-                          begin: const Offset(100, 100),
+                          begin: const Offset(0, 400),
                           end: const Offset(0, 0),
+                          delay: Duration(milliseconds: 100 * index),
                         );
                   },
                 );
