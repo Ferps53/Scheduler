@@ -13,5 +13,5 @@ abstract class TaskDatasource {
 
   Future<TaskModel> toggleConcluded(int id);
 
-  Future<TaskModel> updateTask(TaskModel tarefaModel);
+  Future<TaskModel> updateTask(NewTaskModel tarefaModel);
 }

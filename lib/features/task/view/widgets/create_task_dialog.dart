@@ -172,6 +172,7 @@ class _TaskFormState extends State<_TaskForm> {
               ],
             ),
             _SaveButton(
+              taskEntity: widget.task,
               formKey: _formKey,
               titleController: _titleController,
               descriptionController: _descriptionController,
@@ -186,6 +187,7 @@ class _TaskFormState extends State<_TaskForm> {
 
 class _SaveButton extends ConsumerWidget {
   const _SaveButton({
+    required TaskEntity? taskEntity,
     required GlobalKey<FormState> formKey,
     required TextEditingController titleController,
     required TextEditingController descriptionController,
@@ -193,12 +195,14 @@ class _SaveButton extends ConsumerWidget {
   })  : _formKey = formKey,
         _titleController = titleController,
         _descriptionController = descriptionController,
-        _date = date;
+        _date = date,
+        _taskEntity = taskEntity;
 
   final GlobalKey<FormState> _formKey;
   final TextEditingController _titleController;
   final TextEditingController _descriptionController;
   final DateTime _date;
+  final TaskEntity? _taskEntity;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -209,12 +213,18 @@ class _SaveButton extends ConsumerWidget {
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
               final newTaskModel = NewTaskModel(
+                id: _taskEntity!.id,
                 title: _titleController.text,
                 description: _descriptionController.text,
                 expiresIn: _date,
               );
-              await ref.read(taskProvider.notifier).createTask(newTaskModel);
-              if (context.mounted) context.pop();
+              if (_taskEntity == null) {
+                await ref.read(taskProvider.notifier).createTask(newTaskModel);
+                if (context.mounted) context.pop();
+              } else {
+                await ref.read(taskProvider.notifier).updateTask(newTaskModel);
+                if (context.mounted) context.pop();
+              }
             }
           },
           buttonLabel: 'Salvar',

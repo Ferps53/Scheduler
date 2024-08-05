@@ -55,7 +55,9 @@ class TaskLocalDatasource implements TaskDatasource {
   Future<List<TaskModel>> getTasks() async {
     final db = await _appDb.database;
 
-    final map = await db.query(tableName);
+    final map = await db.query(
+      '$tableName Order by expiresIn ASC',
+    );
 
     return map
         .map((databaseMap) => TaskModel.fromDatabase(databaseMap))
@@ -81,13 +83,16 @@ class TaskLocalDatasource implements TaskDatasource {
   }
 
   @override
-  Future<TaskModel> updateTask(TaskModel taskModel) async {
+  Future<TaskModel> updateTask(NewTaskModel taskModel) async {
     final db = await _appDb.database;
-    await db.update(
-      tableName,
-      taskModel.toDatabaseMap(),
-      where: 'id = ?',
-      whereArgs: [taskModel.id],
+    await db.rawQuery(
+      'Update $tableName set title = ?, description = ?, expiresIn = ? where id = ?',
+      [
+        taskModel.title,
+        taskModel.description,
+        taskModel.expiresIn.toIso8601String(),
+        taskModel.id!,
+      ],
     );
 
     final map = await db.query(

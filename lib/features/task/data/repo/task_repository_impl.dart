@@ -63,7 +63,7 @@ class TaskRepositoryImpl implements TaskRepository {
     for (final model in models) {
       entities.add(TaskEntity.fromModel(taskModel: model));
     }
-
+    entities.sort((a, b) => a.expiresIn!.compareTo(b.expiresIn!));
     return entities;
   }
 
@@ -80,16 +80,13 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<TaskEntity> updateTask(TaskEntity taskEntity) async {
+  Future<TaskEntity> updateTask(NewTaskModel newTaskModel) async {
     final TaskModel taskModel;
     if (await _hasInternetConnection()) {
-      taskModel = await taskApiDatasource
-          .updateTask(TaskModel.fromEntity(taskEntity: taskEntity));
-      await taskLocalDatasource
-          .updateTask(TaskModel.fromEntity(taskEntity: taskEntity));
+      taskModel = await taskApiDatasource.updateTask(newTaskModel);
+      await taskLocalDatasource.updateTask(newTaskModel);
     } else {
-      taskModel = await taskLocalDatasource
-          .updateTask(TaskModel.fromEntity(taskEntity: taskEntity));
+      taskModel = await taskLocalDatasource.updateTask(newTaskModel);
     }
     return TaskEntity.fromModel(taskModel: taskModel);
   }

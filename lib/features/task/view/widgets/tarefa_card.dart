@@ -15,21 +15,21 @@ class TarefaCard extends ConsumerWidget {
         child: ListTile(
           onLongPress: () async {
             await showModalBottomSheet(
-                isScrollControlled: true,
-                context: context,
-                barrierColor: Colors.transparent,
-                backgroundColor: Colors.transparent,
-                builder: (context) => CreateTaskBottomModal(
-                      task: task,
-                    ));
+              isScrollControlled: true,
+              context: context,
+              barrierColor: Colors.transparent,
+              backgroundColor: Colors.transparent,
+              builder: (context) => CreateTaskBottomModal(
+                task: task,
+              ),
+            );
           },
-          title: Text(task.title),
+          title: Text('Cód: ${task.id} - ${task.title}'),
           subtitle: Text('${task.description} - ${task.createdAt.toString()}'),
           trailing: Checkbox(
             value: task.isConcluded,
             onChanged: (value) async {
               await ref.read(taskProvider.notifier).toggleStatus(task.id!);
-              print('Alterado status da task!');
             },
           ),
         ),

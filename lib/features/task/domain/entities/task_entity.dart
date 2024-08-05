@@ -24,7 +24,7 @@ class TaskEntity with _$TaskEntity {
       isConcluded: taskModel.isConcluded,
       isInTrashBin: taskModel.isInTrashBin,
       createdAt: DateTime.tryParse(taskModel.createdAt ?? ''),
-      expiresIn: DateTime.tryParse(taskModel.expiresIn ?? ''),
+      expiresIn: taskModel.expiresIn,
     );
   }
 }

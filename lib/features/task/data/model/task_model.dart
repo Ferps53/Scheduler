@@ -17,7 +17,7 @@ class TaskModel with _$TaskModel {
     required bool? isInTrashBin,
     String? sentToTrashBinAt,
     required String? createdAt,
-    required String? expiresIn,
+    required DateTime expiresIn,
     String? concludedAt,
   }) = _TaskModel;
 
@@ -34,7 +34,7 @@ class TaskModel with _$TaskModel {
       'isInTrashBin': isInTrashBin == true ? 1 : 0,
       'sentToTrashBinAt': sentToTrashBinAt,
       'createdAt': createdAt,
-      'expiresIn': expiresIn,
+      'expiresIn': expiresIn.toIso8601String(),
       'concludedAt': concludedAt,
     };
   }
@@ -49,7 +49,7 @@ class TaskModel with _$TaskModel {
       isInTrashBin: databaseMap['isInTrashBin'] as int == 1 ? true : false,
       sentToTrashBinAt: databaseMap['sentToTrashBinAt'] as String?,
       createdAt: databaseMap['createdAt'] as String?,
-      expiresIn: databaseMap['expiresIn'] as String?,
+      expiresIn: DateTime.parse(databaseMap['expiresIn'] as String),
       concludedAt: databaseMap['concludedAt'] as String?,
     );
   }
@@ -67,7 +67,7 @@ class TaskModel with _$TaskModel {
       isConcluded: taskEntity.isConcluded,
       isInTrashBin: taskEntity.isInTrashBin,
       createdAt: taskEntity.createdAt?.toIso8601String(),
-      expiresIn: taskEntity.expiresIn?.toIso8601String(),
+      expiresIn: taskEntity.expiresIn!,
     );
   }
 
@@ -75,7 +75,7 @@ class TaskModel with _$TaskModel {
     return TaskModel(
       title: newTaskModel.title,
       description: newTaskModel.description,
-      expiresIn: newTaskModel.expiresIn.toIso8601String(),
+      expiresIn: newTaskModel.expiresIn,
       createdAt: DateTime.now().toIso8601String(),
       isInTrashBin: false,
       isConcluded: false,

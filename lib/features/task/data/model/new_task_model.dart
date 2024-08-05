@@ -8,6 +8,7 @@ class NewTaskModel with _$NewTaskModel {
   const NewTaskModel._();
 
   factory NewTaskModel({
+    int? id,
     required String title,
     required String description,
     required DateTime expiresIn,
