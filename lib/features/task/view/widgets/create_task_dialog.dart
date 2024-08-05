@@ -85,6 +85,16 @@ class _TaskFormState extends State<_TaskForm> {
   }
 
   @override
+  void dispose() {
+    _titleController.dispose();
+    _descriptionController.dispose();
+    _hourExpirationController.dispose();
+    _dateExpirationController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
