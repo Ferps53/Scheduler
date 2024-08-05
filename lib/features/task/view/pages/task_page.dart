@@ -1,9 +1,11 @@
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scheduler/core/core.dart';
+import 'package:scheduler/features/task/domain/entities/task_entity.dart';
 import 'package:scheduler/features/task/task.dart';
 import 'package:scheduler/features/task/view/providers/task_provider.dart';
 import 'package:scheduler/features/task/view/widgets/create_task_dialog.dart';
+
+import '../widgets/loading_indicator.dart';
 
 class TarefaPage extends ConsumerWidget {
   const TarefaPage({super.key});
@@ -31,43 +33,56 @@ class TarefaPage extends ConsumerWidget {
       appBar: const SchedulerAppbar(
         title: 'Tarefas',
       ),
-      body: taskList.when(
-        data: (data) {
-          return data.isEmpty
-              ? const Center(
-                  child: Text('Sem tarefas por aqui'),
-                )
-              : ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (context, index) {
-                    return TarefaCard(task: data[index]).animate().move(
-                          duration: 200.ms,
-                          begin: const Offset(0, 400),
-                          end: const Offset(0, 0),
-                          delay: Duration(milliseconds: 100 * index),
-                        );
-                  },
-                );
-        },
-        error: (error, __) {
-          return Text(error.toString());
-        },
-        loading: () {
-          return Center(
-            child: GlassCard(
-              width: 100,
-              height: 100,
-              child: Transform.scale(
-                scale: 0.8,
-                child: LoadingAnimationWidget.inkDrop(
-                  color: context.colorScheme.primary,
-                  size: 80,
+      body: switch (taskList) {
+        AsyncData(:final value) => _Content(value: value),
+        AsyncError(:final error) => Text(error.toString()),
+        _ => const LoadingIndicator(),
+      },
+    );
+  }
+}
+
+class _Content extends ConsumerWidget {
+  const _Content({
+    required this.value,
+  });
+
+  final List<TaskEntity>? value;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return RefreshIndicator(
+      onRefresh: () => ref.refresh(taskProvider.future),
+      child: value!.isEmpty
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Center(
+                  child: Text(
+                    'Sem tarefas por aqui',
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: GlassTextButton(
+                    onPressed: () => ref.refresh(taskProvider.future),
+                    buttonLabel: 'Recarregar',
+                  ),
+                ),
+              ],
+            )
+          : ListView.builder(
+              itemCount: value!.length,
+              itemBuilder: (context, index) {
+                return TarefaCard(task: value![index]).animate().move(
+                      duration: 200.ms,
+                      begin: const Offset(0, 600),
+                      end: const Offset(0, 0),
+                      delay: Duration(milliseconds: 100 * index),
+                    );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }

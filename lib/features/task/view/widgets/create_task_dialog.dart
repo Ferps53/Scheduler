@@ -213,7 +213,7 @@ class _SaveButton extends ConsumerWidget {
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
               final newTaskModel = NewTaskModel(
-                id: _taskEntity!.id,
+                id: _taskEntity?.id,
                 title: _titleController.text,
                 description: _descriptionController.text,
                 expiresIn: _date,
