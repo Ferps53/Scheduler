@@ -1,9 +1,10 @@
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scheduler/core/core.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  await BackgroundTaskLoader.initializeServices();
   runApp(
     const ProviderScope(
       child: MainWidget(),
