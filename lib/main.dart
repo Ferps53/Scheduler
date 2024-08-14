@@ -2,6 +2,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scheduler/core/core.dart';
 
 Future<void> main() async {
+  runApp(const Center(
+    child: CircularProgressIndicator(),
+  ));
+
   WidgetsFlutterBinding.ensureInitialized();
 
   await BackgroundTaskLoader.initializeServices();
@@ -38,10 +42,7 @@ class MainWidget extends ConsumerWidget {
       routerDelegate: router.routerDelegate,
       routeInformationParser: router.routeInformationParser,
       routeInformationProvider: router.routeInformationProvider,
-      localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate
-      ],
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
       supportedLocales: const [
         Locale('pt', 'BR'),
       ],

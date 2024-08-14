@@ -25,7 +25,7 @@ class AppDatabase {
       onCreate: (db, version) {
         final batch = db.batch();
 
-        for (final table in tables) {
+        for (final table in tables.values) {
           table.createTable(db, batch, version);
         }
 
