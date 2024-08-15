@@ -20,20 +20,34 @@ class TableSync {
 
   Future<void> synchronizeDatabase() async {
     final userId = await authDatasource.getCurrentUserId();
+
+    if (userId == null) {
+      return;
+    }
+
     final db = await appDatabase.database;
     final listData = <TableSyncDto>[];
 
     for (final table in tables.keys) {
       final dbMapList = await db.query(table);
+      final dbConvertedJson = <Map<String, Object?>>[];
+      for (final map in dbMapList) {
+        if (table == 'task') {
+          final task = TaskModel.fromDatabase(map);
+          dbConvertedJson.add(task.toJson());
+        }
+      }
+
       final tableData = TableSyncDto(
         name: table,
         userId: int.parse(userId),
         rows: dbMapList,
       );
+
       listData.add(tableData);
     }
 
-    final response = await dio.put<List<TableSyncDto>>(
+    final response = await dio.put<List>(
       '${Environments.backendRoot}/table-sync',
       data: listData,
     );
@@ -41,7 +55,33 @@ class TableSync {
     final batch = db.batch();
 
     if (response.data != null) {
-      for (final tableData in response.data!) {
+      final listRows = <TableSyncDto>[];
+
+      for (final data in response.data!) {
+        final tableSyncDto = TableSyncDto.fromJson(data);
+        listRows.add(tableSyncDto);
+      }
+
+      for (final tableData in listRows) {
+        if (tableData.name == 'task') {
+          final taskJsonList = <Map<String, Object?>>[];
+          for (var task in tableData.rows) {
+            task = TaskModel.fromJson(task).toDatabaseMap();
+            taskJsonList.add(task);
+          }
+
+          listRows.remove(tableData);
+          listRows.add(
+            TableSyncDto(
+              name: tableData.name,
+              userId: tableData.userId,
+              rows: taskJsonList,
+            ),
+          );
+        }
+      }
+
+      for (final tableData in listRows) {
         batch.delete(tableData.name);
 
         for (final row in tableData.rows) {

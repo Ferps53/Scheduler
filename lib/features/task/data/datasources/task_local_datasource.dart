@@ -11,7 +11,7 @@ class TaskLocalDatasource implements TaskDatasource {
 
   TaskLocalDatasource(this._appDb, this._store);
 
-  static const _tableName = 'tasks';
+  static const _tableName = 'task';
 
   @override
   Future<TaskModel> createTask(NewTaskModel newTaskModel) async {

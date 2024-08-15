@@ -7,10 +7,7 @@ class BackgroundTaskLoader {
   const BackgroundTaskLoader();
 
   static Future<void> initializeServices() async {
-    print('Initializing services');
     final service = FlutterBackgroundService();
-
-    print('Created service');
 
     await service.configure(
       iosConfiguration: IosConfiguration(
@@ -23,15 +20,18 @@ class BackgroundTaskLoader {
         autoStart: false,
       ),
     );
+    await service.startService();
   }
 
   @pragma('vm:entry-point')
   static void _onStart(ServiceInstance service) {
+    final container = ProviderContainer();
+    final tableSync = container.read(tableSyncProvider);
     final onStatusChange = InternetConnection().onStatusChange;
 
     onStatusChange.listen((InternetStatus status) async {
       if (status == InternetStatus.connected) {
-        // await tableSync.synchronizeDatabase();
+        await tableSync.synchronizeDatabase();
       }
     });
   }

@@ -18,5 +18,5 @@ abstract class AuthDatasource {
 
   Future<void> removeJwt();
 
-  Future<String> getCurrentUserId();
+  Future<String?> getCurrentUserId();
 }

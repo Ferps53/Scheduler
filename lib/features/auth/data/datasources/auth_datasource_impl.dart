@@ -48,9 +48,14 @@ class AuthDatasourceImpl implements AuthDatasource {
   }
 
   @override
-  Future<String> getCurrentUserId() async {
+  Future<String?> getCurrentUserId() async {
     final json = await _store.getMap('token');
-    final jwtModel = JwtModel.fromJson(json!);
+
+    if (json == null) {
+      return null;
+    }
+
+    final jwtModel = JwtModel.fromJson(json);
     final payloadMap = JwtDecoder.decode(jwtModel.access_token);
 
     return payloadMap['sub'] as String;

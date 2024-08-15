@@ -5,7 +5,7 @@ class TaskTable implements TableStrategy {
   @override
   void createTable(Database db, Batch batch, int version) {
     batch.execute('''
-        CREATE TABLE IF NOT EXISTS tasks (
+        CREATE TABLE IF NOT EXISTS task (
             id INTEGER PRIMARY KEY,
             title TEXT NOT NULL,
             userId INTEGER NOT NULL,

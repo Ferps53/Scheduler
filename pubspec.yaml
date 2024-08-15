@@ -30,11 +30,12 @@ dependencies:
   sqflite: ^2.3.3+1
   path: ^1.9.0
   dio_smart_retry: ^6.0.0
-  riverpod_lint: ^2.3.10
   flutter_local_notifications: ^17.2.1+2
   flutter_background_service: ^5.0.7
 
 dev_dependencies:
+  riverpod_lint: ^2.3.10
+  custom_lint:
   flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter

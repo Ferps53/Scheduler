@@ -2,10 +2,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:scheduler/core/core.dart';
 
 Future<void> main() async {
-  runApp(const Center(
-    child: CircularProgressIndicator(),
-  ));
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await BackgroundTaskLoader.initializeServices();
