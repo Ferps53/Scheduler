@@ -11,7 +11,7 @@ final loginRepoProvider = Provider(
   (ref) {
     final AuthDatasourceImpl authDatasource = ref.read(authDatasourceProvider);
     final StatusUsuarioProvider statusUsuario = ref.read(statusUsuarioProvider);
-    return LoginRepoImpl(
+    return LoginRepositoryImpl(
       jwtDatasource: authDatasource,
       statusUsuarioProvider: statusUsuario,
     );

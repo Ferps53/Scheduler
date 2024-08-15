@@ -48,8 +48,8 @@ class DioInterceptor extends Interceptor {
     if (jwtModel != null) {
       options.headers.addAll(
         {
-          'Authorization': 'Bearer ${jwtModel.access_token}',
-          'Refresh-Token': 'Bearer ${jwtModel.refresh_token}'
+          'Authorization': 'Bearer ${jwtModel.accessToken}',
+          'Refresh-Token': 'Bearer ${jwtModel.refreshToken}'
         },
       );
     }

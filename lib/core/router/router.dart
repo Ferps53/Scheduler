@@ -24,7 +24,7 @@ final goRouterProvider = Provider(
             case StatusLogin.deslogado:
               return NamedRoutes.login.routePath;
             case StatusLogin.logado:
-              return NamedRoutes.tarefas.routePath;
+              return NamedRoutes.tasks.routePath;
           }
         }
         if (!state.fullPath!.contains('start') &&
@@ -47,8 +47,8 @@ final goRouterProvider = Provider(
           pageBuilder: (ctx, state) => const MaterialPage(child: LoginPage()),
         ),
         GoRoute(
-          path: NamedRoutes.tarefas.routePath,
-          name: NamedRoutes.tarefas.routeName,
+          path: NamedRoutes.tasks.routePath,
+          name: NamedRoutes.tasks.routeName,
           pageBuilder: (ctx, state) => const MaterialPage(child: TarefaPage()),
         ),
         GoRoute(

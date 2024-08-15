@@ -2,14 +2,14 @@ import 'package:scheduler/features/auth/auth.dart';
 
 import '../../data/model/user_model.dart';
 
-abstract class LoginRepo {
-  Future<StatusLogin> login(DadosLogin dadosLogin);
+abstract class LoginRepository {
+  Future<StatusLogin> login(LoginData loginData);
 
   Future<StatusLogin> autoLogin();
 
   void deslogar();
 
-  Future<UserModel> signIn(DadosLogin dadosLogin);
+  Future<UserModel> signIn(LoginData loginData);
 
   Future<void> confirmEmail(String code, String email);
 

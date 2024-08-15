@@ -68,7 +68,7 @@ class TaskLocalDatasource implements TaskDatasource {
   Future<TaskModel> toggleConcluded(int id) async {
     final db = await _appDb.database;
 
-    await db.rawQuery(
+    await db.rawUpdate(
       'UPDATE $_tableName SET isConcluded = NOT isConcluded where id = ?',
       [id],
     );

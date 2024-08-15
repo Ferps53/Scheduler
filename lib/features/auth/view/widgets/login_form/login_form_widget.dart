@@ -228,10 +228,10 @@ class LoginButtonWithAction extends ConsumerWidget {
       onPressed: () async {
         if (formKey.currentState!.validate()) {
           ref.read(loginAsyncNotifierProvider.notifier).login(
-                DadosLogin(
-                  nomeUsuario: '',
+                LoginData(
+                  username: '',
                   email: emailController.text,
-                  senha: passwordController.text,
+                  password: passwordController.text,
                 ),
                 formContext,
               );

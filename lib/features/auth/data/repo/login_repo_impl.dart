@@ -4,11 +4,11 @@ import 'package:scheduler/features/auth/auth.dart';
 import 'package:scheduler/features/auth/data/model/user_model.dart';
 import 'package:scheduler/features/auth/data/model/user_sign_in_model.dart';
 
-class LoginRepoImpl implements LoginRepo {
+class LoginRepositoryImpl implements LoginRepository {
   final AuthDatasource _authDatasource;
   final StatusUsuarioProvider _statusUsuarioProvider;
 
-  LoginRepoImpl({
+  LoginRepositoryImpl({
     required AuthDatasource jwtDatasource,
     required statusUsuarioProvider,
   })  : _authDatasource = jwtDatasource,
@@ -27,7 +27,7 @@ class LoginRepoImpl implements LoginRepo {
   }
 
   @override
-  Future<StatusLogin> login(DadosLogin dadosLogin) async {
+  Future<StatusLogin> login(LoginData dadosLogin) async {
     final JwtModel jwtModel = await _authDatasource.fetchJwt(dadosLogin);
     _authDatasource.saveJwt(jwtModel, 'token');
     return _jwtToStatus(jwtModel);
@@ -36,7 +36,7 @@ class LoginRepoImpl implements LoginRepo {
   StatusLogin _jwtToStatus(JwtModel? jwtModel) {
     if (jwtModel != null) {
       final Map<String, dynamic> tokenPayload =
-          JwtDecoder.decode(jwtModel.access_token);
+          JwtDecoder.decode(jwtModel.accessToken);
       if (tokenPayload.isNotEmpty) {
         return StatusLogin.logado;
       }
@@ -45,7 +45,7 @@ class LoginRepoImpl implements LoginRepo {
   }
 
   @override
-  Future<UserModel> signIn(DadosLogin dadosLogin) async {
+  Future<UserModel> signIn(LoginData dadosLogin) async {
     final userSignIn = UserSignInModel.fromLoginData(dadosLogin);
     return await _authDatasource.signInUser(userSignIn);
   }

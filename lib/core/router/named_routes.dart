@@ -5,7 +5,7 @@ enum NamedRoutes {
       routeName: 'forgotPassword', routePath: '/start/forgot-password'),
   createAccount(routeName: 'createAccount', routePath: '/start/create-account'),
   confirmEmail(routeName: 'confirmEmail', routePath: '/start/confirm-email'),
-  tarefas(routeName: 'tarefas', routePath: '/tarefas');
+  tasks(routeName: 'tasks', routePath: '/tasks');
 
   final String routeName;
   final String routePath;

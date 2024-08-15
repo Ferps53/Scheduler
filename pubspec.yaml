@@ -32,6 +32,7 @@ dependencies:
   dio_smart_retry: ^6.0.0
   flutter_local_notifications: ^17.2.1+2
   flutter_background_service: ^5.0.7
+  dartz: ^0.10.1
 
 dev_dependencies:
   riverpod_lint: ^2.3.10

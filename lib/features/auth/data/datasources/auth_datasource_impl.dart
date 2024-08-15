@@ -13,12 +13,15 @@ class AuthDatasourceImpl implements AuthDatasource {
         _dio = dio;
 
   @override
-  Future<JwtModel> fetchJwt(DadosLogin dadosLogin) async {
+  Future<JwtModel> fetchJwt(LoginData dadosLogin) async {
+    print(dadosLogin);
     try {
       final response = await _dio.get('auth/login', queryParameters: {
         'usernameOrEmail': dadosLogin.email,
-        'password': dadosLogin.senha,
+        'password': dadosLogin.password,
       });
+
+      print(response.data);
 
       return JwtModel.fromJson(response.data);
     } catch (e) {
@@ -56,7 +59,7 @@ class AuthDatasourceImpl implements AuthDatasource {
     }
 
     final jwtModel = JwtModel.fromJson(json);
-    final payloadMap = JwtDecoder.decode(jwtModel.access_token);
+    final payloadMap = JwtDecoder.decode(jwtModel.accessToken);
 
     return payloadMap['sub'] as String;
   }

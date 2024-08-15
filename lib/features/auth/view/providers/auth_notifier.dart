@@ -15,7 +15,7 @@ class LoginAsyncNotifier extends AutoDisposeAsyncNotifier<StatusLogin> {
     return loginRepo.autoLogin();
   }
 
-  void login(DadosLogin dadosLogin, BuildContext context) async {
+  void login(LoginData dadosLogin, BuildContext context) async {
     state = const AsyncLoading();
     final loginRepo = ref.read(loginRepoProvider);
     state = await AsyncValue.guard(
@@ -23,7 +23,7 @@ class LoginAsyncNotifier extends AutoDisposeAsyncNotifier<StatusLogin> {
     );
     if (state.value == StatusLogin.logado) {
       if (context.mounted) {
-        context.goNamed(NamedRoutes.tarefas.routeName);
+        context.goNamed(NamedRoutes.tasks.routeName);
       }
     } else {
       if (context.mounted) {

@@ -13,11 +13,11 @@ class UserSignInModel with _$UserSignInModel {
     required String password,
   }) = _UserSignInModel;
 
-  factory UserSignInModel.fromLoginData(DadosLogin dados) {
+  factory UserSignInModel.fromLoginData(LoginData data) {
     return UserSignInModel(
-      username: dados.nomeUsuario,
-      email: dados.email,
-      password: dados.senha,
+      username: data.username,
+      email: data.email,
+      password: data.password,
     );
   }
 }

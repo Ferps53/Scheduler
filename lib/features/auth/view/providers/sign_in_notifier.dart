@@ -11,7 +11,7 @@ class SiginInNotifier extends AutoDisposeAsyncNotifier<UserModel?> {
     return null;
   }
 
-  void signIn(DadosLogin dados, BuildContext context) async {
+  void signIn(LoginData dados, BuildContext context) async {
     try {
       state = const AsyncLoading();
       final loginRepo = ref.read(loginRepoProvider);

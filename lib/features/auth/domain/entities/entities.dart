@@ -1,2 +1,2 @@
-export 'dados_login/dados_login.dart';
+export 'login_data.dart';
 export 'status_login.dart';

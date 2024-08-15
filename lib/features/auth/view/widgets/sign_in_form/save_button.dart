@@ -56,10 +56,10 @@ class _SaveButtonState extends ConsumerState<SaveButton> {
           onPressed: () {
             if (widget.formKey.currentState!.validate()) {
               ref.read(signInProvider.notifier).signIn(
-                    DadosLogin(
+                    LoginData(
                       email: widget.email.text,
-                      nomeUsuario: widget.username.text,
-                      senha: widget.password.text,
+                      username: widget.username.text,
+                      password: widget.password.text,
                     ),
                     widget.formKey.currentContext!,
                   );
