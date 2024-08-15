@@ -22,10 +22,15 @@ jobs:
       # You can specify other versions if desired, see documentation here:
       # https://github.com/dart-lang/setup-dart/blob/main/README.md
       # - uses: dart-lang/setup-dart@v1
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
 
       - name: Install dependencies
-        run: dart pub get
+        run: flutter pub get
+
+      - name: generate freezed extensions
+        run: dart run build_runner build -d
 
       - name: Verify formatting
         run: dart format --output=none --set-exit-if-changed .
@@ -38,4 +43,4 @@ jobs:
       # package:test for this step to succeed. Note that Flutter projects will
       # want to change this to 'flutter test'.
       - name: Run tests
-        run: dart test
+        run: flutter test
