@@ -1,47 +1,65 @@
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:scheduler/core/core.dart';
+import 'package:flutter/material.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  await BackgroundTaskLoader.initializeServices();
-  runApp(
-    const ProviderScope(
-      child: MainWidget(),
-    ),
-  );
+void main() {
+  runApp(const MyApp());
 }
 
-class MainWidget extends ConsumerWidget {
-  const MainWidget({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(goRouterProvider);
-    return MaterialApp.router(
-      title: 'Scheduler',
-      debugShowCheckedModeBanner: false,
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
       theme: ThemeData(
-        visualDensity: VisualDensity.comfortable,
-        fontFamily: 'Ubuntu',
-        textTheme: Theme.of(context).textTheme.apply(
-              fontFamily: 'Ubuntu',
-              bodyColor: context.colorScheme.onSurface,
-              displayColor: context.colorScheme.onPrimary,
-            ),
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.cyan,
-          brightness: Brightness.light,
-        ),
-        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      routerDelegate: router.routerDelegate,
-      routeInformationParser: router.routeInformationParser,
-      routeInformationProvider: router.routeInformationProvider,
-      localizationsDelegates: GlobalMaterialLocalizations.delegates,
-      supportedLocales: const [
-        Locale('pt', 'BR'),
-      ],
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+  }
+}
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+  final String title;
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text('You have pushed the button this many times:'),
+            Text(
+              '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }

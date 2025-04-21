@@ -1,4 +1,0 @@
-enum StatusLogin {
-  logado,
-  deslogado,
-}
