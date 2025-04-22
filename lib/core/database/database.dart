@@ -10,23 +10,29 @@ class DatabaseProvider {
       return _database!;
     }
 
+    log("Db is null");
+
     _database = await openDatabase(
       "scheduler.db",
+      version: 1,
       onCreate: (Database db, int version) async {
-        final batch = db.batch();
+        await db.transaction((transaction) async {
+          final batch = transaction.batch();
 
-        batch.execute('''
-    create table auth (
-      id integer primary key autoincrement,
-      username text not null, 
-      password text not null,
-      salt text not null
-    )
-    ''');
-        log("Added create auth table");
+          batch.execute('''
+          create table auth (
+            id integer primary key autoincrement,
+            username text not null, 
+            password text not null,
+            salt text not null
+          )
+          ''');
 
-        await batch.commit();
-        log("Commited batch");
+          log("Added create auth table");
+
+          await batch.commit();
+          log("Commited batch");
+        });
       },
     );
     return _database!;
