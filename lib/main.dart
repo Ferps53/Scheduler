@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:scheduler/core/database/database.dart';
 import 'package:scheduler/core/home/home_screen.dart';
 
-void main() {
+void main() async {
+  final db = await DatabaseProvider().database;
+
+  print(db);
+
   runApp(const MyApp());
 }
 
